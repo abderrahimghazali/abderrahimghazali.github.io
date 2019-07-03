@@ -1,6 +1,0 @@
-{
-    "name": "tightenco/jigsaw-site",
-    "require": {
-        "tightenco/jigsaw": "^0.6.4"
-    }
-}
