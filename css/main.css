@@ -75,9 +75,8 @@ html, body {
     letter-spacing: .1rem;
     text-decoration: none;
     text-transform: uppercase;
-    border: 2px solid transparent;
     border-radius: 4px;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
     min-height: 44px; /* Minimum touch target size */
     display: flex;
     align-items: center;
@@ -86,8 +85,6 @@ html, body {
 
 .links > a:hover {
     color: #333;
-    border-color: #636b6f;
-    background-color: rgba(99, 107, 111, 0.05);
 }
 
 /* Tablet and small desktop */
