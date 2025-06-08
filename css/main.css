@@ -255,3 +255,90 @@ html, body {
         margin-bottom: 15px;
     }
 }
+
+/* Donation Links */
+.donation-links {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.donation-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(99, 107, 111, 0.2);
+    border-radius: 20px;
+    text-decoration: none;
+    color: #636b6f;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.donation-link:hover {
+    background-color: rgba(255, 255, 255, 1);
+    border-color: #636b6f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: #333;
+}
+
+.donation-link .icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.donation-link .text {
+    white-space: nowrap;
+}
+
+/* Mobile adjustments for donation links */
+@media (max-width: 768px) {
+    .donation-links {
+        bottom: 15px;
+        right: 15px;
+        gap: 8px;
+    }
+    
+    .donation-link {
+        padding: 6px 10px;
+        font-size: 11px;
+    }
+    
+    .donation-link .icon {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .donation-links {
+        bottom: 10px;
+        right: 10px;
+        gap: 6px;
+    }
+    
+    .donation-link {
+        padding: 5px 8px;
+        font-size: 10px;
+    }
+    
+    .donation-link .icon {
+        font-size: 12px;
+    }
+}
+
+/* Hide donation links on very small screens to avoid clutter */
+@media (max-width: 320px) {
+    .donation-links {
+        display: none;
+    }
+}
