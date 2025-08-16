@@ -1,0 +1,122 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  url?: string;
+}
+
+const { title, description, keywords, url } = Astro.props;
+import '../styles/global.css';
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content={description}>
+    {keywords && <meta name="keywords" content={keywords}>}
+    <meta name="author" content="Abderrahim GHAZALI">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    <meta name="google-site-verification" content="0569ea929d78514b" />
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    <meta property="og:type" content="website">
+    {url && <meta property="og:url" content={url}>}
+    <meta property="og:site_name" content="Abderrahim GHAZALI">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:creator" content="@abderrahimghazali">
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="theme-color" content="#636b6f">
+    <meta name="msapplication-TileColor" content="#636b6f">
+    <meta name="rating" content="general">
+    <meta name="distribution" content="global">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="format-detection" content="telephone=no">
+    {url && <link rel="canonical" href={url}>}
+    
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <link rel="manifest" href="/manifest.json">
+    
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Abderrahim GHAZALI",
+        "jobTitle": "AI Agent Developer & Drupal Expert",
+        "description": "Expert in AI agent development, custom workflow automation, and enterprise Drupal solutions. Specializing in LangChain, intelligent automation, and scalable web applications.",
+        "url": "https://abderrahimghazali.github.io/",
+        "sameAs": [
+          "https://github.com/abderrahimghazali",
+          "https://www.linkedin.com/in/abderrahim-ghazali-5121b855",
+          "https://www.drupal.org/u/gabderrahim"
+        ],
+        "knowsAbout": [
+          "AI Agent Development",
+          "Custom AI Agents",
+          "LangChain Integration", 
+          "Workflow Automation",
+          "Intelligent Automation",
+          "Drupal Development",
+          "Enterprise Drupal",
+          "AI Workflow Solutions",
+          "Custom Automation Development",
+          "NextJS",
+          "React",
+          "DevOps",
+          "Full-stack Development"
+        ],
+        "offers": [
+          {
+            "@type": "Service",
+            "name": "AI Agent Development",
+            "description": "Custom AI agent development for workflow automation and business process optimization"
+          },
+          {
+            "@type": "Service", 
+            "name": "Drupal Development",
+            "description": "Enterprise Drupal development and custom module creation"
+          },
+          {
+            "@type": "Service",
+            "name": "LangChain Integration",
+            "description": "Expert LangChain implementation for intelligent automation systems"
+          },
+          {
+            "@type": "Service",
+            "name": "Workflow Automation",
+            "description": "Custom workflow automation solutions that reduce manual work by 80%"
+          }
+        ],
+        "hasOccupation": {
+          "@type": "Occupation",
+          "name": "Full-stack Developer",
+          "description": "Specializing in Drupal, AI agents, and modern web technologies"
+        }
+      }
+    </script>
+  </body>
+</html>

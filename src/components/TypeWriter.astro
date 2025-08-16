@@ -1,0 +1,44 @@
+---
+export interface Props {
+  text: string;
+  className?: string;
+  speed?: number;
+  delay?: number;
+}
+
+const { text, className = '', speed = 100, delay = 0 } = Astro.props;
+---
+
+<h1 class={className} id="typewriter" data-text={text} data-speed={speed} data-delay={delay}></h1>
+
+<script>
+  function initTypewriter() {
+    const element = document.getElementById('typewriter');
+    if (!element) return;
+    
+    const text = element.getAttribute('data-text') || '';
+    const speed = parseInt(element.getAttribute('data-speed') || '100');
+    const delay = parseInt(element.getAttribute('data-delay') || '0');
+    
+    let i = 0;
+    
+    function typeWriter() {
+      if (i < text.length) {
+        element.innerHTML = text.substring(0, i + 1);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    
+    setTimeout(() => {
+      typeWriter();
+    }, delay);
+  }
+  
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTypewriter);
+  } else {
+    initTypewriter();
+  }
+</script>
