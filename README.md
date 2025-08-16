@@ -1,2 +1,3 @@
-# GHAZALI-Abderrahim
-Personal website.
+# Abderrahim GHAZALI
+
+My personal website
