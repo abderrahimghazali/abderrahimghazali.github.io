@@ -1,8 +1,16 @@
 import { Link } from 'react-router-dom'
+import SEO from './SEO'
 
 function About() {
   return (
-    <div className="flex items-center justify-center relative min-h-screen h-auto">
+    <>
+      <SEO 
+        title="Hire AI Agent Developer & Drupal Expert | Custom Automation Solutions - Abderrahim GHAZALI"
+        description="Professional AI agent development services and enterprise Drupal solutions. Custom workflow automation, LangChain integration, intelligent business process automation. Contact for AI agent development projects."
+        keywords="hire AI agent developer, AI agent development services, custom AI agents, Drupal development services, workflow automation expert, LangChain consulting, intelligent automation solutions, enterprise Drupal developer, AI workflow integration, custom automation development, AI business solutions"
+        url="https://abderrahimghazali.github.io/about"
+      />
+      <div className="flex items-center justify-center relative min-h-screen h-auto">
       <div className="text-center max-w-[800px] w-full px-5 py-5 box-border">
         {/* Header */}
         <div className="m-b-md">
@@ -16,16 +24,42 @@ function About() {
           {/* Introduction */}
           <section className="description">
             <p>
-              I'm a passionate full-stack developer with deep expertise in building scalable web applications and intelligent automation systems. My mission is to bridge the gap between complex technical requirements and elegant, user-friendly solutions.
+              I'm a professional <strong>AI agent developer</strong> and <strong>Drupal expert</strong> who transforms businesses through intelligent automation. I specialize in creating custom AI agents that automate complex workflows, integrate seamlessly with existing systems, and deliver measurable ROI. Whether you need enterprise Drupal solutions or cutting-edge AI automation, I deliver results that scale with your business.
             </p>
+          </section>
+
+          {/* Services */}
+          <section>
+            <h2 className="text-2xl font-semibold text-[#333] mb-4">AI Agent Development Services</h2>
+            <div className="description">
+              <p>
+                <strong>Custom AI Agent Development:</strong> I build intelligent agents that understand your business processes and automate them efficiently. From document processing to customer service automation, my AI agents reduce manual work by 80% while improving accuracy.
+              </p>
+              <br/>
+              <p>
+                <strong>LangChain Integration:</strong> Expert implementation of LangChain frameworks for complex AI workflows. I create agents that can reason, make decisions, and integrate with your existing tools and databases.
+              </p>
+              <br/>
+              <p>
+                <strong>Workflow Automation:</strong> Transform manual processes into intelligent, automated systems. My solutions handle everything from data entry to complex decision-making processes.
+              </p>
+            </div>
           </section>
 
           {/* Drupal Expertise */}
           <section>
-            <h2 className="text-2xl font-semibold text-[#333] mb-4">Drupal Expertise</h2>
+            <h2 className="text-2xl font-semibold text-[#333] mb-4">Enterprise Drupal Development</h2>
             <div className="description">
               <p>
-                As a <strong>Drupal expert</strong>, I've architected and delivered enterprise-level content management solutions for organizations worldwide. My experience spans custom module development, complex site building, performance optimization, and seamless third-party integrations. I specialize in creating maintainable, scalable Drupal applications that grow with your business needs.
+                <strong>11+ Years Drupal Expert:</strong> With over a decade of deep Drupal expertise, I architect and deliver scalable Drupal applications for large organizations. From custom module development to complex multi-site implementations, I create robust content management systems that handle millions of users.
+              </p>
+              <br/>
+              <p>
+                <strong>Drupal + AI Integration:</strong> Unique expertise combining Drupal with AI technologies. I build intelligent content systems that automatically categorize, moderate, and optimize content using AI agents.
+              </p>
+              <br/>
+              <p>
+                <strong>Performance & Security:</strong> Specialized in Drupal performance optimization and security hardening. My solutions consistently achieve 90+ PageSpeed scores and pass enterprise security audits.
               </p>
             </div>
           </section>
@@ -64,7 +98,7 @@ function About() {
           <section className="text-center pt-8">
             <div className="description">
               <p>
-                Ready to transform your ideas into powerful digital solutions? Let's build something extraordinary together.
+                <strong>Ready to automate your business with AI agents or scale your web presence with enterprise Drupal?</strong> I deliver custom solutions that save time, reduce costs, and drive growth. Contact me for a free consultation on your AI automation or Drupal development project.
               </p>
             </div>
             
@@ -73,13 +107,19 @@ function About() {
                 href="https://github.com/abderrahimghazali" 
                 target="_blank"
                 className="nav-link">
-                View My Work
+                View AI Projects
               </a>
               <a 
                 href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" 
                 target="_blank"
                 className="nav-link">
-                Let's Connect
+                Hire Me for AI Development
+              </a>
+              <a 
+                href="https://www.drupal.org/u/gabderrahim" 
+                target="_blank"
+                className="nav-link">
+                Drupal Portfolio
               </a>
             </div>
           </section>
@@ -94,7 +134,8 @@ function About() {
           </Link>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   )
 }
 

@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://abderrahimghazali.github.io/sitemap.xml

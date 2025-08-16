@@ -1,10 +1,30 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import TypeWriter from './TypeWriter'
+import SEO from './SEO'
+import StructuredData from './StructuredData'
 
 function Home() {
   return (
-    <div className="flex items-center justify-center relative min-h-screen h-auto">
+    <>
+      <SEO 
+        title="AI Agent Development & Drupal Expert | Abderrahim GHAZALI - Custom Automation Solutions"
+        description="Expert AI agent development and Drupal solutions by Abderrahim GHAZALI. Custom workflow automation, LangChain integration, enterprise Drupal development. Transform your business with intelligent automation."
+        keywords="AI agent development, custom AI agents, workflow automation, Drupal expert, LangChain developer, intelligent automation, AI workflow solutions, enterprise Drupal, custom automation solutions, AI integration services, Drupal developer, DevOps automation"
+        url="https://abderrahimghazali.github.io/"
+      />
+      <StructuredData 
+        name="Abderrahim GHAZALI"
+        jobTitle="AI Agent Developer & Drupal Expert"
+        description="Expert in AI agent development, custom workflow automation, and enterprise Drupal solutions. Specializing in LangChain, intelligent automation, and scalable web applications."
+        url="https://abderrahimghazali.github.io/"
+        sameAs={[
+          "https://github.com/abderrahimghazali",
+          "https://www.linkedin.com/in/abderrahim-ghazali-5121b855",
+          "https://www.drupal.org/u/gabderrahim"
+        ]}
+      />
+      <div className="flex items-center justify-center relative min-h-screen h-auto">
       <div className="text-center max-w-[600px] w-full px-5 py-5 box-border">
         {/* Main title section */}
         <div className="m-b-md">
@@ -32,7 +52,7 @@ function Home() {
           transition={{ delay: 3.2, duration: 0.8 }}
         >
           <p>
-            Full-stack developer specializing in <strong>Drupal</strong>, <strong>DevOps</strong>, <strong>LangChain</strong>, and <strong>NextJS</strong>.
+            Expert in <strong>AI agent development</strong> and <strong>Drupal solutions</strong>. I create intelligent automation systems using <strong>LangChain</strong> and build scalable web applications with <strong>NextJS</strong> and <strong>DevOps</strong>.
           </p>
         </motion.div>
 
@@ -92,7 +112,8 @@ function Home() {
           <span className="text">Buy me Coffee</span>
         </a>
       </motion.div>
-    </div>
+      </div>
+    </>
   )
 }
 
