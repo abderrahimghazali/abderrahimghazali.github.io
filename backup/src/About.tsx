@@ -89,7 +89,7 @@ function About() {
             <h2 className="text-2xl font-semibold text-[#333] mb-4">My Approach</h2>
             <div className="description">
               <p>
-                I believe in the power of <strong>"Think bad. Do good."</strong> — anticipating potential challenges and edge cases to build resilient solutions that exceed expectations. Every project is an opportunity to create something that not only works flawlessly but also makes a positive impact on users and businesses.
+                I believe in the power of <strong>"Think bad. Do good."</strong> anticipating potential challenges and edge cases to build resilient solutions that exceed expectations. Every project is an opportunity to create something that not only works flawlessly but also makes a positive impact on users and businesses.
               </p>
             </div>
           </section>
