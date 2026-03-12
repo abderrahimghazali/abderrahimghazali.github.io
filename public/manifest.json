@@ -1,11 +1,11 @@
 {
-  "name": "Abderrahim GHAZALI - Portfolio",
-  "short_name": "Abderrahim GHAZALI",
-  "description": "Full-stack developer specializing in Drupal, DevOps, LangChain, and NextJS",
+  "name": "Abderrahim GHAZALI",
+  "short_name": "A. GHAZALI",
+  "description": "Software engineer specializing in AI automation, RAG systems, Drupal architecture, and full-stack development.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#636b6f",
+  "background_color": "#fafafa",
+  "theme_color": "#fafafa",
   "icons": [
     {
       "src": "/favicon.png",

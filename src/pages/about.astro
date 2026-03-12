@@ -4,121 +4,120 @@ import StructuredDataAbout from '../components/StructuredDataAbout.astro';
 ---
 
 <Layout
-  title="About Abderrahim GHAZALI - Developer & Problem Solver"
-  description="I build intelligent automation systems and scalable web applications. 11+ years of experience turning complex problems into elegant solutions with AI, Drupal, and modern web technologies."
-  keywords="AI automation, workflow automation, Drupal development, full-stack developer, LangChain, React, NextJS, intelligent systems"
+  title="About | Abderrahim GHAZALI"
+  description="11+ years in software engineering. AI agent development, RAG systems, semantic search, n8n workflow automation, enterprise Drupal architecture, and full-stack development."
+  keywords="AI agent development, RAG systems, semantic search, n8n automation, Drupal architecture, LangChain, full-stack developer, workflow automation"
   url="https://abderrahimghazali.github.io/about"
 >
-  <div class="flex items-center justify-center relative min-h-screen h-auto">
-    <div class="text-center max-w-[800px] w-full px-5 py-5 box-border">
-      <!-- Header -->
-      <div class="m-b-md">
-        <h1 class="title">About Me</h1>
-        <p class="text-custom-gray mb-8 text-xl">Developer & Problem Solver</p>
+  <!-- Nav -->
+  <nav class="flex items-center gap-6 mb-16 text-sm" style="--stagger: 1">
+    <a href="/" class="nav-link">home</a>
+    <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="nav-link">github</a>
+    <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="nav-link">linkedin</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="mb-12" style="--stagger: 2">
+    <h1 class="text-2xl font-semibold text-[#111] mb-2">About</h1>
+    <p class="text-sm text-[#888]">11+ years in software engineering, automation, and enterprise platforms</p>
+  </header>
+
+  <!-- Content -->
+  <article class="space-y-10">
+    <section style="--stagger: 3">
+      <p class="body-text">
+        I'm a software engineer focused on building production systems that eliminate manual overhead at scale. My work sits at the intersection of AI engineering, enterprise CMS architecture, and full-stack development. I've delivered solutions across healthcare, publishing, government, and e-commerce.
+      </p>
+    </section>
+
+    <section style="--stagger: 4">
+      <h2 class="section-heading">Approach</h2>
+      <p class="body-text">
+        Every system I design starts with failure analysis: edge cases, security boundaries, scaling constraints, and operational risk. I engineer for the scenarios that surface at 3 AM with no one watching. This defensive-first methodology is what separates production-grade software from prototypes, and it's the foundation of everything I ship.
+      </p>
+    </section>
+
+    <section style="--stagger: 5">
+      <h2 class="section-heading">Technical Depth</h2>
+      <p class="body-text mb-4">
+        Full-stack proficiency across React, Next.js, Node.js, Drupal, Symfony, and Laravel. Database architecture with PostgreSQL and MySQL. Infrastructure and deployment with Docker, CI/CD pipelines, and cloud platforms. I've led performance optimization efforts on high-traffic platforms and integrated AI models into mission-critical production systems.
+      </p>
+      <p class="body-text">
+        Currently focused on AI agent orchestration, RAG systems, semantic search, and autonomous workflow automation with custom n8n pipelines. Building the layer where LLMs, business logic, and existing infrastructure converge into reliable, observable tooling.
+      </p>
+    </section>
+
+    <!-- Contact -->
+    <section class="pt-6 border-t border-[#eee]" style="--stagger: 6">
+      <p class="body-text mb-6">
+        Open to consulting engagements, contract work, and technical collaboration on complex systems.
+      </p>
+      <div class="flex flex-wrap gap-4 text-sm">
+        <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="link-pill">GitHub</a>
+        <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="link-pill">LinkedIn</a>
+        <a href="mailto:ghazali.abderrahim1@gmail.com" class="link-pill">Email</a>
+        <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="link-pill">Drupal.org</a>
       </div>
+    </section>
+  </article>
 
-      <!-- Main Content -->
-      <div class="text-left space-y-8">
-
-        <!-- Introduction -->
-        <section class="description">
-          <p>
-            I build systems that work while you sleep. For over a decade, I've helped businesses automate the tedious parts of their work so they can focus on what matters. Whether it's processing thousands of documents automatically, managing complex web applications, or creating intelligent workflows, I solve problems with code.
-          </p>
-        </section>
-
-        <!-- What I Do -->
-        <section class="section">
-          <h2 class="text-2xl font-semibold text-[#333] mb-4">What I Do</h2>
-          <div class="description space-y-4">
-            <p>
-              <strong>Intelligent Automation:</strong> I create AI-powered systems that handle repetitive work. Think document processing that goes from 4 hours to 15 minutes, or customer inquiries that get routed and answered automatically. I work with LangChain and modern frameworks to build agents that understand context and make decisions.
-            </p>
-
-            <p>
-              <strong>Drupal Development:</strong> Since 2014, I've architected and built content management systems for organizations managing everything from small sites to platforms serving hundreds of thousands of users. I specialize in custom module development, performance optimization, and making Drupal do things it wasn't originally designed to do.
-            </p>
-
-            <p>
-              <strong>Full-Stack Development:</strong> I build with React, Next.js, Node.js, and whatever makes sense for the problem at hand. I'm comfortable writing backend APIs, designing databases, building frontends, and setting up deployment pipelines. The stack doesn't matter as much as solving the problem efficiently.
-            </p>
-          </div>
-        </section>
-
-        <!-- How I Work -->
-        <section class="section">
-          <h2 class="text-2xl font-semibold text-[#333] mb-4">How I Work</h2>
-          <div class="description">
-            <p>
-              I start every project by imagining what could go wrong. Edge cases, security vulnerabilities, scaling bottlenecks, unexpected user behavior. Then I build systems that handle those scenarios gracefully. It's not pessimism, it's how you build software that actually works in production. The goal is code that runs reliably at 3 AM when nobody's watching.
-            </p>
-          </div>
-        </section>
-
-        <!-- Technical Details -->
-        <section class="section">
-          <h2 class="text-2xl font-semibold text-[#333] mb-4">Technical Background</h2>
-          <div class="description space-y-4">
-            <p>
-              I've worked across the full stack: frontend frameworks like React and Next.js, backend development with Node.js, Drupal, Symfony, and Laravel, database design with PostgreSQL and MySQL, DevOps with Docker and CI/CD pipelines. I've debugged performance issues on sites handling high traffic, implemented security hardening for enterprise applications, and integrated AI models into production systems.
-            </p>
-
-            <p>
-              Most recently, I've focused on combining traditional web development with AI capabilities. I build systems where AI agents handle tasks that previously required human decision-making, while maintaining the reliability and scalability of good engineering practices.
-            </p>
-          </div>
-        </section>
-
-        <!-- Call to Action -->
-        <section class="text-center pt-8">
-          <div class="description">
-            <p>
-              If you have a problem that involves automation, complex web applications, or making disparate systems work together, let's talk. I'm particularly interested in projects where intelligent automation can make a real difference.
-            </p>
-          </div>
-          
-          <div class="flex justify-center flex-wrap gap-5 mt-8">
-            <a
-              href="https://github.com/abderrahimghazali"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="nav-link">
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="nav-link">
-              LinkedIn
-            </a>
-            <a
-              href="https://www.drupal.org/u/gabderrahim"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="nav-link">
-              Drupal.org
-            </a>
-          </div>
-        </section>
-      </div>
-
-      <!-- Back to Home -->
-      <div class="mt-12 pt-8 border-t border-gray-200">
-        <a 
-          href="/"
-          class="nav-link inline-block">
-          ← Back to Home
-        </a>
-      </div>
-    </div>
-  </div>
-  
   <StructuredDataAbout />
 </Layout>
 
 <style>
-  .section {
-    margin: 2rem 0;
+  .nav-link {
+    color: #888;
+    transition: color 0.2s ease;
+  }
+  .nav-link:hover {
+    color: #111;
+  }
+
+  .section-heading {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+
+  .body-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #555;
+  }
+
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    color: #555;
+    font-size: 13px;
+    transition: all 0.2s ease;
+  }
+  .link-pill:hover {
+    border-color: #111;
+    color: #111;
+  }
+
+  /* Staggered fade-in */
+  nav, header, section {
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--stagger) * 0.1s);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 </style>

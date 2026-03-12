@@ -1,99 +1,123 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import TypeWriter from '../components/TypeWriter.astro';
 ---
 
-<Layout 
-  title="AI Agent Development & Drupal Expert | Abderrahim GHAZALI - Custom Automation Solutions"
-  description="Expert AI agent development and Drupal solutions by Abderrahim GHAZALI. Custom workflow automation, LangChain integration, enterprise Drupal development. Transform your business with intelligent automation."
-  keywords="AI agent development, custom AI agents, workflow automation, Drupal expert, LangChain developer, intelligent automation, AI workflow solutions, enterprise Drupal, custom automation solutions, AI integration services, Drupal developer, DevOps automation"
+<Layout
+  title="Abderrahim GHAZALI | AI Agent Developer & Drupal Expert"
+  description="Software engineer with 11+ years of experience. AI agent development, RAG pipelines, semantic search, n8n workflow automation, and enterprise Drupal architecture."
+  keywords="AI agent development, RAG pipelines, semantic search, n8n automation, Drupal expert, LangChain developer, workflow automation, full-stack developer"
   url="https://abderrahimghazali.github.io/"
 >
-  <div class="flex items-center justify-center relative min-h-screen h-auto">
-    <div class="text-center max-w-[600px] w-full px-5 py-5 box-border">
-      <!-- Main title section -->
-      <div class="m-b-md">
-        <TypeWriter 
-          text="Abderrahim GHAZALI"
-          className="title"
-          speed={80}
-          delay={500}
-        />
-        <p class="text-custom-gray opacity-0 animate-fade-in-delay">
-          Think bad. Do good.
-        </p>
-      </div>
+  <!-- Nav -->
+  <nav class="flex items-center gap-6 mb-16 text-sm" style="--stagger: 1">
+    <a href="/about" class="nav-link">about</a>
+    <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="nav-link">github</a>
+    <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="nav-link">linkedin</a>
+  </nav>
 
-      <!-- Description section -->
-      <div class="description opacity-0 animate-fade-in-delay-2">
-        <p>
-          Expert in <strong>AI agent development</strong> and <strong>Drupal solutions</strong>. I create intelligent automation systems using <strong>LangChain</strong> and build scalable web applications with <strong>NextJS</strong> and <strong>DevOps</strong>.
-        </p>
-      </div>
-
-      <!-- Links section -->
-      <div class="links-container opacity-0 animate-fade-in-delay-3">
-        <a href="/about" class="nav-link">About</a>
-        <a href="https://github.com/abderrahimghazali" target="_blank" class="nav-link">GitHub</a>
-        <a href="https://github.com/sponsors/abderrahimghazali" target="_blank" class="nav-link">Sponsor Me</a>
-        <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" class="nav-link">Linkedin</a>
-      </div>
-    </div>
-
-    <!-- Donation Links -->
-    <div class="donation-links opacity-0 animate-fade-in-delay-4">
-      <a href="https://www.paypal.me/abderrahimghazali" target="_blank" class="donation-link">
-        <span class="icon">🍕</span>
-        <span class="text">Buy me Pizza</span>
-      </a>
-      <a href="https://buymeacoffee.com/abderrahimghazali" target="_blank" class="donation-link">
-        <span class="icon">☕</span>
-        <span class="text">Buy me Coffee</span>
-      </a>
+  <!-- Hero -->
+  <div class="flex items-start gap-5 mb-12" style="--stagger: 2">
+    <img
+      src="/me.jpeg"
+      alt="Abderrahim GHAZALI"
+      class="w-16 h-16 rounded-full object-cover shrink-0 grayscale"
+      loading="eager"
+    />
+    <div>
+      <h1 class="text-xl font-semibold text-[#111] mb-1">Abderrahim GHAZALI</h1>
+      <p class="text-sm text-[#888]">Software Engineer / Automation, AI, Drupal</p>
     </div>
   </div>
+
+  <!-- Intro -->
+  <section class="mb-12" style="--stagger: 3">
+    <p class="text-[15px] leading-relaxed text-[#555]">
+      I specialize in designing and shipping production-grade automation systems, AI-driven tooling, and enterprise web platforms. Over 11 years of delivering software across healthcare, publishing, government, and e-commerce. Reliability, performance, and long-term maintainability are non-negotiable.
+    </p>
+  </section>
+
+  <!-- What I Do -->
+  <section class="mb-12" style="--stagger: 4">
+    <h2 class="text-sm font-medium text-[#111] uppercase tracking-wider mb-5">Areas of Expertise</h2>
+    <div class="space-y-4">
+      <div class="group">
+        <h3 class="text-[15px] font-medium text-[#222] mb-1">AI & Automation Engineering</h3>
+        <p class="text-[15px] leading-relaxed text-[#555]">
+          Architecting autonomous agent systems, RAG pipelines, and semantic search solutions using LangChain, custom orchestration layers, and LLM integration. Building custom n8n workflows for end-to-end process automation. Reduced manual workflows by 80%+ in production environments.
+        </p>
+      </div>
+      <div class="border-t border-[#eee]"></div>
+      <div class="group">
+        <h3 class="text-[15px] font-medium text-[#222] mb-1">Drupal Architecture</h3>
+        <p class="text-[15px] leading-relaxed text-[#555]">
+          Deep expertise since 2014. Custom module development, complex migration strategies, performance tuning at scale. Delivered platforms handling 500K+ monthly users with sub-second response times.
+        </p>
+      </div>
+      <div class="border-t border-[#eee]"></div>
+      <div class="group">
+        <h3 class="text-[15px] font-medium text-[#222] mb-1">Full-Stack & DevOps</h3>
+        <p class="text-[15px] leading-relaxed text-[#555]">
+          End-to-end ownership across React, Next.js, Node.js, Symfony, and Laravel. Infrastructure design with Docker, CI/CD pipelines, and cloud deployment. I ship the full lifecycle, from architecture through monitoring.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Connect -->
+  <section style="--stagger: 5">
+    <h2 class="text-sm font-medium text-[#111] uppercase tracking-wider mb-5">Contact</h2>
+    <p class="text-[15px] leading-relaxed text-[#555] mb-6">
+      Available for consulting, contract work, and technical partnerships.
+    </p>
+    <div class="flex flex-wrap gap-4 text-sm">
+      <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="link-pill">GitHub</a>
+      <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="link-pill">LinkedIn</a>
+      <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="link-pill">Drupal.org</a>
+      <a href="mailto:ghazali.abderrahim1@gmail.com" class="link-pill">Email</a>
+      <a href="https://github.com/sponsors/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="link-pill">Sponsor</a>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  .animate-fade-in-delay {
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: 2.5s;
+  .nav-link {
+    color: #888;
+    transition: color 0.2s ease;
+  }
+  .nav-link:hover {
+    color: #111;
   }
 
-  .animate-fade-in-delay-2 {
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: 3.2s;
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    color: #555;
+    font-size: 13px;
+    transition: all 0.2s ease;
+  }
+  .link-pill:hover {
+    border-color: #111;
+    color: #111;
   }
 
-  .animate-fade-in-delay-3 {
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: 3.8s;
+  /* Staggered fade-in */
+  nav, .flex.items-start, section {
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--stagger) * 0.1s);
   }
 
-  .animate-fade-in-delay-4 {
-    animation: fadeInRight 0.8s ease forwards;
-    animation-delay: 4.2s;
-  }
-
-  @keyframes fadeInUp {
+  @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(8px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
     }
   }
 </style>
