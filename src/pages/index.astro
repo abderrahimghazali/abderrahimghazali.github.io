@@ -9,35 +9,37 @@ import Layout from '../layouts/Layout.astro';
   url="https://abderrahimghazali.github.io/"
 >
   <!-- Nav -->
-  <nav class="flex items-center gap-6 mb-16 text-sm" style="--stagger: 1">
+  <nav class="fade-in flex items-center gap-6 mb-16 text-sm" style="--stagger: 1">
     <a href="/about" class="nav-link">about</a>
     <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="nav-link">github</a>
     <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="nav-link">linkedin</a>
   </nav>
 
   <!-- Hero -->
-  <div class="flex items-start gap-5 mb-12" style="--stagger: 2">
+  <div class="fade-in flex items-start gap-5 mb-12" style="--stagger: 2">
     <img
       src="/me.jpeg"
       alt="Abderrahim GHAZALI"
       class="w-16 h-16 rounded-full object-cover shrink-0 grayscale"
+      width="64"
+      height="64"
       loading="eager"
     />
     <div>
       <h1 class="text-xl font-semibold text-[#111] mb-1">Abderrahim GHAZALI</h1>
-      <p class="text-sm text-[#888]">Software Engineer / Automation, AI, Drupal</p>
+      <p class="text-sm text-[#666]">Software Engineer / Automation, AI, Drupal</p>
     </div>
   </div>
 
   <!-- Intro -->
-  <section class="mb-12" style="--stagger: 3">
+  <section class="fade-in mb-12" style="--stagger: 3">
     <p class="text-[15px] leading-relaxed text-[#555]">
       I specialize in designing and shipping production-grade automation systems, AI-driven tooling, and enterprise web platforms. Over 11 years of delivering software across healthcare, publishing, government, and e-commerce. Reliability, performance, and long-term maintainability are non-negotiable.
     </p>
   </section>
 
   <!-- What I Do -->
-  <section class="mb-12" style="--stagger: 4">
+  <section class="fade-in mb-12" style="--stagger: 4">
     <h2 class="text-sm font-medium text-[#111] uppercase tracking-wider mb-5">Areas of Expertise</h2>
     <div class="space-y-4">
       <div class="group">
@@ -64,7 +66,7 @@ import Layout from '../layouts/Layout.astro';
   </section>
 
   <!-- Connect -->
-  <section style="--stagger: 5">
+  <section class="fade-in" style="--stagger: 5">
     <h2 class="text-sm font-medium text-[#111] uppercase tracking-wider mb-5">Contact</h2>
     <p class="text-[15px] leading-relaxed text-[#555] mb-6">
       Available for consulting, contract work, and technical partnerships.
@@ -79,9 +81,20 @@ import Layout from '../layouts/Layout.astro';
   </section>
 </Layout>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.opacity = '0';
+      el.classList.add('is-visible');
+    });
+  });
+</script>
+
 <style>
   .nav-link {
-    color: #888;
+    color: #666;
     transition: color 0.2s ease;
   }
   .nav-link:hover {
@@ -103,23 +116,20 @@ import Layout from '../layouts/Layout.astro';
     color: #111;
   }
 
-  /* Staggered fade-in */
-  @media (prefers-reduced-motion: no-preference) {
-    nav, .flex.items-start, section {
-      opacity: 0;
-      animation: fadeIn 0.5s ease forwards;
-      animation-delay: calc(var(--stagger) * 0.1s);
-    }
+  /* Fade-in: visible by default, animated via JS */
+  .fade-in.is-visible {
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--stagger) * 0.1s);
+  }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>

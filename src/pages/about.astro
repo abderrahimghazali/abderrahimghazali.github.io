@@ -10,34 +10,34 @@ import StructuredDataAbout from '../components/StructuredDataAbout.astro';
   url="https://abderrahimghazali.github.io/about"
 >
   <!-- Nav -->
-  <nav class="flex items-center gap-6 mb-16 text-sm" style="--stagger: 1">
+  <nav class="fade-in flex items-center gap-6 mb-16 text-sm" style="--stagger: 1">
     <a href="/" class="nav-link">home</a>
     <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="nav-link">github</a>
     <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="nav-link">linkedin</a>
   </nav>
 
   <!-- Header -->
-  <header class="mb-12" style="--stagger: 2">
+  <header class="fade-in mb-12" style="--stagger: 2">
     <h1 class="text-2xl font-semibold text-[#111] mb-2">About</h1>
-    <p class="text-sm text-[#888]">11+ years in software engineering, automation, and enterprise platforms</p>
+    <p class="text-sm text-[#666]">11+ years in software engineering, automation, and enterprise platforms</p>
   </header>
 
   <!-- Content -->
   <article class="space-y-10">
-    <section style="--stagger: 3">
+    <section class="fade-in" style="--stagger: 3">
       <p class="body-text">
         I'm a software engineer focused on building production systems that eliminate manual overhead at scale. My work sits at the intersection of AI engineering, enterprise CMS architecture, and full-stack development. I've delivered solutions across healthcare, publishing, government, and e-commerce.
       </p>
     </section>
 
-    <section style="--stagger: 4">
+    <section class="fade-in" style="--stagger: 4">
       <h2 class="section-heading">Approach</h2>
       <p class="body-text">
         Every system I design starts with failure analysis: edge cases, security boundaries, scaling constraints, and operational risk. I engineer for the scenarios that surface at 3 AM with no one watching. This defensive-first methodology is what separates production-grade software from prototypes, and it's the foundation of everything I ship.
       </p>
     </section>
 
-    <section style="--stagger: 5">
+    <section class="fade-in" style="--stagger: 5">
       <h2 class="section-heading">Technical Depth</h2>
       <p class="body-text mb-4">
         Full-stack proficiency across React, Next.js, Node.js, Drupal, Symfony, and Laravel. Database architecture with PostgreSQL and MySQL. Infrastructure and deployment with Docker, CI/CD pipelines, and cloud platforms. I've led performance optimization efforts on high-traffic platforms and integrated AI models into mission-critical production systems.
@@ -48,7 +48,7 @@ import StructuredDataAbout from '../components/StructuredDataAbout.astro';
     </section>
 
     <!-- Contact -->
-    <section class="pt-6 border-t border-[#eee]" style="--stagger: 6">
+    <section class="fade-in pt-6 border-t border-[#eee]" style="--stagger: 6">
       <p class="body-text mb-6">
         Open to consulting engagements, contract work, and technical collaboration on complex systems.
       </p>
@@ -64,9 +64,20 @@ import StructuredDataAbout from '../components/StructuredDataAbout.astro';
   <StructuredDataAbout />
 </Layout>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.opacity = '0';
+      el.classList.add('is-visible');
+    });
+  });
+</script>
+
 <style>
   .nav-link {
-    color: #888;
+    color: #666;
     transition: color 0.2s ease;
   }
   .nav-link:hover {
@@ -103,23 +114,20 @@ import StructuredDataAbout from '../components/StructuredDataAbout.astro';
     color: #111;
   }
 
-  /* Staggered fade-in */
-  @media (prefers-reduced-motion: no-preference) {
-    nav, header, section {
-      opacity: 0;
-      animation: fadeIn 0.5s ease forwards;
-      animation-delay: calc(var(--stagger) * 0.1s);
-    }
+  /* Fade-in: visible by default, animated via JS */
+  .fade-in.is-visible {
+    animation: fadeIn 0.5s ease forwards;
+    animation-delay: calc(var(--stagger) * 0.1s);
+  }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>
