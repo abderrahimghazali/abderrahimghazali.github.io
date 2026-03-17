@@ -1,0 +1,22 @@
+# Abderrahim GHAZALI
+
+> Software engineer with 11+ years of experience. Specializes in AI agent development, RAG pipelines, n8n workflow automation, and enterprise Drupal architecture. Open to consulting and contract work.
+
+## Pages
+
+- [Home](https://abderrahimghazali.github.io/): Overview of expertise and contact
+- [About](https://abderrahimghazali.github.io/about): Background, technical depth, and approach
+
+## Expertise
+
+- AI & Automation: autonomous agents, RAG pipelines, semantic search, LangChain, n8n
+- Drupal: custom module development, migrations, high-traffic platforms (500K+ monthly users)
+- Full-Stack: React, Next.js, Node.js, Symfony, Laravel
+- DevOps: Docker, CI/CD, cloud deployment
+
+## Contact
+
+- Email: ghazali.abderrahim1@gmail.com
+- GitHub: https://github.com/abderrahimghazali
+- LinkedIn: https://www.linkedin.com/in/abderrahim-ghazali-5121b855
+- Drupal.org: https://www.drupal.org/u/gabderrahim
