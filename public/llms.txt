@@ -5,7 +5,13 @@
 ## Pages
 
 - [Home](https://abderrahimghazali.github.io/): Overview of expertise and contact
-- [About](https://abderrahimghazali.github.io/about): Background, technical depth, and approach
+- [About](https://abderrahimghazali.github.io/about/): Background, technical depth, and approach
+- [Blog](https://abderrahimghazali.github.io/blog/): Articles on AI, automation, Drupal, and software engineering
+
+## Blog Posts
+
+- [Claude Mythos: The AI Model Too Dangerous to Release](https://abderrahimghazali.github.io/blog/claude-mythos-the-ai-model-too-dangerous-to-release/): Anthropic built its most capable model ever — then decided not to release it publicly. What Mythos can do, why it matters, and what Project Glasswing means for cybersecurity.
+- [We All Use AI to Code Now. Almost Nobody Trusts It.](https://abderrahimghazali.github.io/blog/we-all-use-ai-to-code-now-almost-nobody-trusts-it/): 84% of developers use AI coding tools daily. Only 29% trust the output. What that gap means for the code we ship, the bugs we inherit, and the skills we're quietly losing.
 
 ## Expertise
 

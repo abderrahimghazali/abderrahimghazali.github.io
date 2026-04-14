@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+---
+
+<Layout
+  title="Page Not Found | Abderrahim GHAZALI"
+  description="The page you're looking for doesn't exist."
+  url="https://abderrahimghazali.github.io/404/"
+>
+  <Nav />
+
+  <div class="text-center py-20">
+    <h1 class="text-2xl font-semibold text-[#111] mb-3">404</h1>
+    <p class="text-[15px] text-[#555] mb-8">The page you're looking for doesn't exist.</p>
+    <a href="/" class="inline-flex items-center px-4 py-2 text-sm border border-[#e5e5e5] rounded-md text-[#555] hover:border-[#111] hover:text-[#111] transition-all">
+      Back to home
+    </a>
+  </div>
+</Layout>

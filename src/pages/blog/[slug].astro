@@ -27,7 +27,7 @@ function isoDate(date: Date) {
 }
 
 const siteUrl = 'https://abderrahimghazali.github.io';
-const postUrl = `${siteUrl}/blog/${post.id}`;
+const postUrl = `${siteUrl}/blog/${post.id}/`;
 const postImage = post.data.image ? `${siteUrl}${post.data.image}` : `${siteUrl}/me.jpeg`;
 ---
 
@@ -52,6 +52,8 @@ const postImage = post.data.image ? `${siteUrl}${post.data.image}` : `${siteUrl}
           src={post.data.image}
           alt={post.data.imageAlt || post.data.title}
           class="w-full rounded-lg mt-6"
+          width="672"
+          height="408"
           loading="eager"
         />
       )}
@@ -62,9 +64,34 @@ const postImage = post.data.image ? `${siteUrl}${post.data.image}` : `${siteUrl}
     </div>
 
     <div class="mt-16 pt-8 border-t border-[#eee]">
-      <a href="/blog" class="text-sm text-[#666] hover:text-[#111] transition-colors">&larr; Back to blog</a>
+      <a href="/blog/" class="text-sm text-[#666] hover:text-[#111] transition-colors"><span aria-hidden="true">&larr;</span> Back to blog</a>
     </div>
   </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": `${siteUrl}/`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Blog",
+        "item": `${siteUrl}/blog/`,
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": post.data.title,
+        "item": postUrl,
+      },
+    ],
+  })} />
 
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
@@ -73,14 +100,19 @@ const postImage = post.data.image ? `${siteUrl}${post.data.image}` : `${siteUrl}
     "description": post.data.description,
     "image": postImage,
     "datePublished": isoDate(post.data.date),
+    "dateModified": isoDate(post.data.date),
     "author": {
       "@type": "Person",
       "name": "Abderrahim GHAZALI",
       "url": siteUrl,
     },
     "publisher": {
-      "@type": "Person",
+      "@type": "Organization",
       "name": "Abderrahim GHAZALI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/me.jpeg`,
+      },
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
