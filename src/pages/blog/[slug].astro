@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+function isoDate(date: Date) {
+  return date.toISOString().split('T')[0];
+}
+
+const siteUrl = 'https://abderrahimghazali.github.io';
+const postUrl = `${siteUrl}/blog/${post.id}`;
+const postImage = post.data.image ? `${siteUrl}${post.data.image}` : `${siteUrl}/me.jpeg`;
+---
+
+<Layout
+  title={`${post.data.title} | Abderrahim GHAZALI`}
+  description={post.data.description}
+  url={postUrl}
+  image={post.data.image}
+  imageAlt={post.data.imageAlt}
+  type="article"
+>
+  <Nav />
+
+  <article>
+    <header class="mb-10">
+      <time class="text-xs text-[#999]" datetime={post.data.date.toISOString()}>
+        {formatDate(post.data.date)}
+      </time>
+      <h1 class="text-xl font-semibold text-[#111] mt-2">{post.data.title}</h1>
+      {post.data.image && (
+        <img
+          src={post.data.image}
+          alt={post.data.imageAlt || post.data.title}
+          class="w-full rounded-lg mt-6"
+          loading="eager"
+        />
+      )}
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-[#eee]">
+      <a href="/blog" class="text-sm text-[#666] hover:text-[#111] transition-colors">&larr; Back to blog</a>
+    </div>
+  </article>
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.data.title,
+    "description": post.data.description,
+    "image": postImage,
+    "datePublished": isoDate(post.data.date),
+    "author": {
+      "@type": "Person",
+      "name": "Abderrahim GHAZALI",
+      "url": siteUrl,
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Abderrahim GHAZALI",
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": postUrl,
+    },
+  })} />
+</Layout>
+
+<style>
+  .prose {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .prose :global(h2) {
+    color: #222;
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+
+  .prose :global(h3) {
+    color: #222;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.25em;
+  }
+
+  .prose :global(a) {
+    color: #111;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .prose :global(a:hover) {
+    color: #000;
+  }
+
+  .prose :global(code) {
+    background: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+
+  .prose :global(pre) {
+    background: #1a1a1a;
+    color: #e5e5e5;
+    padding: 1em 1.25em;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .prose :global(pre code) {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    color: inherit;
+  }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid #ddd;
+    padding-left: 1em;
+    color: #777;
+    margin: 1.5em 0;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5em;
+    margin-bottom: 1.25em;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.35em;
+  }
+
+  .prose :global(img) {
+    border-radius: 8px;
+    margin: 1.5em 0;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 2em 0;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+    font-size: 14px;
+  }
+
+  .prose :global(th) {
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 2px solid #ddd;
+    color: #222;
+    font-weight: 600;
+  }
+
+  .prose :global(td) {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+  }
+</style>

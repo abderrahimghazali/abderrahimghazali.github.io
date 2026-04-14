@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import StructuredDataAbout from '../components/StructuredDataAbout.astro';
+import Nav from '../components/Nav.astro';
 ---
 
 <Layout
@@ -9,53 +10,58 @@ import StructuredDataAbout from '../components/StructuredDataAbout.astro';
   keywords="AI agent development, RAG systems, semantic search, n8n automation, Drupal architecture, LangChain, full-stack developer, workflow automation"
   url="https://abderrahimghazali.github.io/about"
 >
-  <!-- Nav -->
-  <nav class="fade-in flex items-center gap-6 mb-16 text-sm" style="--stagger: 1">
-    <a href="/" class="nav-link">home</a>
-    <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="nav-link">github</a>
-    <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="nav-link">linkedin</a>
-  </nav>
+  <Nav />
 
   <!-- Header -->
   <header class="fade-in mb-12" style="--stagger: 2">
     <h1 class="text-2xl font-semibold text-[#111] mb-2">About</h1>
-    <p class="text-sm text-[#666]">11+ years in software engineering, automation, and enterprise platforms</p>
   </header>
 
   <!-- Content -->
   <article class="space-y-10">
     <section class="fade-in" style="--stagger: 3">
+      <p class="body-text mb-4">
+        I'm Abderrahim, a software engineer based in Paris. I've been writing code professionally since 2014 — starting with Drupal and PHP, then expanding into React, Node.js, and eventually AI and automation.
+      </p>
       <p class="body-text">
-        I'm a software engineer focused on building production systems that eliminate manual overhead at scale. My work sits at the intersection of AI engineering, enterprise CMS architecture, and full-stack development. I've delivered solutions across healthcare, publishing, government, and e-commerce.
+        These days I split my time between building products of my own and consulting for companies that need help with complex systems. I like working across the full stack, but what I enjoy most is taking a messy manual process and turning it into something that runs on its own.
       </p>
     </section>
 
     <section class="fade-in" style="--stagger: 4">
-      <h2 class="section-heading">Approach</h2>
+      <h2 class="section-heading">What I've been up to</h2>
+      <p class="body-text mb-4">
+        I launched <a href="https://www.mrrtracker.app" target="_blank" rel="noopener noreferrer" class="inline-link">MRRTracker</a>, a macOS menubar app for tracking recurring revenue — it hit #4 on Product Hunt. I built <a href="https://github.com/abderrahimghazali/mailfleet" target="_blank" rel="noopener noreferrer" class="inline-link">MailFleet</a>, a desktop email campaign tool using Tauri and Rust. I've shipped Sylius e-commerce plugins, iOS apps, CLI tools, and a Claude Code plugin for Drupal development.
+      </p>
       <p class="body-text">
-        Every system I design starts with failure analysis: edge cases, security boundaries, scaling constraints, and operational risk. I engineer for the scenarios that surface at 3 AM with no one watching. This defensive-first methodology is what separates production-grade software from prototypes, and it's the foundation of everything I ship.
+        On the consulting side, I've delivered platforms handling 500K+ monthly users, built RAG pipelines and semantic search systems, and designed n8n automation workflows that cut manual work by 80%+ for clients in healthcare, publishing, and government.
       </p>
     </section>
 
     <section class="fade-in" style="--stagger: 5">
-      <h2 class="section-heading">Technical Depth</h2>
-      <p class="body-text mb-4">
-        Full-stack proficiency across React, Next.js, Node.js, Drupal, Symfony, and Laravel. Database architecture with PostgreSQL and MySQL. Infrastructure and deployment with Docker, CI/CD pipelines, and cloud platforms. I've led performance optimization efforts on high-traffic platforms and integrated AI models into mission-critical production systems.
-      </p>
+      <h2 class="section-heading">How I work</h2>
       <p class="body-text">
-        Currently focused on AI agent orchestration, RAG systems, semantic search, and autonomous workflow automation with custom n8n pipelines. Building the layer where LLMs, business logic, and existing infrastructure converge into reliable, observable tooling.
+        I care about shipping things that last. I'd rather spend an extra day on error handling and edge cases than rush something out and fix it in production. I'm comfortable working solo or leading a small team, and I prefer direct communication over process overhead.
+      </p>
+    </section>
+
+    <section class="fade-in" style="--stagger: 6">
+      <h2 class="section-heading">Stack</h2>
+      <p class="body-text">
+        TypeScript, React, Next.js, Node.js, Rust, Swift, Python, PHP, Drupal, Symfony, Laravel, PostgreSQL, Docker, AWS, n8n, LangChain. I pick whatever fits the problem.
       </p>
     </section>
 
     <!-- Contact -->
-    <section class="fade-in pt-6 border-t border-[#eee]" style="--stagger: 6">
+    <section class="fade-in pt-6 border-t border-[#eee]" style="--stagger: 7">
       <p class="body-text mb-6">
-        Open to consulting engagements, contract work, and technical collaboration on complex systems.
+        Open to consulting, contract work, and interesting collaborations.
       </p>
       <div class="flex flex-wrap gap-4 text-sm">
+        <a href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer" class="link-pill">Book a call</a>
+        <a href="mailto:ghazali.abderrahim1@gmail.com" class="link-pill">Email</a>
         <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="link-pill">GitHub</a>
         <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="link-pill">LinkedIn</a>
-        <a href="mailto:ghazali.abderrahim1@gmail.com" class="link-pill">Email</a>
         <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="link-pill">Drupal.org</a>
       </div>
     </section>
@@ -76,14 +82,6 @@ import StructuredDataAbout from '../components/StructuredDataAbout.astro';
 </script>
 
 <style>
-  .nav-link {
-    color: #666;
-    transition: color 0.2s ease;
-  }
-  .nav-link:hover {
-    color: #111;
-  }
-
   .section-heading {
     font-size: 14px;
     font-weight: 500;
@@ -112,6 +110,15 @@ import StructuredDataAbout from '../components/StructuredDataAbout.astro';
   .link-pill:hover {
     border-color: #111;
     color: #111;
+  }
+
+  .inline-link {
+    color: #111;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .inline-link:hover {
+    color: #000;
   }
 
   /* Fade-in: visible by default, animated via JS */

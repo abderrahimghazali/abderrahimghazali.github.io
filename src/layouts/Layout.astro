@@ -4,11 +4,15 @@ export interface Props {
   description: string;
   keywords?: string;
   url?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: string;
 }
 
-const { title, description, keywords, url } = Astro.props;
+const { title, description, keywords, url, image, imageAlt, type = 'website' } = Astro.props;
 const siteUrl = 'https://abderrahimghazali.github.io';
-const imageUrl = `${siteUrl}/me.jpeg`;
+const imageUrl = image ? `${siteUrl}${image}` : `${siteUrl}/me.jpeg`;
+const ogImageAlt = imageAlt || 'Abderrahim GHAZALI';
 import '../styles/global.css';
 ---
 
@@ -28,9 +32,9 @@ import '../styles/global.css';
     <!-- Open Graph -->
     <meta property="og:title" content={title}>
     <meta property="og:description" content={description}>
-    <meta property="og:type" content="website">
+    <meta property="og:type" content={type}>
     <meta property="og:image" content={imageUrl}>
-    <meta property="og:image:alt" content="Abderrahim GHAZALI">
+    <meta property="og:image:alt" content={ogImageAlt}>
     {url && <meta property="og:url" content={url}>}
     <meta property="og:site_name" content="Abderrahim GHAZALI">
     <meta property="og:locale" content="en_US">
@@ -93,6 +97,11 @@ import '../styles/global.css';
           },
           {
             "@type": "SiteNavigationElement",
+            "name": "Blog",
+            "url": "https://abderrahimghazali.github.io/blog"
+          },
+          {
+            "@type": "SiteNavigationElement",
             "name": "GitHub",
             "url": "https://github.com/abderrahimghazali"
           },
@@ -134,6 +143,22 @@ import '../styles/global.css';
           "DevOps",
           "Full-stack Development"
         ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "consulting",
+          "url": "https://cal.com/abderrahimghazali/15min?overlayCalendar=true",
+          "email": "ghazali.abderrahim1@gmail.com",
+          "availableLanguage": ["English", "French"]
+        },
+        "potentialAction": {
+          "@type": "ReserveAction",
+          "name": "Book a 15-minute call",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://cal.com/abderrahimghazali/15min?overlayCalendar=true",
+            "actionPlatform": "https://schema.org/DesktopWebPlatform"
+          }
+        },
         "offers": [
           {
             "@type": "Service",

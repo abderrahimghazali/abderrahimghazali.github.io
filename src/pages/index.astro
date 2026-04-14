@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
 ---
 
 <Layout
@@ -8,12 +9,7 @@ import Layout from '../layouts/Layout.astro';
   keywords="AI agent development, RAG pipelines, semantic search, n8n automation, Drupal expert, LangChain developer, workflow automation, full-stack developer"
   url="https://abderrahimghazali.github.io/"
 >
-  <!-- Nav -->
-  <nav class="fade-in flex items-center gap-6 mb-16 text-sm" style="--stagger: 1">
-    <a href="/about" class="nav-link">about</a>
-    <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="nav-link">github</a>
-    <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="nav-link">linkedin</a>
-  </nav>
+  <Nav />
 
   <!-- Hero -->
   <div class="fade-in flex items-start gap-5 mb-12" style="--stagger: 2">
@@ -65,18 +61,58 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </section>
 
+  <!-- Projects -->
+  <section class="fade-in mb-12" style="--stagger: 5">
+    <h2 class="text-sm font-medium text-[#111] uppercase tracking-wider mb-5">Projects</h2>
+    <div class="space-y-6">
+      <a href="https://www.producthunt.com/products/mrrtracker" target="_blank" rel="noopener noreferrer" class="project-card block">
+        <div class="flex items-start gap-4">
+          <img src="/mrrtracker-icon.png" alt="MRRTracker app icon" class="w-12 h-12 rounded-xl shrink-0" width="48" height="48" loading="lazy" />
+          <div class="flex-1">
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="text-[15px] font-medium text-[#222]">MRRTracker</h3>
+              <span class="shrink-0 text-xs text-[#C15F3C] font-medium bg-[#C15F3C]/10 px-2 py-1 rounded">#4 on Product Hunt</span>
+            </div>
+            <p class="text-[14px] text-[#666] mt-1 leading-relaxed">macOS menubar app that tracks your Monthly Recurring Revenue in real time. Supports Stripe, Paddle, and Lemon Squeezy.</p>
+            <div class="flex gap-2 mt-3">
+              <span class="tag">Swift</span>
+              <span class="tag">macOS</span>
+              <span class="tag">SaaS</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div class="border-t border-[#eee]"></div>
+      <a href="https://github.com/abderrahimghazali/mailfleet" target="_blank" rel="noopener noreferrer" class="project-card block">
+        <div class="flex items-start gap-4">
+          <img src="/mailfleet-icon.png" alt="MailFleet app icon" class="w-12 h-12 rounded-xl shrink-0" width="48" height="48" loading="lazy" />
+          <div class="flex-1">
+            <h3 class="text-[15px] font-medium text-[#222]">MailFleet</h3>
+            <p class="text-[14px] text-[#666] mt-1 leading-relaxed">Desktop email campaign manager built with Tauri, React, and Rust. Sends through AWS SES with real-time tracking, contact dedup, and GDPR-compliant unsubscribe.</p>
+            <div class="flex gap-2 mt-3">
+              <span class="tag">Rust</span>
+              <span class="tag">Tauri</span>
+              <span class="tag">React</span>
+              <span class="tag">AWS SES</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- Connect -->
-  <section class="fade-in" style="--stagger: 5">
+  <section class="fade-in" style="--stagger: 6">
     <h2 class="text-sm font-medium text-[#111] uppercase tracking-wider mb-5">Contact</h2>
     <p class="text-[15px] leading-relaxed text-[#555] mb-6">
       Available for consulting, contract work, and technical partnerships.
     </p>
     <div class="flex flex-wrap gap-4 text-sm">
+      <a href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer" class="link-pill">Book a call</a>
+      <a href="mailto:ghazali.abderrahim1@gmail.com" class="link-pill">Email</a>
       <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="link-pill">GitHub</a>
       <a href="https://www.linkedin.com/in/abderrahim-ghazali-5121b855" target="_blank" rel="noopener noreferrer" class="link-pill">LinkedIn</a>
       <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="link-pill">Drupal.org</a>
-      <a href="mailto:ghazali.abderrahim1@gmail.com" class="link-pill">Email</a>
-      <a href="https://github.com/sponsors/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="link-pill">Sponsor</a>
     </div>
   </section>
 </Layout>
@@ -93,12 +129,22 @@ import Layout from '../layouts/Layout.astro';
 </script>
 
 <style>
-  .nav-link {
-    color: #666;
-    transition: color 0.2s ease;
+  .project-card {
+    padding: 12px 14px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
   }
-  .nav-link:hover {
-    color: #111;
+  .project-card:hover {
+    background-color: #f2f2f2;
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    color: #888;
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 4px;
   }
 
   .link-pill {

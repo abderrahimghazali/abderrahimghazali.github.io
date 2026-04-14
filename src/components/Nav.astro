@@ -1,0 +1,39 @@
+---
+const pathname = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === '/') return pathname === '/' || pathname === '';
+  return pathname.startsWith(href);
+}
+
+const links = [
+  { href: '/', label: 'home' },
+  { href: '/about', label: 'about' },
+  { href: '/blog', label: 'blog' },
+  { href: 'https://github.com/abderrahimghazali', label: 'github', external: true },
+  { href: 'https://www.linkedin.com/in/abderrahim-ghazali-5121b855', label: 'linkedin', external: true },
+];
+---
+
+<nav class="flex items-center gap-6 mb-16 text-sm">
+  {links.map((link) => (
+    <a
+      href={link.href}
+      class:list={['nav-link', { active: !link.external && isActive(link.href) }]}
+      {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    >
+      {link.label}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .nav-link {
+    color: #666;
+    transition: color 0.2s ease;
+  }
+  .nav-link:hover,
+  .nav-link.active {
+    color: #111;
+  }
+</style>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <rect width="800" height="400" rx="8" fill="#fafafa" stroke="#e5e5e5"/>
+  <text x="400" y="36" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="600" fill="#111">Claude Mythos Preview vs Opus 4.6 — Key Benchmarks</text>
+
+  <!-- Y axis labels -->
+  <text x="55" y="80" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">100%</text>
+  <text x="55" y="155" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">75%</text>
+  <text x="55" y="230" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">50%</text>
+  <text x="55" y="305" text-anchor="end" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">25%</text>
+
+  <!-- Grid lines -->
+  <line x1="70" y1="76" x2="760" y2="76" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="151" x2="760" y2="151" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="226" x2="760" y2="226" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="301" x2="760" y2="301" stroke="#eee" stroke-width="0.5"/>
+  <line x1="70" y1="376" x2="760" y2="376" stroke="#ddd" stroke-width="1"/>
+
+  <!-- SWE-bench: Mythos 93.9%, Opus 80.8% -->
+  <rect x="100" y="94" width="36" height="282" rx="3" fill="#C15F3C"/>
+  <rect x="140" y="135" width="36" height="241" rx="3" fill="#ddd"/>
+  <text x="138" y="82" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#C15F3C">93.9</text>
+  <text x="158" y="128" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">80.8</text>
+  <text x="138" y="395" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#666">SWE-bench</text>
+
+  <!-- GPQA Diamond: Mythos 94.5%, Opus 74.9% -->
+  <rect x="230" y="92" width="36" height="284" rx="3" fill="#C15F3C"/>
+  <rect x="270" y="151" width="36" height="225" rx="3" fill="#ddd"/>
+  <text x="268" y="80" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#C15F3C">94.5</text>
+  <text x="288" y="144" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">74.9</text>
+  <text x="268" y="395" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#666">GPQA</text>
+
+  <!-- USAMO: Mythos 97.6%, Opus 42.3% -->
+  <rect x="360" y="83" width="36" height="293" rx="3" fill="#C15F3C"/>
+  <rect x="400" y="249" width="36" height="127" rx="3" fill="#ddd"/>
+  <text x="398" y="71" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#C15F3C">97.6</text>
+  <text x="418" y="242" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">42.3</text>
+  <text x="398" y="395" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#666">USAMO</text>
+
+  <!-- CyberGym: Mythos 83.1%, Opus 66.6% -->
+  <rect x="490" y="127" width="36" height="249" rx="3" fill="#C15F3C"/>
+  <rect x="530" y="176" width="36" height="200" rx="3" fill="#ddd"/>
+  <text x="528" y="115" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#C15F3C">83.1</text>
+  <text x="548" y="169" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">66.6</text>
+  <text x="528" y="395" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#666">CyberGym</text>
+
+  <!-- HLE: Mythos 64.7%, Opus 53.1% -->
+  <rect x="620" y="182" width="36" height="194" rx="3" fill="#C15F3C"/>
+  <rect x="660" y="217" width="36" height="159" rx="3" fill="#ddd"/>
+  <text x="658" y="175" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="600" fill="#C15F3C">64.7</text>
+  <text x="678" y="210" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#999">53.1</text>
+  <text x="658" y="395" text-anchor="middle" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#666">HLE</text>
+
+  <!-- Legend -->
+  <rect x="580" y="46" width="12" height="12" rx="2" fill="#C15F3C"/>
+  <text x="597" y="56" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#666">Mythos</text>
+  <rect x="655" y="46" width="12" height="12" rx="2" fill="#ddd"/>
+  <text x="672" y="56" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#666">Opus 4.6</text>
+</svg>
