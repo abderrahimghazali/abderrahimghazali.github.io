@@ -7,14 +7,16 @@ import Nav from '../components/Nav.astro';
   title="Page Not Found | Abderrahim GHAZALI"
   description="The page you're looking for doesn't exist."
   url="https://abderrahimghazali.github.io/404/"
+  noindex={true}
 >
   <Nav />
 
-  <div class="text-center py-20">
-    <h1 class="text-2xl font-semibold text-[#111] mb-3">404</h1>
-    <p class="text-[15px] text-[#555] mb-8">The page you're looking for doesn't exist.</p>
-    <a href="/" class="inline-flex items-center px-4 py-2 text-sm border border-[#e5e5e5] rounded-md text-[#555] hover:border-[#111] hover:text-[#111] transition-all">
-      Back to home
-    </a>
+  <div class="container" style="max-width: 820px; margin: 0 auto; padding: clamp(5rem, 10vh, 10rem) clamp(1.25rem, 3vw, 2.5rem); text-align: center;">
+    <div class="mono" style="margin-bottom: 1rem;">§ / Error</div>
+    <h1 style="font-family: var(--display); font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9; letter-spacing: -0.03em; font-weight: 400;">
+      404
+    </h1>
+    <p style="font-size: 16px; color: var(--fg-2); margin: 1.5rem 0 2.5rem;">The page you're looking for doesn't exist.</p>
+    <a href="/" class="btn">Back to portfolio <span class="arrow">→</span></a>
   </div>
 </Layout>

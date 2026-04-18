@@ -1,40 +1,44 @@
 ---
 const pathname = Astro.url.pathname;
-
-function isActive(href: string) {
-  if (href === '/') return pathname === '/' || pathname === '';
-  return pathname.startsWith(href);
-}
-
-const links = [
-  { href: '/', label: 'home' },
-  { href: '/about/', label: 'about' },
-  { href: '/blog/', label: 'blog' },
-  { href: 'https://github.com/abderrahimghazali', label: 'github', external: true },
-  { href: 'https://www.linkedin.com/in/abderrahimghazali/', label: 'linkedin', external: true },
-];
+const isBlog = pathname.startsWith('/blog');
 ---
 
-<nav aria-label="Main navigation" class="flex items-center gap-6 mb-16 text-sm">
-  {links.map((link) => (
-    <a
-      href={link.href}
-      class:list={['nav-link', { active: !link.external && isActive(link.href) }]}
-      {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      {...(!link.external && isActive(link.href) ? { 'aria-current': 'page' } : {})}
-    >
-      {link.label}
-    </a>
-  ))}
-</nav>
+<header class="topbar">
+  <div class="container">
+    <div class="topbar-inner">
+      <a href="/" class="brand">
+        <span class="brand-dot"></span>
+        <span>A. Ghazali</span>
+        <span style="color: var(--fg-3)">/ eng.</span>
+      </a>
+      <nav class="nav-center" aria-label="Main navigation">
+        <a href="/#work">Work</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#expertise">Expertise</a>
+        <a href="/#stack">Stack</a>
+        <a href="/blog/" aria-current={isBlog ? "page" : undefined}>Blog</a>
+        <a href="/#contact">Contact</a>
+      </nav>
+      <div class="top-right">
+        <span class="clock" id="clock">--:--:--</span>
+        <span style="color: var(--fg-3)">CET</span>
+        <span class="avail"><span class="avail-dot"></span>Available</span>
+      </div>
+    </div>
+  </div>
+</header>
 
-<style>
-  .nav-link {
-    color: #666;
-    transition: color 0.2s ease;
+<script>
+  function updateClock() {
+    const el = document.getElementById('clock');
+    if (!el) return;
+    try {
+      el.textContent = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/Paris',
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      }).format(new Date());
+    } catch { el.textContent = '--:--:--'; }
   }
-  .nav-link:hover,
-  .nav-link.active {
-    color: #111;
-  }
-</style>
+  updateClock();
+  setInterval(updateClock, 1000);
+</script>

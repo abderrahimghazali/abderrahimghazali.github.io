@@ -12,129 +12,95 @@ import Nav from '../components/Nav.astro';
 >
   <Nav />
 
-  <!-- Header -->
-  <header class="fade-in mb-12" style="--stagger: 2">
-    <h1 class="text-2xl font-semibold text-[#111] mb-2">About</h1>
-  </header>
-
-  <!-- Content -->
-  <article class="space-y-10">
-    <section class="fade-in" style="--stagger: 3">
-      <p class="body-text mb-4">
-        I'm Abderrahim, a software engineer based in Paris. I've been writing code professionally since 2014 — starting with Drupal and PHP, then expanding into React, Node.js, and eventually AI and automation.
-      </p>
-      <p class="body-text">
-        These days I split my time between building products of my own and consulting for companies that need help with complex systems. I like working across the full stack, but what I enjoy most is taking a messy manual process and turning it into something that runs on its own.
-      </p>
-    </section>
-
-    <section class="fade-in" style="--stagger: 4">
-      <h2 class="section-heading">What I've been up to</h2>
-      <p class="body-text mb-4">
-        I launched <a href="https://www.mrrtracker.app" target="_blank" rel="noopener noreferrer" class="inline-link">MRRTracker</a>, a macOS menubar app for tracking recurring revenue — it hit #4 on Product Hunt. I built <a href="https://github.com/abderrahimghazali/mailfleet" target="_blank" rel="noopener noreferrer" class="inline-link">MailFleet</a>, a desktop email campaign tool using Tauri and Rust. I've shipped Sylius e-commerce plugins, iOS apps, CLI tools, and a Claude Code plugin for Drupal development.
-      </p>
-      <p class="body-text">
-        On the consulting side, I've delivered platforms handling 500K+ monthly users, built RAG pipelines and semantic search systems, and designed n8n automation workflows that cut manual work by 80%+ for clients in healthcare, publishing, and government.
-      </p>
-    </section>
-
-    <section class="fade-in" style="--stagger: 5">
-      <h2 class="section-heading">How I work</h2>
-      <p class="body-text">
-        I care about shipping things that last. I'd rather spend an extra day on error handling and edge cases than rush something out and fix it in production. I'm comfortable working solo or leading a small team, and I prefer direct communication over process overhead.
-      </p>
-    </section>
-
-    <section class="fade-in" style="--stagger: 6">
-      <h2 class="section-heading">Stack</h2>
-      <p class="body-text">
-        TypeScript, React, Next.js, Node.js, Rust, Swift, Python, PHP, Drupal, Symfony, Laravel, PostgreSQL, Docker, AWS, n8n, LangChain. I pick whatever fits the problem.
-      </p>
-    </section>
-
-    <!-- Contact -->
-    <section class="fade-in pt-6 border-t border-[#eee]" style="--stagger: 7">
-      <p class="body-text mb-6">
-        Open to consulting, contract work, and interesting collaborations.
-      </p>
-      <div class="flex flex-wrap gap-4 text-sm">
-        <a href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer" class="link-pill">Book a call</a>
-        <a href="mailto:ghazali.abderrahim1@gmail.com" class="link-pill">Email</a>
-        <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="link-pill">GitHub</a>
-        <a href="https://www.linkedin.com/in/abderrahimghazali/" target="_blank" rel="noopener noreferrer" class="link-pill">LinkedIn</a>
-        <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="link-pill">Drupal.org</a>
+  <div class="container" style="max-width: 820px; margin: 0 auto; padding: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 3vw, 2.5rem);">
+    <div class="section-head" style="margin-bottom: 3rem;">
+      <div>
+        <div class="index">§ / About</div>
+        <h1 style="font-family: var(--display); font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1; letter-spacing: -0.02em; font-weight: 400;">
+          About <em style="color: var(--fg-2); font-style: italic;">me.</em>
+        </h1>
       </div>
-    </section>
-  </article>
+    </div>
+
+    <article style="display: flex; flex-direction: column; gap: 3rem;">
+      <section>
+        <p class="body-text">
+          I'm Abderrahim, a software engineer based in Paris. I've been writing code professionally since 2014 — starting with Drupal and PHP, then expanding into React, Node.js, and eventually AI and automation.
+        </p>
+        <p class="body-text" style="margin-top: 1rem;">
+          These days I split my time between building products of my own and consulting for companies that need help with complex systems. I like working across the full stack, but what I enjoy most is taking a messy manual process and turning it into something that runs on its own.
+        </p>
+      </section>
+
+      <section style="border-top: 1px dashed var(--line); padding-top: 2rem;">
+        <h2 class="section-label">What I've been up to</h2>
+        <p class="body-text">
+          I launched <a href="https://www.mrrtracker.app" target="_blank" rel="noopener noreferrer" class="inline-link">MRRTracker</a>, a macOS menubar app for tracking recurring revenue — it hit #4 on Product Hunt. I built <a href="https://github.com/abderrahimghazali/mailfleet" target="_blank" rel="noopener noreferrer" class="inline-link">MailFleet</a>, a desktop email campaign tool using Tauri and Rust. I've shipped Sylius e-commerce plugins, iOS apps, CLI tools, and a Claude Code plugin for Drupal development.
+        </p>
+        <p class="body-text" style="margin-top: 1rem;">
+          On the consulting side, I've delivered platforms handling 500K+ monthly users, built RAG pipelines and semantic search systems, and designed n8n automation workflows that cut manual work by 80%+ for clients in healthcare, publishing, and government.
+        </p>
+      </section>
+
+      <section style="border-top: 1px dashed var(--line); padding-top: 2rem;">
+        <h2 class="section-label">How I work</h2>
+        <p class="body-text">
+          I care about shipping things that last. I'd rather spend an extra day on error handling and edge cases than rush something out and fix it in production. I'm comfortable working solo or leading a small team, and I prefer direct communication over process overhead.
+        </p>
+      </section>
+
+      <section style="border-top: 1px dashed var(--line); padding-top: 2rem;">
+        <h2 class="section-label">Stack</h2>
+        <p class="body-text">
+          TypeScript, React, Next.js, Node.js, Rust, Swift, Python, PHP, Drupal, Symfony, Laravel, PostgreSQL, Docker, AWS, n8n, LangChain. I pick whatever fits the problem.
+        </p>
+      </section>
+
+      <section style="border-top: 1px solid var(--line); padding-top: 2rem;">
+        <p class="body-text" style="margin-bottom: 1.5rem;">
+          Open to consulting, contract work, and interesting collaborations.
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+          <a href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer" class="btn">Book a call <span class="arrow">→</span></a>
+          <a href="mailto:ghazali.abderrahim1@gmail.com" class="btn">Email <span class="arrow">→</span></a>
+          <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="btn">GitHub <span class="arrow">→</span></a>
+          <a href="https://www.linkedin.com/in/abderrahimghazali/" target="_blank" rel="noopener noreferrer" class="btn">LinkedIn <span class="arrow">→</span></a>
+          <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="btn">Drupal.org <span class="arrow">→</span></a>
+        </div>
+      </section>
+    </article>
+
+    <a href="/" class="btn" style="margin-top: 2rem;">
+      ← Back to portfolio
+    </a>
+  </div>
 
   <StructuredDataAbout />
 </Layout>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
-    document.querySelectorAll('.fade-in').forEach(el => {
-      el.style.opacity = '0';
-      el.classList.add('is-visible');
-    });
-  });
-</script>
-
 <style>
-  .section-heading {
-    font-size: 14px;
-    font-weight: 500;
-    color: #111;
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 12px;
+    color: var(--fg-3);
+    margin-bottom: 1rem;
   }
 
   .body-text {
-    font-size: 15px;
+    font-size: 16.5px;
     line-height: 1.7;
-    color: #555;
-  }
-
-  .link-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 14px;
-    border: 1px solid #e5e5e5;
-    border-radius: 6px;
-    color: #555;
-    font-size: 13px;
-    transition: all 0.2s ease;
-  }
-  .link-pill:hover {
-    border-color: #111;
-    color: #111;
+    color: var(--fg-2);
+    max-width: 64ch;
   }
 
   .inline-link {
-    color: #111;
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    color: var(--fg);
+    border-bottom: 1px solid var(--line-2);
+    transition: border-color 0.2s var(--ease);
   }
   .inline-link:hover {
-    color: #000;
-  }
-
-  /* Fade-in: visible by default, animated via JS */
-  .fade-in.is-visible {
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: calc(var(--stagger) * 0.1s);
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    border-color: var(--fg);
   }
 </style>

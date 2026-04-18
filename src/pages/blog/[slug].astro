@@ -12,7 +12,8 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
+const tocItems = headings.filter((h) => h.depth === 2);
 
 function formatDate(date: Date) {
   return date.toLocaleDateString('en-US', {
@@ -40,31 +41,79 @@ const postImage = post.data.image ? `${siteUrl}${post.data.image}` : `${siteUrl}
   type="article"
 >
   <Nav />
+  <div class="read-progress" id="progress"></div>
 
-  <article>
-    <header class="mb-10">
-      <time class="text-xs text-[#999]" datetime={post.data.date.toISOString()}>
-        {formatDate(post.data.date)}
-      </time>
-      <h1 class="text-xl font-semibold text-[#111] mt-2">{post.data.title}</h1>
-      {post.data.image && (
-        <img
-          src={post.data.image}
-          alt={post.data.imageAlt || post.data.title}
-          class="w-full rounded-lg mt-6"
-          width="672"
-          height="408"
-          loading="eager"
-        />
+  {tocItems.length > 0 && (
+    <aside class="toc" id="toc">
+      {tocItems.map((h, i) => (
+        <a href={`#${h.slug}`}>
+          {String(i + 1).padStart(2, '0')} &nbsp; {h.text}
+        </a>
+      ))}
+    </aside>
+  )}
+
+  <article class="article">
+    <header class="article-header">
+      <nav class="breadcrumb">
+        <a href="/">A. Ghazali</a>
+        <span class="sep">/</span>
+        <a href="/blog/">Blog</a>
+        <span class="sep">/</span>
+        <span>Article</span>
+      </nav>
+
+      <div class="article-kicker">
+        {post.data.tags && post.data.tags.map((tag: string) => (
+          <span>{tag}</span>
+        ))}
+        <span>·</span>
+        <span>{formatDate(post.data.date)}</span>
+      </div>
+
+      <h1 class="article-title">{post.data.title}</h1>
+
+      {post.data.description && (
+        <p style="font-family: var(--display); font-size: clamp(1.2rem, 2vw, 1.55rem); line-height: 1.35; color: var(--fg-2); max-width: 58ch; letter-spacing: -0.005em; font-style: italic;">
+          {post.data.description}
+        </p>
       )}
+
+      <div style="display: flex; gap: 1rem; align-items: center; padding-top: 0.5rem;">
+        <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--bg-2); border: 1px solid var(--line); overflow: hidden;">
+          <img src="/me.jpeg" alt="" width="36" height="36" style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%);" loading="lazy" />
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 0.15rem;">
+          <span style="font-family: var(--sans); font-size: 13px; color: var(--fg); font-weight: 500;">Abderrahim Ghazali</span>
+          <span style="font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--fg-3);">Senior Software Engineer · Paris, FR</span>
+        </div>
+      </div>
     </header>
 
-    <div class="prose">
+    <div class="prose-body">
       <Content />
     </div>
 
-    <div class="mt-16 pt-8 border-t border-[#eee]">
-      <a href="/blog/" class="text-sm text-[#666] hover:text-[#111] transition-colors"><span aria-hidden="true">&larr;</span> Back to blog</a>
+    <div style="border-top: 1px solid var(--line); padding: 2.5rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        {post.data.tags && (
+          <div class="tags">
+            {post.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
+          </div>
+        )}
+      </div>
+      <a href="/blog/" class="btn">← Back to blog</a>
+    </div>
+
+    <div style="padding: 3rem 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 2rem; flex-wrap: wrap;">
+      <div>
+        <div class="mono" style="color: var(--fg-3); margin-bottom: 0.5rem;">Have a system that needs shipping?</div>
+        <div style="font-family: var(--display); font-size: 1.8rem; line-height: 1.1; letter-spacing: -0.015em;">I'm open for contract and consulting work.</div>
+      </div>
+      <div style="display: flex; gap: 0.5rem;">
+        <a class="btn primary" href="/#contact">Get in touch <span class="arrow">→</span></a>
+        <a class="btn" href="/">Back to portfolio <span class="arrow">↩</span></a>
+      </div>
     </div>
   </article>
 
@@ -72,24 +121,9 @@ const postImage = post.data.image ? `${siteUrl}${post.data.image}` : `${siteUrl}
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `${siteUrl}/`,
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Blog",
-        "item": `${siteUrl}/blog/`,
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": post.data.title,
-        "item": postUrl,
-      },
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": `${siteUrl}/` },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": `${siteUrl}/blog/` },
+      { "@type": "ListItem", "position": 3, "name": post.data.title, "item": postUrl },
     ],
   })} />
 
@@ -101,135 +135,97 @@ const postImage = post.data.image ? `${siteUrl}${post.data.image}` : `${siteUrl}
     "image": postImage,
     "datePublished": isoDate(post.data.date),
     "dateModified": isoDate(post.data.date),
-    "author": {
-      "@type": "Person",
-      "name": "Abderrahim GHAZALI",
-      "url": siteUrl,
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Abderrahim GHAZALI",
-      "logo": {
-        "@type": "ImageObject",
-        "url": `${siteUrl}/me.jpeg`,
-      },
-    },
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": postUrl,
-    },
+    "author": { "@type": "Person", "name": "Abderrahim GHAZALI", "url": siteUrl },
+    "publisher": { "@type": "Organization", "name": "Abderrahim GHAZALI", "logo": { "@type": "ImageObject", "url": `${siteUrl}/me.jpeg` } },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": postUrl },
   })} />
 </Layout>
 
 <style>
-  .prose {
-    color: #555;
-    font-size: 15px;
-    line-height: 1.75;
+  .prose-body {
+    padding: clamp(2.5rem, 5vw, 4rem) 0;
+    font-family: var(--sans);
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--fg-2);
+  }
+  .prose-body :global(> * + *) { margin-top: 1.25rem; }
+  .prose-body :global(p) { max-width: 64ch; }
+  .prose-body :global(p strong) { color: var(--fg); font-weight: 500; }
+  .prose-body :global(p em) { color: var(--fg); font-style: italic; }
+  .prose-body :global(a) { color: var(--fg); border-bottom: 1px solid var(--line-2); transition: border-color 0.2s var(--ease); }
+  .prose-body :global(a:hover) { border-color: var(--fg); }
+
+  .prose-body :global(h2) {
+    font-family: var(--display);
+    font-size: clamp(1.65rem, 3vw, 2.1rem);
+    line-height: 1.1; letter-spacing: -0.02em; font-weight: 400;
+    color: var(--fg); margin-top: 2.5rem; max-width: 40ch; text-wrap: balance;
+  }
+  .prose-body :global(h3) {
+    font-family: var(--sans); font-size: 1.05rem; line-height: 1.3;
+    color: var(--fg); font-weight: 600; margin-top: 1.75rem; letter-spacing: -0.005em;
+  }
+  .prose-body :global(h2 + p), .prose-body :global(h3 + p) { margin-top: 0.75rem; }
+
+  .prose-body :global(ul), .prose-body :global(ol) { padding-left: 1.25rem; max-width: 60ch; }
+  .prose-body :global(li) { margin-top: 0.4rem; }
+  .prose-body :global(li::marker) { color: var(--fg-3); font-family: var(--mono); font-size: 0.9em; }
+
+  .prose-body :global(blockquote) {
+    margin: 2rem 0; padding: 0.25rem 0 0.25rem 1.5rem;
+    border-left: 2px solid var(--line-2);
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(1.2rem, 2vw, 1.5rem); line-height: 1.35;
+    color: var(--fg); max-width: 52ch;
   }
 
-  .prose :global(h2) {
-    color: #222;
-    font-size: 17px;
-    font-weight: 600;
-    margin-top: 2em;
-    margin-bottom: 0.75em;
+  .prose-body :global(pre) {
+    background: var(--bg-1); border: 1px solid var(--line);
+    padding: 1.25rem 1.5rem; overflow-x: auto;
+    font-family: var(--mono); font-size: 13px; line-height: 1.6;
+    color: var(--fg); margin: 1.5rem 0; max-width: 100%;
+  }
+  .prose-body :global(code) {
+    font-family: var(--mono); font-size: 0.88em;
+    background: var(--bg-1); border: 1px solid var(--line);
+    padding: 0.08em 0.38em; color: var(--fg);
+  }
+  .prose-body :global(pre code) {
+    background: none; border: none; padding: 0; font-size: inherit;
   }
 
-  .prose :global(h3) {
-    color: #222;
-    font-size: 15px;
-    font-weight: 600;
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-  }
+  .prose-body :global(img) { max-width: 100%; height: auto; margin: 1.5rem 0; border: 1px solid var(--line); }
+  .prose-body :global(hr) { border: none; border-top: 1px solid var(--line); margin: 2rem 0; }
 
-  .prose :global(p) {
-    margin-bottom: 1.25em;
-  }
-
-  .prose :global(a) {
-    color: #111;
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .prose :global(a:hover) {
-    color: #000;
-  }
-
-  .prose :global(code) {
-    background: #f0f0f0;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 13px;
-  }
-
-  .prose :global(pre) {
-    background: #1a1a1a;
-    color: #e5e5e5;
-    padding: 1em 1.25em;
-    border-radius: 8px;
-    overflow-x: auto;
-    margin: 1.5em 0;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-
-  .prose :global(pre code) {
-    background: none;
-    padding: 0;
-    border-radius: 0;
-    color: inherit;
-  }
-
-  .prose :global(blockquote) {
-    border-left: 3px solid #ddd;
-    padding-left: 1em;
-    color: #777;
-    margin: 1.5em 0;
-  }
-
-  .prose :global(ul),
-  .prose :global(ol) {
-    padding-left: 1.5em;
-    margin-bottom: 1.25em;
-  }
-
-  .prose :global(li) {
-    margin-bottom: 0.35em;
-  }
-
-  .prose :global(img) {
-    border-radius: 8px;
-    margin: 1.5em 0;
-    max-width: 100%;
-    height: auto;
-  }
-
-  .prose :global(hr) {
-    border: none;
-    border-top: 1px solid #eee;
-    margin: 2em 0;
-  }
-
-  .prose :global(table) {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5em 0;
-    font-size: 14px;
-  }
-
-  .prose :global(th) {
-    text-align: left;
-    padding: 8px 12px;
-    border-bottom: 2px solid #ddd;
-    color: #222;
-    font-weight: 600;
-  }
-
-  .prose :global(td) {
-    padding: 8px 12px;
-    border-bottom: 1px solid #eee;
-  }
+  .prose-body :global(table) { width: 100%; border-collapse: collapse; margin: 1.5em 0; font-size: 14px; }
+  .prose-body :global(th) { text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--line-2); color: var(--fg); font-weight: 600; }
+  .prose-body :global(td) { padding: 8px 12px; border-bottom: 1px solid var(--line); }
 </style>
+
+<script>
+  const progress = document.getElementById('progress');
+  if (progress) {
+    window.addEventListener('scroll', () => {
+      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      progress.style.width = pct + '%';
+    });
+  }
+
+  // TOC active state
+  const tocLinks = document.querySelectorAll('.toc a');
+  if (tocLinks.length) {
+    const targets = Array.from(tocLinks).map(a => {
+      const href = a.getAttribute('href');
+      return href ? document.getElementById(href.slice(1)) : null;
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+        }
+      });
+    }, { rootMargin: '-20% 0px -70% 0px' });
+    targets.forEach(t => t && io.observe(t));
+  }
+</script>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" width="900" height="500">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="500" fill="url(#bg2)" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="45" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="700">AI Coding in 2026 — By the Numbers</text>
+
+  <!-- Row 1 -->
+  <!-- Adoption vs Trust bars -->
+  <g transform="translate(40, 75)">
+    <text x="0" y="18" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="1">ADOPTION vs TRUST</text>
+
+    <!-- Adoption bar -->
+    <text x="0" y="52" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="13">Adoption</text>
+    <rect x="80" y="38" width="680" height="24" rx="4" fill="#1e3a5f" opacity="0.5"/>
+    <rect x="80" y="38" width="571" height="24" rx="4" fill="#3b82f6"/>
+    <text x="660" y="55" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="13" font-weight="700">84%</text>
+
+    <!-- Trust bar -->
+    <text x="0" y="86" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="13">Trust</text>
+    <rect x="80" y="72" width="680" height="24" rx="4" fill="#3d2e0a" opacity="0.5"/>
+    <rect x="80" y="72" width="197" height="24" rx="4" fill="#f59e0b"/>
+    <text x="286" y="89" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="13" font-weight="700">29%</text>
+
+    <!-- Trust 2024 ghost bar -->
+    <text x="0" y="120" fill="#64748b" font-family="system-ui, sans-serif" font-size="12">2024 Trust</text>
+    <rect x="80" y="106" width="680" height="20" rx="4" fill="#1e293b" opacity="0.5"/>
+    <rect x="80" y="106" width="272" height="20" rx="4" fill="#78716c" opacity="0.4"/>
+    <text x="360" y="121" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="12">40% (was higher)</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="40" y1="215" x2="860" y2="215" stroke="#334155" stroke-width="1"/>
+
+  <!-- Row 2: CodeRabbit stats -->
+  <g transform="translate(40, 235)">
+    <text x="0" y="18" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="1">AI vs HUMAN CODE QUALITY (CodeRabbit, 470 PRs)</text>
+
+    <!-- Stat cards -->
+    <g transform="translate(0, 35)">
+      <rect x="0" y="0" width="155" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="78" y="35" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="28" font-weight="800">1.7x</text>
+      <text x="78" y="58" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">more issues overall</text>
+    </g>
+
+    <g transform="translate(175, 35)">
+      <rect x="0" y="0" width="155" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="78" y="35" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="28" font-weight="800">2.74x</text>
+      <text x="78" y="58" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">more XSS vulns</text>
+    </g>
+
+    <g transform="translate(350, 35)">
+      <rect x="0" y="0" width="155" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="78" y="35" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="28" font-weight="800">~8x</text>
+      <text x="78" y="58" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">excess I/O operations</text>
+    </g>
+
+    <g transform="translate(525, 35)">
+      <rect x="0" y="0" width="155" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="78" y="35" text-anchor="middle" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="28" font-weight="800">+20%</text>
+      <text x="78" y="58" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">PRs per developer</text>
+    </g>
+
+    <g transform="translate(700, 35)">
+      <rect x="0" y="0" width="155" height="80" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="78" y="35" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="28" font-weight="800">+23.5%</text>
+      <text x="78" y="58" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">incidents per PR</text>
+    </g>
+  </g>
+
+  <!-- Divider -->
+  <line x1="40" y1="375" x2="860" y2="375" stroke="#334155" stroke-width="1"/>
+
+  <!-- Row 3: METR + Vibe coding -->
+  <g transform="translate(40, 395)">
+    <text x="0" y="18" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="1">THE PERCEPTION GAP (METR, 246 tasks)</text>
+
+    <g transform="translate(0, 35)">
+      <rect x="0" y="0" width="200" height="55" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="100" y="25" text-anchor="middle" fill="#ef4444" font-family="system-ui, sans-serif" font-size="20" font-weight="800">19% slower</text>
+      <text x="100" y="44" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">actual measured speed</text>
+    </g>
+
+    <g transform="translate(220, 35)">
+      <rect x="0" y="0" width="200" height="55" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="100" y="25" text-anchor="middle" fill="#3b82f6" font-family="system-ui, sans-serif" font-size="20" font-weight="800">20% faster</text>
+      <text x="100" y="44" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">what devs believed</text>
+    </g>
+
+    <g transform="translate(460, 35)">
+      <rect x="0" y="0" width="200" height="55" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="100" y="25" text-anchor="middle" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="20" font-weight="800">40%</text>
+      <text x="100" y="44" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">juniors ship code they don't understand</text>
+    </g>
+
+    <g transform="translate(680, 35)">
+      <rect x="0" y="0" width="175" height="55" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="88" y="25" text-anchor="middle" fill="#a78bfa" font-family="system-ui, sans-serif" font-size="20" font-weight="800">$12.8B</text>
+      <text x="88" y="44" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">market size 2026</text>
+    </g>
+  </g>
+
+  <!-- Source -->
+  <text x="450" y="488" text-anchor="middle" fill="#475569" font-family="system-ui, sans-serif" font-size="10">Sources: Stack Overflow 2025, CodeRabbit 2026, METR 2025, Stackademic 2026</text>
+</svg>
