@@ -68,6 +68,7 @@ const caseStudies = [
 const projects = [
   {
     name: "MRRTracker",
+    icon: "/mrrtracker-icon.png",
     badge: "#4 on Product Hunt",
     desc: "macOS menubar app that tracks Monthly Recurring Revenue in real time across Stripe, Paddle, and Lemon Squeezy. Built solo, launched to #4 of the day.",
     stack: ["Swift", "macOS", "SaaS"],
@@ -75,6 +76,7 @@ const projects = [
   },
   {
     name: "MailFleet",
+    icon: "/mailfleet-icon.png",
     badge: "Open source",
     desc: "Desktop email campaign manager built with Tauri, React, and Rust. Sends through AWS SES with real-time tracking, contact dedup, and GDPR-compliant unsubscribe flows.",
     stack: ["Rust", "Tauri", "React", "AWS SES"],
@@ -201,6 +203,7 @@ const repos = [
         {projects.map((pr) => (
           <a class="proj" href={pr.link} target="_blank" rel="noopener noreferrer">
             <div class="proj-head">
+              <img src={pr.icon} alt="" width="32" height="32" class="proj-icon" loading="lazy" />
               <h3>{pr.name}</h3>
               <div class="proj-badge">{pr.badge}</div>
             </div>
