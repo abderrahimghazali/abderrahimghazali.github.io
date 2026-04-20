@@ -6,39 +6,14 @@ const isBlog = pathname.startsWith('/blog');
 <header class="topbar">
   <div class="container">
     <div class="topbar-inner">
-      <a href="/" class="brand">
-        <span class="brand-dot"></span>
-        <span>A. Ghazali</span>
-        <span style="color: var(--fg-3)">/ eng.</span>
-      </a>
-      <nav class="nav-center" aria-label="Main navigation">
+      <a href="/" class="brand">A. Ghazali</a>
+      <nav class="nav-links" aria-label="Main navigation">
         <a href="/#work">Work</a>
         <a href="/#projects">Projects</a>
-        <a href="/#expertise">Expertise</a>
         <a href="/#stack">Stack</a>
         <a href="/blog/" aria-current={isBlog ? "page" : undefined}>Blog</a>
         <a href="/#contact">Contact</a>
       </nav>
-      <div class="top-right">
-        <span class="clock" id="clock">--:--:--</span>
-        <span style="color: var(--fg-3)">CET</span>
-        <span class="avail"><span class="avail-dot"></span>Available</span>
-      </div>
     </div>
   </div>
 </header>
-
-<script>
-  function updateClock() {
-    const el = document.getElementById('clock');
-    if (!el) return;
-    try {
-      el.textContent = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Europe/Paris',
-        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
-      }).format(new Date());
-    } catch { el.textContent = '--:--:--'; }
-  }
-  updateClock();
-  setInterval(updateClock, 1000);
-</script>

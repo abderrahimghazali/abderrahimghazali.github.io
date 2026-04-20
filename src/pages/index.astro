@@ -4,7 +4,6 @@ import Nav from '../components/Nav.astro';
 
 const caseStudies = [
   {
-    num: "01",
     title: "Agent orchestration for a healthcare operations platform",
     kicker: "Healthcare",
     year: "2025",
@@ -13,8 +12,6 @@ const caseStudies = [
     stats: [
       { v: "82%", l: "Manual steps removed" },
       { v: "4.2s", l: "Avg document turnaround" },
-      { v: "120", l: "Ops headcount supported" },
-      { v: "99.4%", l: "Extraction accuracy" }
     ],
     body: [
       "Led the architecture end-to-end: agent graph design, tool contracts, retrieval layer, audit trails. Replaced a spreadsheet-driven review queue with a deterministic state machine that agents operate inside of.",
@@ -22,7 +19,6 @@ const caseStudies = [
     ]
   },
   {
-    num: "02",
     title: "Drupal migration & performance overhaul for a national publisher",
     kicker: "Publishing",
     year: "2024",
@@ -31,8 +27,6 @@ const caseStudies = [
     stats: [
       { v: "500K+", l: "Monthly active readers" },
       { v: "<400ms", l: "P95 page render" },
-      { v: "12yr", l: "Archive migrated" },
-      { v: "0", l: "Editorial downtime" }
     ],
     body: [
       "Wrote custom migration plugins to normalize 14 content types across three source databases. Editorial could keep publishing in the legacy system until cutover; diffs were reconciled continuously.",
@@ -40,17 +34,14 @@ const caseStudies = [
     ]
   },
   {
-    num: "03",
     title: "Workflow automation for a government digital service",
     kicker: "Public sector",
     year: "2024",
-    desc: "Designed and shipped a set of n8n-backed workflows that eliminated ~80% of the manual back-office work for a citizen-facing service, with a paper trail that holds up to audit.",
+    desc: "Designed and shipped n8n-backed workflows that eliminated roughly 80% of manual back-office work for a citizen-facing service, with audit-ready paper trails.",
     stack: ["n8n", "Node.js", "Symfony", "Postgres", "Docker"],
     stats: [
-      { v: "80%+", l: "Manual work removed" },
       { v: "14", l: "Integrated systems" },
       { v: "2.1M", l: "Records processed / yr" },
-      { v: "SOC-2", l: "Audit-ready trail" }
     ],
     body: [
       "The brief looked simple — \"automate the forms handling\" — and turned into a full integration project: legacy SOAP endpoints, a GDS design-system front end, and a review board that needed human checkpoints at specific stages.",
@@ -58,17 +49,14 @@ const caseStudies = [
     ]
   },
   {
-    num: "04",
     title: "Semantic search & RAG for an e-commerce knowledge base",
     kicker: "E-commerce",
     year: "2023",
     desc: "Replaced a keyword search that was failing support agents with a hybrid semantic + lexical retriever, grounded in a product catalogue of ~40K SKUs and years of ticket history.",
     stack: ["OpenAI", "pgvector", "Python", "FastAPI", "Next.js"],
     stats: [
-      { v: "3.8×", l: "Agent-reported accuracy" },
       { v: "40K", l: "SKUs indexed" },
       { v: "220ms", l: "Median query latency" },
-      { v: "6wks", l: "Design → prod" }
     ],
     body: [
       "Started with evals: built a labelled set from real tickets before writing a line of retrieval code. That dataset is what told us when the hybrid scoring was actually winning and when it was just drifting.",
@@ -80,70 +68,25 @@ const caseStudies = [
 const projects = [
   {
     name: "MRRTracker",
-    iconFallback: "M",
     badge: "#4 on Product Hunt",
     desc: "macOS menubar app that tracks Monthly Recurring Revenue in real time across Stripe, Paddle, and Lemon Squeezy. Built solo, launched to #4 of the day.",
     stack: ["Swift", "macOS", "SaaS"],
     link: "https://www.producthunt.com/products/mrrtracker",
-    linkLabel: "View on Product Hunt"
   },
   {
     name: "MailFleet",
-    iconFallback: "F",
     badge: "Open source",
     desc: "Desktop email campaign manager built with Tauri, React, and Rust. Sends through AWS SES with real-time tracking, contact dedup, and GDPR-compliant unsubscribe flows.",
     stack: ["Rust", "Tauri", "React", "AWS SES"],
     link: "https://mailfleet.vercel.app/",
-    linkLabel: "View the app"
-  }
-];
-
-const expertise = [
-  {
-    num: "01 / 03",
-    title: "AI & Automation Engineering",
-    desc: "Architecting autonomous agent systems, RAG pipelines, and semantic search. Custom n8n workflows for end-to-end process automation. Typically ship 80%+ manual workflow reduction into production.",
-    tags: ["LangChain", "LLM orchestration", "n8n", "RAG", "Evals"]
-  },
-  {
-    num: "02 / 03",
-    title: "Drupal Architecture",
-    desc: "Deep expertise since 2014. Custom module development, complex migration strategies, performance tuning at scale. Platforms handling 500K+ monthly users with sub-second response times.",
-    tags: ["Drupal 6 → 11", "Migrate API", "Custom modules", "Caching", "Scale"]
-  },
-  {
-    num: "03 / 03",
-    title: "Full-Stack & DevOps",
-    desc: "End-to-end ownership across React, Next.js, Node.js, Symfony, and Laravel. Infrastructure design with Docker, CI/CD, and cloud deployment. I ship the full lifecycle, from architecture through monitoring.",
-    tags: ["React / Next", "Symfony / Laravel", "Docker", "CI/CD", "AWS"]
   }
 ];
 
 const stack = [
-  { cat: "AI / Agents", items: [
-    { name: "LangChain", highlight: true }, { name: "OpenAI", highlight: false }, { name: "Anthropic", highlight: false }, { name: "pgvector", highlight: false },
-    { name: "LlamaIndex", highlight: false }, { name: "n8n", highlight: true }, { name: "Ollama", highlight: false }, { name: "LangGraph", highlight: false }
-  ]},
-  { cat: "Languages", items: [
-    { name: "PHP", highlight: true }, { name: "TypeScript", highlight: false }, { name: "Python", highlight: false }, { name: "Rust", highlight: false },
-    { name: "Swift", highlight: false }, { name: "Go", highlight: false }, { name: "SQL", highlight: false }, { name: "Bash", highlight: false }
-  ]},
-  { cat: "Frameworks", items: [
-    { name: "Drupal", highlight: true }, { name: "Symfony", highlight: false }, { name: "Laravel", highlight: false }, { name: "Next.js", highlight: false },
-    { name: "React", highlight: false }, { name: "Node.js", highlight: false }, { name: "Tauri", highlight: false }, { name: "FastAPI", highlight: false }
-  ]},
-  { cat: "Platform", items: [
-    { name: "Docker", highlight: false }, { name: "AWS", highlight: false }, { name: "Postgres", highlight: false }, { name: "Redis", highlight: false },
-    { name: "Varnish", highlight: false }, { name: "Elasticsearch", highlight: false }, { name: "Terraform", highlight: false }, { name: "GitHub Actions", highlight: false }
-  ]}
-];
-
-const writing = [
-  { date: "2026.03.18", title: "The evals-first loop: how I stop agents from regressing silently", topic: "AI Engineering", read: "8 min read", slug: "/blog/the-evals-first-loop/" },
-  { date: "2026.02.04", title: "Drupal migrations, 12 years in: the rules I wish I had at the start", topic: "Drupal", read: "11 min read", slug: "/blog/drupal-migrations-12-years-in/" },
-  { date: "2025.12.12", title: "n8n for engineers: when a workflow graph beats a cron job", topic: "Automation", read: "6 min read", slug: "/blog/n8n-for-engineers/" },
-  { date: "2025.11.02", title: "Shipping a menubar SaaS alone: lessons from MRRTracker's launch", topic: "SaaS / macOS", read: "9 min read", slug: "/blog/shipping-a-menubar-saas-alone/" },
-  { date: "2025.09.21", title: "A pragmatic RAG stack for teams that already have a database", topic: "AI Engineering", read: "10 min read", slug: "/blog/a-pragmatic-rag-stack/" }
+  { cat: "AI / Agents", items: ["LangChain", "LangGraph", "OpenAI", "Anthropic", "pgvector", "LlamaIndex", "Ollama", "n8n"] },
+  { cat: "Languages", items: ["PHP", "TypeScript", "Python", "Rust", "Swift", "Go", "SQL", "Bash"] },
+  { cat: "Frameworks", items: ["Drupal", "Symfony", "Laravel", "React", "Next.js", "Node.js", "FastAPI", "Tauri"] },
+  { cat: "Infra", items: ["Docker", "AWS", "Postgres", "Redis", "Varnish", "Elasticsearch", "Terraform", "GitHub Actions"] },
 ];
 
 const repos = [
@@ -152,40 +95,12 @@ const repos = [
   { org: "abderrahimghazali", name: "n8n-eval-nodes", desc: "Custom n8n nodes for running LLM evals inline with your automation graph.", lang: "TypeScript" },
   { org: "abderrahimghazali", name: "pgvector-recipes", desc: "Pragmatic pgvector patterns for production RAG — schema, indexes, hybrid scoring.", lang: "SQL" }
 ];
-
-// Generate contribution grid deterministically
-function genContribs() {
-  const cells: number[] = [];
-  const seed = (i: number) => Math.sin(i * 127.1 + 0.5) * 43758.5453;
-  for (let w = 0; w < 52; w++) {
-    for (let d = 0; d < 7; d++) {
-      const r = Math.abs(seed(w * 7 + d)) % 1;
-      let lvl = 0;
-      if (r > 0.55) lvl = 1;
-      if (r > 0.72) lvl = 2;
-      if (r > 0.86) lvl = 3;
-      if (r > 0.94) lvl = 4;
-      if (d === 6 || d === 0) lvl = Math.max(0, lvl - 1);
-      cells.push(lvl);
-    }
-  }
-  // Column-major arrangement
-  const grid: number[] = [];
-  for (let d = 0; d < 7; d++) {
-    for (let w = 0; w < 52; w++) {
-      grid.push(cells[w * 7 + d]);
-    }
-  }
-  return grid;
-}
-
-const contribGrid = genContribs();
 ---
 
 <Layout
-  title="Abderrahim Ghazali — Senior Software Engineer"
-  description="Software engineer with 11+ years of experience. AI agent development, RAG pipelines, semantic search, n8n workflow automation, and enterprise Drupal architecture."
-  keywords="AI agent development, RAG pipelines, semantic search, n8n automation, Drupal expert, LangChain developer, workflow automation, full-stack developer"
+  title="Abderrahim Ghazali — Software Engineer"
+  description="Software engineer since 2014. AI agent systems, workflow automation, Drupal architecture, and full-stack development."
+  keywords="AI agent development, RAG pipelines, n8n automation, Drupal expert, full-stack developer"
   url="https://abderrahimghazali.github.io/"
 >
   <Nav />
@@ -193,118 +108,81 @@ const contribGrid = genContribs();
   <!-- Hero -->
   <section class="hero">
     <div class="container">
-      <div class="hero-meta reveal-on-scroll">
-        <div class="meta-cell">
-          <span class="label">Role</span>
-          <span class="val">Senior Software Engineer</span>
-        </div>
-        <div class="meta-cell">
-          <span class="label">Focus</span>
-          <span class="val">Automation · AI · Drupal</span>
-        </div>
-        <div class="meta-cell">
-          <span class="label">Based in</span>
-          <span class="val">Paris, FR</span>
-        </div>
-        <div class="meta-cell">
-          <span class="label">Status</span>
-          <span class="val">Open to contracts</span>
-        </div>
-      </div>
-
       <div class="hero-main reveal-on-scroll">
         <div class="hero-left">
+          <p class="hero-name">Abderrahim Ghazali</p>
           <h1 class="hero-title">
-            <span class="line"><span class="reveal d1">Senior engineer</span></span>
-            <span class="line"><span class="reveal d2">building <em>reliable</em></span></span>
-            <span class="line"><span class="reveal d3">production systems.</span></span>
+            Software engineer since 2014. I build automation systems,
+            AI tooling, and web platforms — mostly for teams
+            where things breaking at 2am is not an option.
           </h1>
 
-          <p class="hero-lede">
-            I design and ship automation systems, AI-driven tooling, and
-            enterprise web platforms. <em>Eleven years</em> delivering
-            software across healthcare, publishing, government, and
-            e-commerce — where reliability, performance, and long-term
-            maintainability aren't negotiable.
+          <p class="hero-sub">
+            Based in Paris. Open to consulting and contract work.
           </p>
         </div>
 
         <div class="hero-side">
           <div class="hero-portrait">
             <img src="/me.jpeg" alt="Abderrahim Ghazali" width="400" height="500" loading="eager" />
-            <span class="tag">A.G. / 2026</span>
-            <span class="tag br">Available</span>
           </div>
         </div>
       </div>
 
       <div class="cta-row reveal-on-scroll">
         <a class="btn primary" href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer">
-          Book a 15-min call <span class="arrow">→</span>
+          Book a call <span class="arrow">→</span>
         </a>
         <a class="btn" href="mailto:ghazali.abderrahim1@gmail.com">
           Email <span class="arrow">→</span>
         </a>
         <a class="btn" href="#work">
-          See selected work <span class="arrow">↓</span>
+          See work <span class="arrow">↓</span>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Case Studies -->
+  <!-- Work -->
   <section id="work">
     <div class="container">
       <div class="section-head reveal-on-scroll">
         <div>
-          <div class="index"><svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="7" rx="2" ry="2"/></svg> 01 / Selected work</div>
-          <h2>Case studies,<br/><em>in their own words.</em></h2>
+          <h2>Selected work</h2>
         </div>
-        <p class="sub">Four recent engagements across healthcare, publishing, public sector, and e-commerce. Click a row to open the detail — numbers, stack, and the approach that made it ship.</p>
+        <p class="sub">Recent engagements. Click a row to expand.</p>
       </div>
 
       <div class="work-list reveal-on-scroll">
-        {caseStudies.map((cs, i) => {
-          const titleWords = cs.title.split(" ");
-          const part1 = titleWords.slice(0, 4).join(" ");
-          const part2 = titleWords.slice(4, 7).join(" ");
-          const part3 = titleWords.slice(7).join(" ");
-          return (
-            <div class="case" data-case={i}>
-              <div class="num">{cs.num}</div>
-              <div>
-                <div class="title">{part1} <em>{part2}</em> {part3}</div>
-                <div class="tags" style="margin-top: 0.75rem">
-                  <span class="tag">{cs.kicker}</span>
-                </div>
-              </div>
-              <div class="desc">{cs.desc}</div>
-              <div class="year">{cs.year}</div>
-              <div class="toggle"><span>+</span></div>
+        {caseStudies.map((cs, i) => (
+          <div class="case" data-case={i}>
+            <div class="case-top">
+              <span class="case-kicker">{cs.kicker} · {cs.year}</span>
+              <span class="toggle"><span>+</span></span>
+            </div>
+            <div class="case-title">{cs.title}</div>
+            <div class="case-desc">{cs.desc}</div>
 
-              <div class="case-detail">
-                <div class="case-detail-inner">
-                  <div></div>
-                  <div class="case-detail-stats">
-                    {cs.stats.map((s) => (
-                      <div class="stat">
-                        <div class="v">{s.v}</div>
-                        <div class="l">{s.l}</div>
-                      </div>
-                    ))}
-                  </div>
-                  <div class="case-detail-body">
-                    {cs.body.map((para) => <p>{para}</p>)}
-                    <div class="tags">
-                      {cs.stack.map(s => <span class="tag">{s}</span>)}
+            <div class="case-detail">
+              <div class="case-detail-inner">
+                <div class="case-detail-stats">
+                  {cs.stats.map((s) => (
+                    <div class="stat">
+                      <div class="v">{s.v}</div>
+                      <div class="l">{s.l}</div>
                     </div>
+                  ))}
+                </div>
+                <div class="case-detail-body">
+                  {cs.body.map((para) => <p>{para}</p>)}
+                  <div class="tags">
+                    {cs.stack.map(s => <span class="tag">{s}</span>)}
                   </div>
-                  <div></div>
                 </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -314,54 +192,26 @@ const contribGrid = genContribs();
     <div class="container">
       <div class="section-head reveal-on-scroll">
         <div>
-          <div class="index"><svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg> 02 / Products</div>
-          <h2>Things I've <em>shipped</em><br/>on my own time.</h2>
+          <h2>Side projects</h2>
         </div>
-        <p class="sub">Side projects that turned into products. Built solo, end-to-end — design, code, infra, launch.</p>
+        <p class="sub">Things I built on my own time that turned into products.</p>
       </div>
 
       <div class="projects reveal-on-scroll">
         {projects.map((pr) => (
           <a class="proj" href={pr.link} target="_blank" rel="noopener noreferrer">
             <div class="proj-head">
-              <div class="proj-icon">{pr.iconFallback}</div>
+              <h3>{pr.name}</h3>
               <div class="proj-badge">{pr.badge}</div>
             </div>
-            <h3>{pr.name}</h3>
             <p>{pr.desc}</p>
             <div class="proj-foot">
-              <div class="proj-stack">
+              <div class="tags">
                 {pr.stack.map(s => <span class="tag">{s}</span>)}
               </div>
-              <div class="proj-link">{pr.linkLabel} →</div>
+              <span class="proj-link">View →</span>
             </div>
           </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Expertise -->
-  <section id="expertise">
-    <div class="container">
-      <div class="section-head reveal-on-scroll">
-        <div>
-          <div class="index"><svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> 03 / Expertise</div>
-          <h2>Three lanes,<br/><em>deeply staffed.</em></h2>
-        </div>
-        <p class="sub">I don't stretch wide. I go deep in areas where the compounding returns are obvious — and I've spent years there.</p>
-      </div>
-
-      <div class="expertise reveal-on-scroll">
-        {expertise.map((e) => (
-          <div class="exp">
-            <div class="num">{e.num}</div>
-            <h3>{e.title}</h3>
-            <p>{e.desc}</p>
-            <ul>
-              {e.tags.map(t => <li>{t}</li>)}
-            </ul>
-          </div>
         ))}
       </div>
     </div>
@@ -372,53 +222,21 @@ const contribGrid = genContribs();
     <div class="container">
       <div class="section-head reveal-on-scroll">
         <div>
-          <div class="index"><svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22.6 10.08-10 4.54a2 2 0 0 1-1.66 0l-9.4-4.27"/><path d="m22.6 14.08-10 4.54a2 2 0 0 1-1.66 0l-9.4-4.27"/></svg> 04 / Stack</div>
-          <h2>Tools I reach for<br/><em>without thinking.</em></h2>
+          <h2>Stack</h2>
         </div>
-        <p class="sub">Not a wishlist — the shortlist. Highlights are the ones that show up in almost every engagement.</p>
+        <p class="sub">What I actually use. Not a wishlist.</p>
       </div>
 
-      {stack.map((group, gi) => (
-        <div
-          class="stack-wrap"
-          style={gi < stack.length - 1 ? "padding-bottom: 2rem; margin-bottom: 2rem; border-bottom: 1px dashed var(--line);" : ""}
-        >
-          <div class="stack-col">
+      <div class="stack-list reveal-on-scroll">
+        {stack.map((group) => (
+          <div class="stack-row">
             <h4>{group.cat}</h4>
-            <div class="mono" style={`color: var(--fg-3); font-size: 11px;`}>0{gi + 1} / 0{stack.length}</div>
+            <div class="stack-items">
+              {group.items.map((item) => (
+                <span class="stack-item">{item}</span>
+              ))}
+            </div>
           </div>
-          <div class="stack-grid">
-            {group.items.map((it) => (
-              <div class={`chip${it.highlight ? " highlight" : ""}`}>
-                <span class="name">{it.name}</span>
-                <span class="cat">{group.cat}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <!-- Writing -->
-  <section id="writing">
-    <div class="container">
-      <div class="section-head reveal-on-scroll">
-        <div>
-          <div class="index"><svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/></svg> 05 / Writing</div>
-          <h2>Field notes<br/>from <em>the work.</em></h2>
-        </div>
-        <p class="sub">Mostly essays on what actually held up in production. No hot takes; just what I wish I'd known earlier.</p>
-      </div>
-
-      <div class="writing reveal-on-scroll">
-        {writing.map((w) => (
-          <a href={w.slug} class="post">
-            <div class="date">{w.date}</div>
-            <div class="post-title">{w.title}</div>
-            <div class="topic">{w.topic}</div>
-            <div class="read">{w.read} →</div>
-          </a>
         ))}
       </div>
     </div>
@@ -429,52 +247,28 @@ const contribGrid = genContribs();
     <div class="container">
       <div class="section-head reveal-on-scroll">
         <div>
-          <div class="index"><svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg> 06 / Open source</div>
-          <h2>Commits, in public.</h2>
+          <h2>Open source</h2>
         </div>
-        <p class="sub">Small, opinionated tools. Contributing to Drupal.org since 2014 — plus a handful of repos that keep earning their keep.</p>
+        <p class="sub">Contrib modules, plugins, and tools across a few ecosystems.</p>
       </div>
 
-      <div class="oss reveal-on-scroll">
-        <div>
-          <div class="mono" style="margin-bottom: 1rem;">
-            Activity pattern · 52 weeks
-          </div>
-          <div class="contrib-grid">
-            {contribGrid.map((lvl) => (
-              <div class={`cell${lvl > 0 ? ` l${lvl}` : ""}`}></div>
-            ))}
-          </div>
-          <div style="display: flex; justify-content: space-between; margin-top: 0.75rem;">
-            <span class="mono">Less</span>
-            <div style="display: flex; gap: 3px;">
-              {[0,1,2,3,4].map(l => (
-                <div class={`cell${l > 0 ? ` l${l}` : ""}`} style="width: 12px; height: 12px;"></div>
-              ))}
+      <div class="repo-list reveal-on-scroll">
+        {repos.map((r) => (
+          <div class="repo">
+            <div>
+              <div class="repo-name"><span class="slash">{r.org} /</span> {r.name}</div>
+              <div class="repo-desc">{r.desc}</div>
             </div>
-            <span class="mono">More</span>
+            <div class="repo-lang">
+              <span class="lang-dot"></span>
+              {r.lang}
+            </div>
           </div>
-        </div>
-
-        <div>
-          <div class="mono" style="margin-bottom: 0.5rem;">Active repositories</div>
-          <div class="repo-list">
-            {repos.map((r) => (
-              <div class="repo">
-                <div>
-                  <div class="repo-name"><span class="slash">{r.org} /</span> {r.name}</div>
-                  <div class="repo-desc">{r.desc}</div>
-                </div>
-                <div class="repo-stars">
-                  <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block;"></span>
-                  {r.lang}
-                </div>
-              </div>
-            ))}
-          </div>
-          <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="btn" style="margin-top: 1.25rem;">
-            View on GitHub <span class="arrow">→</span>
-          </a>
+        ))}
+        <div class="oss-links">
+          <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="btn">GitHub <span class="arrow">→</span></a>
+          <a href="https://addons.sylius.com/en_US/vendors/abderrahim-ghazali" target="_blank" rel="noopener noreferrer" class="btn">Sylius Store <span class="arrow">→</span></a>
+          <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="btn">Drupal.org <span class="arrow">→</span></a>
         </div>
       </div>
     </div>
@@ -485,45 +279,36 @@ const contribGrid = genContribs();
     <div class="container">
       <div class="section-head reveal-on-scroll">
         <div>
-          <div class="index"><svg class="section-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> 07 / Contact</div>
-          <h2>Let's talk.</h2>
+          <h2>Get in touch</h2>
         </div>
-        <p class="sub">Available for consulting, contract work, and technical partnerships. I reply to most emails within a day.</p>
+        <p class="sub">I reply to most emails within a day.</p>
       </div>
 
-      <div class="contact-wrap reveal-on-scroll">
-        <div class="contact-headline">
-          <em>Have</em> a system<br/>
-          that needs <em>shipping</em>?<br/>
-          <span style="color: var(--fg-3)">Send the brief.</span>
-        </div>
-        <div class="contact-side">
-          <div class="contact-row">
-            <span class="lbl">Book a call</span>
-            <a href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer">cal.com/abderrahimghazali <span class="arr">↗</span></a>
-          </div>
-          <div class="contact-row">
-            <span class="lbl">Email</span>
-            <a href="mailto:ghazali.abderrahim1@gmail.com">ghazali.abderrahim1@gmail.com <span class="arr">↗</span></a>
-          </div>
-          <div class="contact-row">
-            <span class="lbl">GitHub</span>
-            <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer">github.com/abderrahimghazali <span class="arr">↗</span></a>
-          </div>
-          <div class="contact-row">
-            <span class="lbl">LinkedIn</span>
-            <a href="https://www.linkedin.com/in/abderrahimghazali/" target="_blank" rel="noopener noreferrer">linkedin.com/in/abderrahimghazali <span class="arr">↗</span></a>
-          </div>
-          <div class="contact-row">
-            <span class="lbl">Drupal.org</span>
-            <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer">drupal.org/u/gabderrahim <span class="arr">↗</span></a>
-          </div>
-        </div>
+      <div class="contact-links reveal-on-scroll">
+        <a href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer" class="contact-row">
+          <span class="lbl">Book a call</span>
+          <span>cal.com/abderrahimghazali <span class="arr">↗</span></span>
+        </a>
+        <a href="mailto:ghazali.abderrahim1@gmail.com" class="contact-row">
+          <span class="lbl">Email</span>
+          <span>ghazali.abderrahim1@gmail.com <span class="arr">↗</span></span>
+        </a>
+        <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="contact-row">
+          <span class="lbl">GitHub</span>
+          <span>github.com/abderrahimghazali <span class="arr">↗</span></span>
+        </a>
+        <a href="https://www.linkedin.com/in/abderrahimghazali/" target="_blank" rel="noopener noreferrer" class="contact-row">
+          <span class="lbl">LinkedIn</span>
+          <span>linkedin.com/in/abderrahimghazali <span class="arr">↗</span></span>
+        </a>
+        <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="contact-row">
+          <span class="lbl">Drupal.org</span>
+          <span>drupal.org/u/gabderrahim <span class="arr">↗</span></span>
+        </a>
       </div>
 
       <footer>
-        <span>© 2026 Abderrahim Ghazali · All rights reserved</span>
-        <span>Built with care · Last updated Apr 2026</span>
+        <span>© 2026 Abderrahim Ghazali</span>
       </footer>
     </div>
   </section>

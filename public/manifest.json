@@ -4,8 +4,8 @@
   "description": "Software engineer specializing in AI automation, RAG systems, Drupal architecture, and full-stack development.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#fafafa",
-  "theme_color": "#fafafa",
+  "background_color": "#F4F2EC",
+  "theme_color": "#F4F2EC",
   "lang": "en",
   "icons": [
     {

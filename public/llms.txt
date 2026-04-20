@@ -1,24 +1,29 @@
 # Abderrahim GHAZALI
 
-> Software engineer with 11+ years of experience. Specializes in AI agent development, RAG pipelines, n8n workflow automation, and enterprise Drupal architecture. Open to consulting and contract work.
+> Software engineer since 2014. Builds automation systems, AI tooling, and web platforms. Based in Paris. Open to consulting and contract work.
 
 ## Pages
 
-- [Home](https://abderrahimghazali.github.io/): Overview of expertise and contact
-- [About](https://abderrahimghazali.github.io/about/): Background, technical depth, and approach
+- [Home](https://abderrahimghazali.github.io/): Portfolio — selected work, side projects, stack, open source
+- [About](https://abderrahimghazali.github.io/about/): Background, approach, and stack
 - [Blog](https://abderrahimghazali.github.io/blog/): Articles on AI, automation, Drupal, and software engineering
 
 ## Blog Posts
 
-- [Claude Mythos: The AI Model Too Dangerous to Release](https://abderrahimghazali.github.io/blog/claude-mythos-the-ai-model-too-dangerous-to-release/): Anthropic built its most capable model ever — then decided not to release it publicly. What Mythos can do, why it matters, and what Project Glasswing means for cybersecurity.
-- [We All Use AI to Code Now. Almost Nobody Trusts It.](https://abderrahimghazali.github.io/blog/we-all-use-ai-to-code-now-almost-nobody-trusts-it/): 84% of developers use AI coding tools daily. Only 29% trust the output. What that gap means for the code we ship, the bugs we inherit, and the skills we're quietly losing.
+- [The evals-first loop: how I stop agents from regressing silently](https://abderrahimghazali.github.io/blog/the-evals-first-loop/): A practical loop for catching agent regressions before they reach production — build the eval set first, then iterate.
+- [Drupal migrations, 12 years in: the rules I wish I had at the start](https://abderrahimghazali.github.io/blog/drupal-migrations-12-years-in/): Hard-won rules for migrating content into Drupal, from someone who's been doing it since 2014.
+- [n8n for engineers: when a workflow graph beats a cron job](https://abderrahimghazali.github.io/blog/n8n-for-engineers/): When n8n makes sense, when it doesn't, and how to use it without hating it.
+- [Shipping a menubar SaaS alone: lessons from MRRTracker's launch](https://abderrahimghazali.github.io/blog/shipping-a-menubar-saas-alone/): What I learned launching a macOS menubar app solo — the mistakes, the wins, and the parts nobody talks about.
+- [A pragmatic RAG stack for teams that already have a database](https://abderrahimghazali.github.io/blog/a-pragmatic-rag-stack/): You probably don't need a dedicated vector database. A practical RAG architecture using pgvector and what you already have.
+- [We All Use AI to Code Now. Almost Nobody Trusts It.](https://abderrahimghazali.github.io/blog/we-all-use-ai-to-code-now-almost-nobody-trusts-it/): 84% of developers use AI coding tools daily. Only 29% trust the output. What that gap means.
+- [Claude Mythos: The AI Model Too Dangerous to Release](https://abderrahimghazali.github.io/blog/claude-mythos-the-ai-model-too-dangerous-to-release/): Anthropic built its most capable model ever — then decided not to release it publicly.
 
-## Expertise
+## Stack
 
-- AI & Automation: autonomous agents, RAG pipelines, semantic search, LangChain, n8n
-- Drupal: custom module development, migrations, high-traffic platforms (500K+ monthly users)
-- Full-Stack: React, Next.js, Node.js, Symfony, Laravel
-- DevOps: Docker, CI/CD, cloud deployment
+- AI / Agents: LangChain, LangGraph, OpenAI, Anthropic, pgvector, LlamaIndex, Ollama, n8n
+- Languages: PHP, TypeScript, Python, Rust, Swift, Go, SQL, Bash
+- Frameworks: Drupal, Symfony, Laravel, React, Next.js, Node.js, FastAPI, Tauri
+- Infra: Docker, AWS, Postgres, Redis, Varnish, Elasticsearch, Terraform, GitHub Actions
 
 ## Contact
 
@@ -26,3 +31,4 @@
 - GitHub: https://github.com/abderrahimghazali
 - LinkedIn: https://www.linkedin.com/in/abderrahimghazali/
 - Drupal.org: https://www.drupal.org/u/gabderrahim
+- Book a call: https://cal.com/abderrahimghazali/15min
