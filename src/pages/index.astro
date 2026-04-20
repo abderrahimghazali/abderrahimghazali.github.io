@@ -126,7 +126,7 @@ const repos = [
 
         <div class="hero-side">
           <div class="hero-portrait">
-            <img src="/me.jpeg" alt="Abderrahim Ghazali" width="400" height="500" loading="eager" />
+            <img src="/me.jpeg" alt="Abderrahim Ghazali" width="400" height="500" loading="eager" fetchpriority="high" />
           </div>
         </div>
       </div>
@@ -233,7 +233,7 @@ const repos = [
       <div class="stack-list reveal-on-scroll">
         {stack.map((group) => (
           <div class="stack-row">
-            <h4>{group.cat}</h4>
+            <div class="stack-label">{group.cat}</div>
             <div class="stack-items">
               {group.items.map((item) => (
                 <span class="stack-item">{item}</span>
@@ -269,7 +269,7 @@ const repos = [
           </div>
         ))}
         <div class="oss-links">
-          <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/github.svg" alt="" width="16" height="16" class="btn-icon" /> GitHub <span class="arrow">→</span></a>
+          <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/github.svg" alt="" width="16" height="16" class="btn-icon icon-invert" /> GitHub <span class="arrow">→</span></a>
           <a href="https://addons.sylius.com/en_US/vendors/abderrahim-ghazali" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/sylius.png" alt="" width="16" height="16" class="btn-icon" /> Sylius Store <span class="arrow">→</span></a>
           <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/drupal.svg" alt="" width="16" height="16" class="btn-icon" /> Drupal.org <span class="arrow">→</span></a>
         </div>
