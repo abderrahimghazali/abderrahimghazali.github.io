@@ -7,60 +7,60 @@ const caseStudies = [
     title: "Agent orchestration for a healthcare operations platform",
     kicker: "Healthcare",
     year: "2025",
-    desc: "Built a multi-agent system that triages inbound clinical documents, extracts structured data, and routes cases through a review pipeline — replacing a manual queue that was choking a 120-person ops team.",
+    desc: "Multi-agent system that triages clinical documents, extracts structured data, and routes cases through a review pipeline. Replaced a manual queue for a 120-person ops team.",
     stack: ["LangChain", "Python", "Postgres", "pgvector", "n8n", "AWS"],
     stats: [
       { v: "82%", l: "Manual steps removed" },
       { v: "4.2s", l: "Avg document turnaround" },
     ],
     body: [
-      "Led the architecture end-to-end: agent graph design, tool contracts, retrieval layer, audit trails. Replaced a spreadsheet-driven review queue with a deterministic state machine that agents operate inside of.",
-      "The hardest part wasn't the LLM calls — it was making the system legible to non-technical reviewers. Every agent action is traceable, reversible, and tied back to the source document."
+      "Designed the full system: agent graph, tool contracts, retrieval layer, audit trails. The old process was a spreadsheet queue. Replaced it with a state machine that agents operate inside of.",
+      "Most of the work went into making it legible to non-technical reviewers. Every action is traceable and tied back to the source document."
     ]
   },
   {
-    title: "Drupal migration & performance overhaul for a national publisher",
+    title: "Drupal migration and performance work for a national publisher",
     kicker: "Publishing",
     year: "2024",
-    desc: "Migrated a decade of editorial content from a legacy CMS into a custom Drupal architecture. Tuned caching, media pipelines, and search for sub-second response at 500K+ monthly readers.",
+    desc: "Moved years of editorial content from a legacy CMS to Drupal. Got caching, media, and search working well enough for 500K+ monthly readers.",
     stack: ["Drupal 10", "PHP", "Redis", "Varnish", "Elasticsearch", "Terraform"],
     stats: [
       { v: "500K+", l: "Monthly active readers" },
       { v: "<400ms", l: "P95 page render" },
     ],
     body: [
-      "Wrote custom migration plugins to normalize 14 content types across three source databases. Editorial could keep publishing in the legacy system until cutover; diffs were reconciled continuously.",
-      "Post-launch: custom render cache strategy, image derivatives moved to a CDN pipeline, and search reindexed to Elasticsearch with editor-tunable boosts."
+      "Wrote custom migration plugins to normalize 14 content types across three source databases. Editorial kept publishing in the old system until cutover, and diffs were synced continuously.",
+      "After launch: render cache strategy, image derivatives on a CDN, and search reindexed to Elasticsearch with boosts editors can tune themselves."
     ]
   },
   {
     title: "Workflow automation for a government digital service",
     kicker: "Public sector",
     year: "2024",
-    desc: "Designed and shipped n8n-backed workflows that eliminated roughly 80% of manual back-office work for a citizen-facing service, with audit-ready paper trails.",
+    desc: "n8n workflows that cut about 80% of manual back-office work for a citizen-facing service. Full audit trails on everything.",
     stack: ["n8n", "Node.js", "Symfony", "Postgres", "Docker"],
     stats: [
       { v: "14", l: "Integrated systems" },
       { v: "2.1M", l: "Records processed / yr" },
     ],
     body: [
-      "The brief looked simple — \"automate the forms handling\" — and turned into a full integration project: legacy SOAP endpoints, a GDS design-system front end, and a review board that needed human checkpoints at specific stages.",
-      "Shipped as a small set of composable workflows rather than one monolithic pipeline. Each has its own SLA, failure routing, and ownership."
+      "Started as \"automate the forms handling\" and turned into a full integration project. Legacy SOAP endpoints, a GDS design-system front end, and a review board that needed human checkpoints at specific stages.",
+      "Ended up as a small set of independent workflows instead of one big pipeline. Each has its own SLA, failure routing, and owner."
     ]
   },
   {
-    title: "Semantic search & RAG for an e-commerce knowledge base",
+    title: "Semantic search and RAG for an e-commerce knowledge base",
     kicker: "E-commerce",
     year: "2023",
-    desc: "Replaced a keyword search that was failing support agents with a hybrid semantic + lexical retriever, grounded in a product catalogue of ~40K SKUs and years of ticket history.",
+    desc: "Replaced a broken keyword search with hybrid semantic + lexical retrieval over ~40K SKUs and years of support tickets.",
     stack: ["OpenAI", "pgvector", "Python", "FastAPI", "Next.js"],
     stats: [
       { v: "40K", l: "SKUs indexed" },
       { v: "220ms", l: "Median query latency" },
     ],
     body: [
-      "Started with evals: built a labelled set from real tickets before writing a line of retrieval code. That dataset is what told us when the hybrid scoring was actually winning and when it was just drifting.",
-      "Deployed behind a thin internal UI that agents already knew. No training needed — the old search box just got better."
+      "Built a labelled eval set from real tickets before writing any retrieval code. That's what told us when hybrid scoring was actually helping vs just adding noise.",
+      "Shipped it behind the same internal UI the support team already used. The old search box just got better, no training needed."
     ]
   }
 ];
@@ -70,7 +70,7 @@ const projects = [
     name: "MRRTracker",
     icon: "/mrrtracker-icon.png",
     badge: "#4 on Product Hunt",
-    desc: "macOS menubar app that tracks Monthly Recurring Revenue in real time across Stripe, Paddle, and Lemon Squeezy. Built solo, launched to #4 of the day.",
+    desc: "macOS menubar app that shows your MRR from Stripe, Paddle, and Lemon Squeezy. Built solo, hit #4 on Product Hunt.",
     stack: ["Swift", "macOS", "SaaS"],
     link: "https://www.producthunt.com/products/mrrtracker",
   },
@@ -78,7 +78,7 @@ const projects = [
     name: "MailFleet",
     icon: "/mailfleet-icon.png",
     badge: "Open source",
-    desc: "Desktop email campaign manager built with Tauri, React, and Rust. Sends through AWS SES with real-time tracking, contact dedup, and GDPR-compliant unsubscribe flows.",
+    desc: "Desktop email campaign manager. Tauri + React + Rust, sends through AWS SES. Tracking, dedup, and GDPR unsubscribe built in.",
     stack: ["Rust", "Tauri", "React", "AWS SES"],
     link: "https://mailfleet.vercel.app/",
   }
@@ -92,10 +92,10 @@ const stack = [
 ];
 
 const repos = [
-  { org: "abderrahimghazali", name: "mailfleet", desc: "Desktop email campaign manager — Tauri + Rust + React, AWS SES under the hood.", lang: "Rust" },
-  { org: "abderrahimghazali", name: "drupal-agent-toolkit", desc: "A small toolkit for wiring LLM agents into Drupal entity workflows.", lang: "PHP" },
-  { org: "abderrahimghazali", name: "n8n-eval-nodes", desc: "Custom n8n nodes for running LLM evals inline with your automation graph.", lang: "TypeScript" },
-  { org: "abderrahimghazali", name: "pgvector-recipes", desc: "Pragmatic pgvector patterns for production RAG — schema, indexes, hybrid scoring.", lang: "SQL" }
+  { org: "abderrahimghazali", name: "mailfleet", desc: "Desktop email campaign manager. Tauri + Rust + React, sends via AWS SES.", lang: "Rust" },
+  { org: "abderrahimghazali", name: "drupal-agent-toolkit", desc: "Toolkit for connecting LLM agents to Drupal entity workflows.", lang: "PHP" },
+  { org: "abderrahimghazali", name: "n8n-eval-nodes", desc: "Custom n8n nodes for running LLM evals inside automation workflows.", lang: "TypeScript" },
+  { org: "abderrahimghazali", name: "pgvector-recipes", desc: "pgvector patterns for production RAG: schema, indexes, hybrid scoring.", lang: "SQL" }
 ];
 ---
 
@@ -114,9 +114,8 @@ const repos = [
         <div class="hero-left">
           <p class="hero-name">Abderrahim Ghazali</p>
           <h1 class="hero-title">
-            Software engineer since 2014. I build automation systems,
-            AI tooling, and web platforms — mostly for teams
-            where things breaking at 2am is not an option.
+            Software engineer building automation systems, AI tooling,
+            and web platforms.
           </h1>
 
           <p class="hero-sub">
@@ -196,7 +195,7 @@ const repos = [
         <div>
           <h2>Side projects</h2>
         </div>
-        <p class="sub">Things I built on my own time that turned into products.</p>
+        <p class="sub">Built on my own time.</p>
       </div>
 
       <div class="projects reveal-on-scroll">
@@ -252,7 +251,7 @@ const repos = [
         <div>
           <h2>Open source</h2>
         </div>
-        <p class="sub">Contrib modules, plugins, and tools across a few ecosystems.</p>
+        <p class="sub">Modules, plugins, and tools I've published.</p>
       </div>
 
       <div class="repo-list reveal-on-scroll">
