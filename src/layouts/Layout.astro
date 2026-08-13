@@ -15,6 +15,7 @@ const siteUrl = 'https://abderrahimghazali.github.io';
 const imageUrl = image ? `${siteUrl}${image}` : `${siteUrl}/me.jpeg`;
 const ogImageAlt = imageAlt || 'Abderrahim GHAZALI';
 import '../styles/global.css';
+import CommandPalette from '../components/CommandPalette.astro';
 ---
 
 <!DOCTYPE html>
@@ -47,25 +48,70 @@ import '../styles/global.css';
     <meta name="twitter:image" content={imageUrl}>
     <meta name="twitter:image:alt" content={ogImageAlt}>
 
-    <meta name="theme-color" content="#F4F2EC">
+    <meta name="theme-color" content="#0b0b0c" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#0b0b0c">
     <link rel="canonical" href={url}>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 
+    <link rel="icon" type="image/svg+xml" href="/icon.svg">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     <link rel="manifest" href="/manifest.json">
 
     <title>{title}</title>
+
+    <!-- set the theme before first paint so there is no flash -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div class="frame" aria-hidden="true"></div>
+
     <main id="main-content">
       <slot />
     </main>
+
+    <CommandPalette />
+
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+
+        function apply(next) {
+          root.setAttribute('data-theme', next);
+          try { localStorage.setItem('theme', next); } catch (e) {}
+          var meta = document.querySelector('meta[name="theme-color"]:not([media])');
+          if (meta) meta.setAttribute('content', next === 'light' ? '#f4f2ec' : '#0b0b0c');
+        }
+
+        document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (!document.startViewTransition || reduced) {
+              apply(next);
+              return;
+            }
+            document.startViewTransition(function () { apply(next); });
+          });
+        });
+      })();
+    </script>
 
     <!-- WebSite schema -->
     <script type="application/ld+json">
@@ -75,7 +121,7 @@ import '../styles/global.css';
         "name": "Abderrahim GHAZALI",
         "alternateName": "Abderrahim Ghazali Portfolio",
         "url": "https://abderrahimghazali.github.io/",
-        "description": "Software engineer specializing in AI automation, RAG systems, Drupal architecture, and full-stack development.",
+        "description": "Full-stack engineer since 2014. Drupal architecture and web platforms at scale, plus AI automation and RAG systems since 2022.",
         "author": {
           "@type": "Person",
           "name": "Abderrahim GHAZALI"
@@ -123,8 +169,8 @@ import '../styles/global.css';
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Abderrahim GHAZALI",
-        "jobTitle": "Software Engineer",
-        "description": "Software engineer specializing in AI agent development, RAG pipelines, semantic search, n8n workflow automation, and enterprise Drupal architecture.",
+        "jobTitle": "Full-Stack Engineer",
+        "description": "Full-stack engineer since 2014, specializing in enterprise Drupal architecture and web platforms at scale, and since 2022 in AI agent development, RAG pipelines, semantic search, and n8n workflow automation.",
         "url": "https://abderrahimghazali.github.io/",
         "email": "ghazali.abderrahim1@gmail.com",
         "image": "https://abderrahimghazali.github.io/me.jpeg",

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 366 366" fill="none" role="img" aria-label="AG">
+  <style>
+    :root { --mark: #16150f; }
+    @media (prefers-color-scheme: dark) {
+      :root { --mark: #e9e9e7; }
+    }
+    .m { fill: var(--mark); }
+  </style>
+
+  <!-- A — 38u stems, tight counter -->
+  <g class="m">
+    <rect x="52"  y="92"  width="120" height="38"/>
+    <rect x="52"  y="130" width="38"  height="144"/>
+    <rect x="134" y="130" width="38"  height="144"/>
+    <rect x="52"  y="176" width="120" height="38"/>
+  </g>
+
+  <!-- G — open right, spur cutting back in at mid-height -->
+  <g class="m">
+    <rect x="194" y="92"  width="120" height="38"/>
+    <rect x="194" y="130" width="38"  height="144"/>
+    <rect x="194" y="236" width="120" height="38"/>
+    <rect x="246" y="176" width="68"  height="38"/>
+    <rect x="276" y="176" width="38"  height="60"/>
+  </g>
+</svg>

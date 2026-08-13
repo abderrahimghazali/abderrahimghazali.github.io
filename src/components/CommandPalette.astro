@@ -1,0 +1,186 @@
+---
+const groups = [
+  {
+    label: 'Navigation',
+    items: [
+      { title: 'Home', href: '/', kind: 'Page' },
+      { title: 'About', href: '/#about', kind: 'Section' },
+      { title: 'Selected work', href: '/#work', kind: 'Section' },
+      { title: 'Side projects', href: '/#projects', kind: 'Section' },
+      { title: 'Stack', href: '/#stack', kind: 'Section' },
+      { title: 'Contributions', href: '/#contributions', kind: 'Section' },
+      { title: 'Open source', href: '/#oss', kind: 'Section' },
+      { title: 'Get in touch', href: '/#contact', kind: 'Section' },
+    ],
+  },
+  {
+    label: 'Elsewhere',
+    items: [
+      { title: 'GitHub', href: 'https://github.com/abderrahimghazali', kind: 'Link' },
+      { title: 'LinkedIn', href: 'https://www.linkedin.com/in/abderrahimghazali/', kind: 'Link' },
+      { title: 'Drupal.org', href: 'https://www.drupal.org/u/gabderrahim', kind: 'Link' },
+      { title: 'Book a call', href: 'https://cal.com/abderrahimghazali/15min?overlayCalendar=true', kind: 'Link' },
+      { title: 'Email me', href: 'mailto:ghazali.abderrahim1@gmail.com', kind: 'Link' },
+    ],
+  },
+];
+---
+
+<div class="cmdk" data-cmdk data-open="false" role="dialog" aria-modal="true" aria-label="Command palette">
+  <div class="cmdk-backdrop" data-cmdk-close></div>
+
+  <div class="cmdk-panel">
+    <div class="cmdk-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+      </svg>
+      <input
+        class="cmdk-input"
+        data-cmdk-input
+        type="text"
+        placeholder="Search sections, posts, links…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Search"
+      />
+    </div>
+
+    <div class="cmdk-list" data-cmdk-list>
+      {groups.map((group) => (
+        <div data-group>
+          <div class="cmdk-group-label">{group.label}</div>
+          {group.items.map((item) => (
+            <a
+              class="cmdk-item"
+              href={item.href}
+              data-cmdk-item
+              data-title={item.title.toLowerCase()}
+              aria-selected="false"
+            >
+              <span>{item.title}</span>
+              <span class="ci-kind">{item.kind}</span>
+            </a>
+          ))}
+        </div>
+      ))}
+      <div class="cmdk-empty" data-cmdk-empty hidden>No results.</div>
+    </div>
+
+    <div class="cmdk-foot">
+      <span><kbd>↑↓</kbd>navigate</span>
+      <span><kbd>↵</kbd>open</span>
+      <span><kbd>esc</kbd>close</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-cmdk]');
+  if (root) {
+    const input = root.querySelector<HTMLInputElement>('[data-cmdk-input]')!;
+    const list = root.querySelector<HTMLElement>('[data-cmdk-list]')!;
+    const empty = root.querySelector<HTMLElement>('[data-cmdk-empty]')!;
+    const items = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-cmdk-item]'));
+    const groups = Array.from(root.querySelectorAll<HTMLElement>('[data-group]'));
+
+    let active = 0;
+    let lastFocus: HTMLElement | null = null;
+
+    const visible = () => items.filter((el) => !el.hidden);
+
+    function paint() {
+      const vis = visible();
+      if (active >= vis.length) active = Math.max(0, vis.length - 1);
+      items.forEach((el) => el.setAttribute('aria-selected', 'false'));
+      const current = vis[active];
+      if (current) {
+        current.setAttribute('aria-selected', 'true');
+        current.scrollIntoView({ block: 'nearest' });
+      }
+    }
+
+    function filter(query: string) {
+      const q = query.trim().toLowerCase();
+      items.forEach((el) => {
+        el.hidden = q !== '' && !el.dataset.title!.includes(q);
+      });
+      // hide a group label when every item under it is filtered out
+      groups.forEach((g) => {
+        const any = Array.from(g.querySelectorAll<HTMLElement>('[data-cmdk-item]')).some((el) => !el.hidden);
+        g.hidden = !any;
+      });
+      const count = visible().length;
+      empty.hidden = count > 0;
+      active = 0;
+      paint();
+    }
+
+    function open() {
+      lastFocus = document.activeElement as HTMLElement;
+      root!.dataset.open = 'true';
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      filter('');
+      input.focus();
+    }
+
+    function close() {
+      root!.dataset.open = 'false';
+      document.body.style.overflow = '';
+      list.scrollTop = 0;
+      lastFocus?.focus();
+    }
+
+    document.querySelectorAll('[data-cmdk-open]').forEach((btn) =>
+      btn.addEventListener('click', open)
+    );
+    root.querySelectorAll('[data-cmdk-close]').forEach((el) =>
+      el.addEventListener('click', close)
+    );
+
+    input.addEventListener('input', () => filter(input.value));
+
+    document.addEventListener('keydown', (e) => {
+      const isOpen = root.dataset.open === 'true';
+
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        isOpen ? close() : open();
+        return;
+      }
+
+      if (!isOpen) return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        close();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        active = Math.min(active + 1, visible().length - 1);
+        paint();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        active = Math.max(active - 1, 0);
+        paint();
+      } else if (e.key === 'Enter') {
+        const target = visible()[active];
+        if (target) {
+          e.preventDefault();
+          target.click();
+        }
+      }
+    });
+
+    items.forEach((el) => {
+      el.addEventListener('mousemove', () => {
+        const idx = visible().indexOf(el);
+        if (idx !== -1 && idx !== active) {
+          active = idx;
+          paint();
+        }
+      });
+      el.addEventListener('click', () => close());
+    });
+  }
+</script>

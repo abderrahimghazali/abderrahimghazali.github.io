@@ -1,16 +1,54 @@
 ---
+const path = Astro.url.pathname;
+const isHome = path === '/' || path === '';
 ---
 
 <header class="topbar">
-  <div class="container">
+  <div class="well">
     <div class="topbar-inner">
-      <a href="/" class="brand">A. Ghazali</a>
+      <a href="/" class="brand" aria-label="Home">
+        <svg viewBox="0 0 366 366" fill="currentColor" aria-hidden="true">
+          <rect x="52"  y="92"  width="120" height="38"/>
+          <rect x="52"  y="130" width="38"  height="144"/>
+          <rect x="134" y="130" width="38"  height="144"/>
+          <rect x="52"  y="176" width="120" height="38"/>
+
+          <rect x="194" y="92"  width="120" height="38"/>
+          <rect x="194" y="130" width="38"  height="144"/>
+          <rect x="194" y="236" width="120" height="38"/>
+          <rect x="246" y="176" width="68"  height="38"/>
+          <rect x="276" y="176" width="38"  height="60"/>
+        </svg>
+      </a>
+
       <nav class="nav-links" aria-label="Main navigation">
+        <a href="/" aria-current={isHome ? 'page' : undefined}>Home</a>
         <a href="/#work">Work</a>
         <a href="/#projects">Projects</a>
+        <a href="/#about">About</a>
         <a href="/#stack">Stack</a>
         <a href="/#contact">Contact</a>
       </nav>
+
+      <div class="nav-tools">
+        <button class="kbd-trigger" data-cmdk-open type="button" aria-label="Open command palette">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="M20 20l-3.5-3.5" stroke-linecap="round" />
+          </svg>
+          <kbd>⌘K</kbd>
+        </button>
+
+        <button class="theme-toggle" data-theme-toggle type="button" aria-label="Toggle colour theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" stroke-linejoin="round" />
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.2" />
+            <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </header>

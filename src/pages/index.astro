@@ -1,6 +1,14 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
+import ContribGrid from '../components/ContribGrid.astro';
+import NowPlaying from '../components/NowPlaying.astro';
+
+const about = [
+  "Full-stack engineer since 2014. I started in PHP and Drupal, picked up React and Node along the way, and have spent most of that decade shipping web platforms at scale.",
+  "The AI and automation work is more recent, roughly the last four years: agent orchestration, retrieval pipelines, and n8n workflows that replace manual queues. It builds on the same backend and infrastructure skills, just pointed somewhere new.",
+  "Based in Paris. Open to consulting and contract work.",
+];
 
 const caseStudies = [
   {
@@ -75,12 +83,28 @@ const projects = [
     link: "https://www.producthunt.com/products/mrrtracker",
   },
   {
+    name: "shadcn-fintech",
+    icon: "/shadcn-fintech-icon.svg",
+    badge: "68 stars",
+    desc: "Open-source fintech dashboard template. Nine pages, drag-and-drop layout, live ticker, and a spending heatmap.",
+    stack: ["Next.js", "TypeScript", "shadcn/ui", "Tailwind"],
+    link: "https://shadcn-fintech.vercel.app",
+  },
+  {
     name: "MailFleet",
     icon: "/mailfleet-icon.png",
     badge: "Open source",
     desc: "Desktop email campaign manager. Tauri + React + Rust, sends through AWS SES. Tracking, dedup, and GDPR unsubscribe built in.",
     stack: ["Rust", "Tauri", "React", "AWS SES"],
     link: "https://mailfleet.vercel.app/",
+  },
+  {
+    name: "clawd-pet",
+    icon: "/clawd-pet-icon.svg",
+    badge: "21 stars",
+    desc: "Animated pixel-art Clawd pet, drawn entirely in SVG and animated with CSS. No canvas, no runtime.",
+    stack: ["TypeScript", "SVG", "CSS"],
+    link: "https://clawd-pet.vercel.app",
   }
 ];
 
@@ -100,59 +124,81 @@ const repos = [
 ---
 
 <Layout
-  title="Abderrahim Ghazali — Software Engineer"
-  description="Software engineer since 2014. AI agent systems, workflow automation, Drupal architecture, and full-stack development."
+  title="Abderrahim Ghazali — Full-Stack Engineer"
+  description="Full-stack engineer since 2014, working on AI agent systems and workflow automation since 2022. Drupal architecture, RAG pipelines, and web platforms at scale."
   keywords="AI agent development, RAG pipelines, n8n automation, Drupal expert, full-stack developer"
   url="https://abderrahimghazali.github.io/"
 >
   <Nav />
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-main reveal-on-scroll">
-        <div class="hero-left">
-          <p class="hero-name">Abderrahim Ghazali</p>
-          <h1 class="hero-title">
-            Software engineer building automation systems, AI tooling,
-            and web platforms.
-          </h1>
+  <div class="dotgrid" aria-hidden="true"></div>
+  <div class="rule"></div>
 
-          <p class="hero-sub">
-            Based in Paris. Open to consulting and contract work.
-          </p>
-
-          <div class="cta-row">
-            <a class="btn primary" href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer">
-              Book a call <span class="arrow">→</span>
-            </a>
-            <a class="btn" href="mailto:ghazali.abderrahim1@gmail.com">
-              Email <span class="arrow">→</span>
-            </a>
-            <a class="btn" href="#work">
-              See work <span class="arrow">↓</span>
-            </a>
-          </div>
+  <!-- Profile -->
+  <section class="profile">
+    <div class="well">
+      <div class="profile-inner">
+        <div class="avatar">
+          <img src="/me.jpeg" alt="Abderrahim Ghazali" width="256" height="256" loading="eager" fetchpriority="high" />
         </div>
 
-        <div class="hero-side">
-          <div class="hero-portrait">
-            <img src="/me.jpeg" alt="Abderrahim Ghazali" width="400" height="500" loading="eager" fetchpriority="high" />
+        <div class="profile-body">
+          <div class="profile-top">
+            <h1 class="profile-name">
+              Abderrahim Ghazali
+              <svg class="verified" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" role="img" aria-label="Verified">
+                <path fill="currentColor" d="M24 12a4.454 4.454 0 0 0-2.564-3.91 4.437 4.437 0 0 0-.948-4.578 4.436 4.436 0 0 0-4.577-.948A4.44 4.44 0 0 0 12 0a4.423 4.423 0 0 0-3.9 2.564 4.434 4.434 0 0 0-2.43-.178 4.425 4.425 0 0 0-2.158 1.126 4.42 4.42 0 0 0-1.12 2.156 4.42 4.42 0 0 0 .183 2.421A4.456 4.456 0 0 0 0 12a4.465 4.465 0 0 0 2.576 3.91 4.433 4.433 0 0 0 .936 4.577 4.459 4.459 0 0 0 4.577.95A4.454 4.454 0 0 0 12 24a4.439 4.439 0 0 0 3.91-2.563 4.26 4.26 0 0 0 5.526-5.526A4.453 4.453 0 0 0 24 12Zm-13.709 4.917-4.38-4.378 1.652-1.663 2.646 2.646L15.83 7.4l1.72 1.591-7.258 7.926Z"/>
+              </svg>
+            </h1>
+
+            <span class="viewcount" data-views hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/>
+                <circle cx="12" cy="12" r="2.6"/>
+              </svg>
+              <span data-views-count>—</span>
+            </span>
           </div>
+
+          <p class="profile-role">Full-stack engineer · AI, automation, web platforms</p>
+
+          <span class="status">
+            <span class="status-dot" aria-hidden="true"></span>
+            Available · Open to consulting and contract work
+          </span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Work -->
-  <section id="work">
-    <div class="container">
-      <div class="section-head reveal-on-scroll">
-        <div>
-          <h2>Selected work</h2>
-        </div>
-        <p class="sub">Recent engagements. Click a row to expand.</p>
+  <!-- About -->
+  <div class="band"><div class="well"><h2 class="section-title">About</h2></div></div>
+  <section id="about">
+    <div class="well">
+      <ul class="bullets reveal-on-scroll">
+        {about.map((line) => <li>{line}</li>)}
+      </ul>
+
+      <div style="margin-top: 1.5rem; max-width: 420px;" class="reveal-on-scroll">
+        <NowPlaying />
       </div>
+
+      <div class="cta-row reveal-on-scroll">
+        <a class="btn primary" href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer">
+          Book a call <span class="arrow">→</span>
+        </a>
+        <a class="btn" href="mailto:ghazali.abderrahim1@gmail.com">
+          Email <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <div class="band"><div class="well"><h2 class="section-title">Selected work</h2></div></div>
+  <section id="work">
+    <div class="well">
+      <p class="label reveal-on-scroll" style="margin-bottom: 1rem;">Recent engagements · click a row to expand</p>
 
       <div class="work-list reveal-on-scroll">
         {caseStudies.map((cs, i) => (
@@ -165,19 +211,21 @@ const repos = [
             <div class="case-desc">{cs.desc}</div>
 
             <div class="case-detail">
-              <div class="case-detail-inner">
-                <div class="case-detail-stats">
-                  {cs.stats.map((s) => (
-                    <div class="stat">
-                      <div class="v">{s.v}</div>
-                      <div class="l">{s.l}</div>
+              <div>
+                <div class="case-detail-inner">
+                  <div class="case-detail-stats">
+                    {cs.stats.map((s) => (
+                      <div class="stat">
+                        <div class="v">{s.v}</div>
+                        <div class="l">{s.l}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div class="case-detail-body">
+                    {cs.body.map((para) => <p>{para}</p>)}
+                    <div class="tags">
+                      {cs.stack.map(s => <span class="tag">{s}</span>)}
                     </div>
-                  ))}
-                </div>
-                <div class="case-detail-body">
-                  {cs.body.map((para) => <p>{para}</p>)}
-                  <div class="tags">
-                    {cs.stack.map(s => <span class="tag">{s}</span>)}
                   </div>
                 </div>
               </div>
@@ -189,26 +237,20 @@ const repos = [
   </section>
 
   <!-- Projects -->
+  <div class="band"><div class="well"><h2 class="section-title">Side projects</h2></div></div>
   <section id="projects">
-    <div class="container">
-      <div class="section-head reveal-on-scroll">
-        <div>
-          <h2>Side projects</h2>
-        </div>
-        <p class="sub">Built on my own time.</p>
-      </div>
-
+    <div class="well">
       <div class="projects reveal-on-scroll">
         {projects.map((pr) => (
           <a class="proj" href={pr.link} target="_blank" rel="noopener noreferrer">
             <div class="proj-head">
-              <img src={pr.icon} alt="" width="32" height="32" class="proj-icon" loading="lazy" />
+              {pr.icon && <img src={pr.icon} alt="" width="28" height="28" class="proj-icon" loading="lazy" />}
               <h3>{pr.name}</h3>
-              <div class="proj-badge">{pr.badge}</div>
             </div>
+            <div class="proj-badge" style="align-self: flex-start;">{pr.badge}</div>
             <p>{pr.desc}</p>
             <div class="proj-foot">
-              <div class="tags">
+              <div class="tags" style="margin-top: 0;">
                 {pr.stack.map(s => <span class="tag">{s}</span>)}
               </div>
               <span class="proj-link">View →</span>
@@ -220,14 +262,10 @@ const repos = [
   </section>
 
   <!-- Stack -->
+  <div class="band"><div class="well"><h2 class="section-title">Stack</h2></div></div>
   <section id="stack">
-    <div class="container">
-      <div class="section-head reveal-on-scroll">
-        <div>
-          <h2>Stack</h2>
-        </div>
-        <p class="sub">What I actually use. Not a wishlist.</p>
-      </div>
+    <div class="well">
+      <p class="label reveal-on-scroll" style="margin-bottom: 1rem;">What I actually use. Not a wishlist.</p>
 
       <div class="stack-list reveal-on-scroll">
         {stack.map((group) => (
@@ -244,16 +282,13 @@ const repos = [
     </div>
   </section>
 
-  <!-- Open Source -->
-  <section id="oss">
-    <div class="container">
-      <div class="section-head reveal-on-scroll">
-        <div>
-          <h2>Open source</h2>
-        </div>
-        <p class="sub">Modules, plugins, and tools I've published.</p>
-      </div>
+  <!-- Contributions — renders its own band + section, or nothing at all -->
+  <ContribGrid login="abderrahimghazali" />
 
+  <!-- Open Source -->
+  <div class="band"><div class="well"><h2 class="section-title">Open source</h2></div></div>
+  <section id="oss">
+    <div class="well">
       <div class="repo-list reveal-on-scroll">
         {repos.map((r) => (
           <div class="repo">
@@ -267,24 +302,20 @@ const repos = [
             </div>
           </div>
         ))}
-        <div class="oss-links">
-          <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/github.svg" alt="" width="16" height="16" class="btn-icon icon-invert" /> GitHub <span class="arrow">→</span></a>
-          <a href="https://addons.sylius.com/en_US/vendors/abderrahim-ghazali" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/sylius.png" alt="" width="16" height="16" class="btn-icon" /> Sylius Store <span class="arrow">→</span></a>
-          <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/drupal.svg" alt="" width="16" height="16" class="btn-icon" /> Drupal.org <span class="arrow">→</span></a>
-        </div>
+      </div>
+      <div class="oss-links reveal-on-scroll">
+        <a href="https://github.com/abderrahimghazali" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/github.svg" alt="" width="15" height="15" class="btn-icon icon-invert" /> GitHub <span class="arrow">→</span></a>
+        <a href="https://addons.sylius.com/en_US/vendors/abderrahim-ghazali" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/sylius.png" alt="" width="15" height="15" class="btn-icon" /> Sylius Store <span class="arrow">→</span></a>
+        <a href="https://www.drupal.org/u/gabderrahim" target="_blank" rel="noopener noreferrer" class="btn"><img src="/icons/drupal.svg" alt="" width="15" height="15" class="btn-icon" /> Drupal.org <span class="arrow">→</span></a>
       </div>
     </div>
   </section>
 
   <!-- Contact -->
+  <div class="band"><div class="well"><h2 class="section-title">Get in touch</h2></div></div>
   <section id="contact">
-    <div class="container">
-      <div class="section-head reveal-on-scroll">
-        <div>
-          <h2>Get in touch</h2>
-        </div>
-        <p class="sub">I reply to most emails within a day.</p>
-      </div>
+    <div class="well">
+      <p class="label reveal-on-scroll" style="margin-bottom: 1rem;">I reply to most emails within a day.</p>
 
       <div class="contact-links reveal-on-scroll">
         <a href="https://cal.com/abderrahimghazali/15min?overlayCalendar=true" target="_blank" rel="noopener noreferrer" class="contact-row">
@@ -311,6 +342,7 @@ const repos = [
 
       <footer>
         <span>© 2026 Abderrahim Ghazali</span>
+        <span>Paris, France</span>
       </footer>
     </div>
   </section>
@@ -326,7 +358,6 @@ const repos = [
     });
   });
 
-  // Open first case by default
   const firstCase = document.querySelector('.case');
   if (firstCase) firstCase.classList.add('open');
 
@@ -340,9 +371,26 @@ const repos = [
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
     revealEls.forEach(el => observer.observe(el));
   } else {
     revealEls.forEach(el => el.classList.add('visible'));
+  }
+
+  // View counter — only shows if PUBLIC_VIEWS_ENDPOINT is configured at build time.
+  // Left hidden rather than showing an invented number.
+  const viewsEndpoint = import.meta.env.PUBLIC_VIEWS_ENDPOINT;
+  const viewsEl = document.querySelector<HTMLElement>('[data-views]');
+  if (viewsEndpoint && viewsEl) {
+    fetch(viewsEndpoint, { method: 'POST' })
+      .then(r => r.json())
+      .then(d => {
+        const n = Number(d?.count);
+        if (Number.isFinite(n)) {
+          viewsEl.querySelector('[data-views-count]')!.textContent = n.toLocaleString();
+          viewsEl.hidden = false;
+        }
+      })
+      .catch(() => {});
   }
 </script>

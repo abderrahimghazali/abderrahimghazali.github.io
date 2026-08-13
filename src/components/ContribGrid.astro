@@ -1,0 +1,211 @@
+---
+/**
+ * GitHub contribution calendar, fetched at build time from the public
+ * profile endpoint — no token, no secrets, no setup.
+ *
+ * The data is baked in at build. A scheduled workflow is what keeps it fresh.
+ * If the fetch fails the whole section is skipped rather than faked.
+ */
+interface Props {
+  login: string;
+}
+const { login } = Astro.props;
+
+type Day = { date: string; level: number; count: number };
+
+let weeks: Day[][] = [];
+let total = 0;
+let ok = false;
+
+try {
+  const res = await fetch(`https://github.com/users/${login}/contributions`, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (portfolio build)',
+      Accept: 'text/html',
+    },
+  });
+
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const html = await res.text();
+
+  const totalMatch = html.match(/([\d,]+)\s+contributions?\s+in\s+the\s+last\s+year/i);
+  if (totalMatch) total = Number(totalMatch[1].replace(/,/g, ''));
+
+  // exact per-day counts live in the tooltip elements, keyed to each cell's id
+  const counts = new Map<string, number>();
+  const tip = /<tool-tip[^>]*\bfor="([^"]+)"[^>]*>([\s\S]*?)<\/tool-tip>/g;
+  let t: RegExpExecArray | null;
+  while ((t = tip.exec(html)) !== null) {
+    const n = t[2].trim().match(/^(\d[\d,]*)\s+contribution/i);
+    counts.set(t[1], n ? Number(n[1].replace(/,/g, '')) : 0);
+  }
+
+  // each day cell carries its date, its 0–4 intensity, and an id linking to the tooltip
+  const days: Day[] = [];
+  const cell = /<td\b[^>]*\bdata-date="[^"]*"[^>]*>/g;
+  let m: RegExpExecArray | null;
+  while ((m = cell.exec(html)) !== null) {
+    const tag = m[0];
+    const date = tag.match(/data-date="(\d{4}-\d{2}-\d{2})"/)?.[1];
+    if (!date) continue;
+    const level = Number(tag.match(/data-level="(\d)"/)?.[1] ?? 0);
+    const id = tag.match(/\bid="([^"]+)"/)?.[1];
+    days.push({ date, level, count: id && counts.has(id) ? counts.get(id)! : 0 });
+  }
+
+  if (days.length === 0) throw new Error('no day cells found in response');
+
+  // cells arrive row-major (one row per weekday), so sort then split on Sundays
+  days.sort((a, b) => a.date.localeCompare(b.date));
+
+  let current: Day[] = [];
+  for (const day of days) {
+    const dow = new Date(`${day.date}T00:00:00Z`).getUTCDay();
+    if (dow === 0 && current.length > 0) {
+      weeks.push(current);
+      current = [];
+    }
+    // the calendar rarely starts on a Sunday — offset the first column
+    // so every day still lands on its own weekday row
+    if (current.length === 0 && weeks.length === 0 && dow !== 0) {
+      current = Array.from({ length: dow }, () => null as unknown as Day);
+    }
+    current.push(day);
+  }
+  if (current.length > 0) weeks.push(current);
+
+  ok = weeks.length > 0;
+} catch (err) {
+  console.warn(`[ContribGrid] skipped — ${(err as Error).message}`);
+}
+
+// label the first week of each new month
+const monthLabels: { index: number; label: string }[] = [];
+let seen = '';
+weeks.forEach((week, i) => {
+  const first = week[0];
+  if (!first) return;
+  const label = new Date(`${first.date}T00:00:00Z`).toLocaleDateString('en-US', {
+    month: 'short',
+    timeZone: 'UTC',
+  });
+  if (label !== seen) {
+    monthLabels.push({ index: i, label });
+    seen = label;
+  }
+});
+---
+
+{ok && (
+  <>
+    <div class="band"><div class="well"><h2 class="section-title">Contributions</h2></div></div>
+    <section id="contributions">
+      <div class="well">
+        <div class="contrib reveal-on-scroll">
+          <div class="contrib-scroll">
+            <div class="contrib-months" style={`grid-template-columns: repeat(${weeks.length}, 8px);`}>
+              {monthLabels.map((m) => (
+                <span style={`grid-column: ${m.index + 1} / span 4;`}>{m.label}</span>
+              ))}
+            </div>
+
+            <div class="contrib-grid" data-contrib-grid>
+              {weeks.map((week) => (
+                <div class="contrib-week">
+                  {week.map((day) =>
+                    day
+                      ? <div
+                          class="contrib-cell"
+                          data-level={day.level}
+                          data-date={day.date}
+                          data-count={day.count}
+                        />
+                      : <div class="contrib-cell is-pad" />
+                  )}
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+          <div class="contrib-tip" data-contrib-tip hidden>
+            <strong data-tip-count></strong>
+            <span data-tip-date></span>
+          </div>
+
+          <div class="contrib-foot">
+            <span>{total.toLocaleString()} contributions in the last year</span>
+            <span class="contrib-legend">
+              Less
+              <span class="contrib-cell" data-level="0"></span>
+              <span class="contrib-cell" data-level="1"></span>
+              <span class="contrib-cell" data-level="2"></span>
+              <span class="contrib-cell" data-level="3"></span>
+              <span class="contrib-cell" data-level="4"></span>
+              More
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </>
+)}
+
+<script>
+  const grid = document.querySelector<HTMLElement>('[data-contrib-grid]');
+  const tip = document.querySelector<HTMLElement>('[data-contrib-tip]');
+
+  if (grid && tip) {
+    const countEl = tip.querySelector<HTMLElement>('[data-tip-count]')!;
+    const dateEl = tip.querySelector<HTMLElement>('[data-tip-date]')!;
+    const scroller = grid.closest<HTMLElement>('.contrib-scroll')!;
+    // anchor to .contrib, not .contrib-scroll — the scroller clips on both axes
+    const anchor = grid.closest<HTMLElement>('.contrib')!;
+
+    function show(cell: HTMLElement) {
+      const count = Number(cell.dataset.count ?? 0);
+      const date = new Date(`${cell.dataset.date}T00:00:00Z`);
+
+      countEl.textContent = count === 0
+        ? 'No contributions'
+        : `${count} contribution${count === 1 ? '' : 's'}`;
+      dateEl.textContent = date.toLocaleDateString('en-US', {
+        weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC',
+      });
+
+      tip.hidden = false;
+
+      const c = cell.getBoundingClientRect();
+      const a = anchor.getBoundingClientRect();
+
+      // keep it inside the anchor horizontally
+      const half = tip.offsetWidth / 2;
+      const left = c.left - a.left + c.width / 2;
+      tip.style.left = `${Math.max(half, Math.min(left, a.width - half))}px`;
+
+      // above the cell, or below it when there is no room above
+      const above = c.top - a.top - tip.offsetHeight - 7;
+      tip.style.top = above >= 0 ? `${above}px` : `${c.bottom - a.top + 7}px`;
+    }
+
+    grid.addEventListener('mouseover', (e) => {
+      const cell = (e.target as HTMLElement).closest<HTMLElement>('.contrib-cell:not(.is-pad)');
+      if (cell) show(cell);
+    });
+
+    grid.addEventListener('mouseleave', () => { tip.hidden = true; });
+    scroller.addEventListener('scroll', () => { tip.hidden = true; }, { passive: true });
+  }
+</script>
+
+<style>
+  .contrib-months {
+    display: grid;
+    gap: 3px;
+    min-width: max-content;
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    color: var(--fg-3);
+    margin-bottom: 5px;
+  }
+</style>
