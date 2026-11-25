@@ -28,6 +28,7 @@ Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.c
 ```sh
 npm install
 npm run dev       # localhost:4321
+npm test          # ICE key and invoice calculator tests; `UBL_XSD=<UBL-2.1/xsd/maindoc/UBL-Invoice-2.1.xsd> npm run validate:ubl` checks the generated XML against the OASIS schema
 npm run build     # build to ./dist/
 npm run preview   # preview production build
 ```

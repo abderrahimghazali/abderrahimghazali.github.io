@@ -1,0 +1,352 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import '../../styles/reforme.css';
+import '../../styles/outils.css';
+import { SITE, breadcrumbs, faqPage, webApplication } from '../../lib/seo';
+
+const title = "Vérificateur d'ICE Maroc : contrôler un numéro ICE (clé de contrôle)";
+const description = "Contrôlez gratuitement un numéro ICE : 15 chiffres, structure et clé de contrôle. Le calcul se fait dans votre navigateur, rien n'est envoyé.";
+const url = `${SITE}/outils/verificateur-ice/`;
+const image = '/outils-ice-og.png';
+const tracker = '/facturation-electronique-maroc/';
+const repo = 'https://github.com/abderrahimghazali/tabaa';
+
+const faq = [
+  {
+    q: "Qu'est-ce que l'ICE ?",
+    a: "L'ICE, Identifiant Commun de l'Entreprise, est un numéro de 15 chiffres qui identifie une entreprise et ses établissements de façon unique et uniforme pour toutes les administrations marocaines.",
+  },
+  {
+    q: "Quelle différence entre l'ICE et l'IF ?",
+    a: "L'IF est l'identifiant fiscal ; l'ICE est un identifiant commun à toutes les administrations. L'ICE s'ajoute aux autres identifiants légaux (IF, RC, CNSS) et ne les remplace pas, d'après la documentation de python-stdnum.",
+  },
+  {
+    q: "Où l'ICE doit-il figurer sur une facture ?",
+    a: "Les mentions de l'article 145 du Code général des impôts comprennent l'ICE du vendeur et celui du client professionnel. Voir le suivi de la réforme pour la source.",
+  },
+  {
+    q: 'Une clé de contrôle valide prouve-t-elle que l\'entreprise existe ?',
+    a: "Non. La clé ne contrôle que la cohérence interne du numéro : elle détecte surtout les fautes de frappe. Elle ne prouve ni l'existence de l'entreprise ni qu'elle est en activité. Vérifiez le numéro auprès de la source officielle, ice.gov.ma.",
+  },
+  {
+    q: 'Que signifie « clé de contrôle incohérente » ?',
+    a: "Le numéro de 15 chiffres, lu comme un seul nombre, n'est pas divisible par 97. La cause la plus courante est une faute de frappe. L'outil indique la clé que les 13 premiers chiffres exigeraient, pour repérer l'erreur.",
+  },
+];
+
+const jsonLd = [
+  webApplication({ name: "Vérificateur d'ICE", description, url, image }),
+  faqPage(faq),
+  breadcrumbs([
+    { name: 'Accueil', url: `${SITE}/` },
+    { name: 'Outils', url: `${SITE}/outils/` },
+    { name: "Vérificateur d'ICE", url },
+  ]),
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  url={url}
+  image={image}
+  imageAlt="Vérificateur d'ICE : un numéro ICE décomposé en 9 chiffres entreprise, 4 chiffres établissement et 2 chiffres de clé."
+  lang="fr"
+  locale="fr_FR"
+>
+  <Fragment slot="head">
+    <link rel="alternate" hreflang="fr" href={url} />
+    <link rel="alternate" hreflang="x-default" href={url} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  </Fragment>
+
+  <Nav />
+  <div class="dotgrid" aria-hidden="true"></div>
+  <div class="rule"></div>
+
+  <header class="ref-hero">
+    <div class="well">
+      <div class="ref-hero-grid">
+        <div class="ref-hero-text">
+          <p class="breadcrumb"><a href="/">Accueil</a><span aria-hidden="true">/</span><a href="/outils/">Outils</a><span aria-hidden="true">/</span><span>Vérificateur d'ICE</span></p>
+          <p class="label tool-eyebrow">Outil · Gratuit · Sans envoi de données</p>
+          <h1 class="ref-verdict tool-h1">Vérificateur d'ICE</h1>
+          <p class="ref-summary">Contrôlez qu'un numéro ICE comporte 15 chiffres, voyez sa structure et vérifiez sa clé de contrôle. Le résultat s'affiche pendant la saisie.</p>
+          <p class="tool-privacy"><strong>Ce contrôle s'exécute entièrement dans votre navigateur : aucun numéro n'est envoyé, enregistré ou stocké.</strong></p>
+        </div>
+        <figure class="tool-fig">
+          <div class="ice-group"><b>003976749</b><i>9 chiffres · entreprise</i></div>
+          <div class="ice-group"><b>0000</b><i>4 chiffres · établissement</i></div>
+          <div class="ice-group is-key" data-state="ok"><b>84</b><i>2 chiffres · clé</i></div>
+          <figcaption class="label">Exemple : un numéro dont la clé est cohérente</figcaption>
+        </figure>
+      </div>
+    </div>
+  </header>
+
+  <div class="band" id="outil"><div class="well"><h2 class="section-title">Vérifier un numéro</h2></div></div>
+  <section aria-label="Vérificateur">
+    <div class="well">
+      <div class="tool-box">
+        <noscript><p class="tool-nojs">Cet outil nécessite JavaScript pour calculer le résultat. Le fonctionnement est expliqué plus bas sur cette page.</p></noscript>
+        <form id="ice-form" novalidate>
+          <label for="ice-input">Numéro ICE</label>
+          <div class="tool-field">
+            <input class="tool-input" id="ice-input" name="ice" type="text" inputmode="numeric" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="000000000 0000 00" aria-describedby="ice-hint" />
+            <button class="btn primary" type="submit">Vérifier <span class="arrow">→</span></button>
+          </div>
+          <p id="ice-hint" class="tool-hint">15 chiffres, avec ou sans espaces.</p>
+        </form>
+
+        <div class="ice-result" id="ice-result" aria-live="polite" aria-atomic="false">
+          <p class="ice-verdict" data-state="idle"><span class="chk" data-state="na" aria-hidden="true">–</span><span>Saisissez un numéro pour voir le résultat.</span></p>
+        </div>
+
+        <div class="ice-actions">
+          <button class="btn small" type="button" id="ice-copy" disabled>Copier le numéro formaté</button>
+          <span class="tool-status" id="ice-status" role="status"></span>
+        </div>
+
+        <aside class="ref-limits tool-limit" aria-labelledby="limite-titre">
+          <h3 id="limite-titre" class="label">Ce que ce contrôle ne dit pas</h3>
+          <p>Ce contrôle porte uniquement sur la forme du numéro. Il ne prouve pas que l'entreprise existe ni qu'elle est en activité : vérifiez le numéro auprès de la source officielle, <a href="https://www.ice.gov.ma/" rel="noopener">ice.gov.ma</a>.</p>
+          <p class="ref-note"><span class="label">Non confirmé</span> Certaines sources indiquent que d'anciens numéros ICE pourraient ne pas suivre la règle de la clé. Un résultat « incohérente » sur un numéro ancien doit donc être comparé au registre officiel, et non traité comme la preuve d'une erreur.</p>
+        </aside>
+
+        <details class="ice-bulk" id="ice-bulk">
+          <summary><span>Vérifier plusieurs ICE</span><span class="toggle" aria-hidden="true"><span>+</span></span></summary>
+          <div class="ice-bulk-body">
+            <label for="ice-list">Un numéro par ligne (500 au maximum)</label>
+            <textarea id="ice-list" name="list" rows="6" spellcheck="false" autocomplete="off" placeholder="003976749000084&#10;002136093000040"></textarea>
+            <div class="tool-buttons">
+              <button class="btn small" type="button" id="ice-run">Vérifier la liste</button>
+              <button class="btn small" type="button" id="ice-csv" disabled>Copier en CSV</button>
+            </div>
+            <p class="tool-status" id="ice-bulk-status" role="status"></p>
+            <div class="table-scroll" id="ice-table" hidden>
+              <table>
+                <caption>Résultats</caption>
+                <thead><tr><th scope="col">Numéro</th><th scope="col">Format</th><th scope="col">Clé</th><th scope="col">Commentaire</th></tr></thead>
+                <tbody id="ice-rows"></tbody>
+              </table>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" id="methode"><div class="well"><h2 class="section-title">Comment la clé est contrôlée</h2></div></div>
+  <section aria-label="Méthode de contrôle">
+    <div class="well">
+      <div class="tool-prose">
+        <p>Un numéro ICE comporte 15 chiffres : 9 chiffres pour l'entreprise, 4 pour ses établissements et 2 pour la clé de contrôle.</p>
+        <div class="tool-parts">
+          <div><b>003976749</b><span>9 chiffres · entreprise</span></div>
+          <div><b>0000</b><span>4 chiffres · établissement</span></div>
+          <div><b>84</b><span>2 chiffres · clé de contrôle</span></div>
+        </div>
+        <p>La règle appliquée : le nombre complet de 15 chiffres doit être divisible par 97. De façon équivalente, la clé attendue est 97 moins le reste de la division par 97 des 13 premiers chiffres suivis de deux zéros. Le calcul utilise des entiers de précision arbitraire, jamais des nombres à virgule.</p>
+        <p>Cette règle est celle de la bibliothèque libre <a href="https://arthurdejong.org/python-stdnum/doc/stdnum.ma.ice" rel="noopener">python-stdnum</a> (module <code>stdnum.ma.ice</code>). Nous n'avons trouvé aucune spécification officielle publiée de la clé : l'outil s'appuie donc sur cette bibliothèque.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" id="comprendre"><div class="well"><h2 class="section-title">À propos de l'ICE</h2></div></div>
+  <section aria-label="À propos de l'ICE">
+    <div class="well">
+      <div class="tool-prose">
+        <p>L'ICE, Identifiant Commun de l'Entreprise, identifie une entreprise et ses établissements de façon unique et uniforme pour toutes les administrations marocaines.</p>
+        <p>Il doit figurer sur les factures : les mentions de l'article 145 du Code général des impôts comprennent l'ICE du vendeur et celui du client professionnel (<a href={tracker}>voir le suivi de la réforme</a>).</p>
+        <p>Il ne remplace pas les autres identifiants légaux (IF, RC, CNSS), qui restent à indiquer, d'après la documentation de python-stdnum.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" id="faq"><div class="well"><h2 class="section-title">Questions fréquentes</h2></div></div>
+  <section aria-label="Questions fréquentes">
+    <div class="well">
+      <div class="ref-faq">
+        {faq.map((f, i) => (
+          <details class="qa" open={i === 0}>
+            <summary>
+              <span class="qa-n label">Q.{String(i + 1).padStart(2, '0')}</span>
+              <h3>{f.q}</h3>
+              <span class="toggle" aria-hidden="true"><span>+</span></span>
+            </summary>
+            <p class="qa-a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <div class="tool-links">
+        <a href={tracker}>Suivi de la réforme de la facturation électronique →</a>
+        <a href="/outils/generateur-ubl/">Générateur de facture UBL 2.1 →</a>
+        <a href={repo} rel="noopener">Tabaa, logiciel de facturation libre →</a>
+      </div>
+      <footer>
+        <span>© 2026 Abderrahim Ghazali</span>
+        <a href="/outils/">Tous les outils →</a>
+      </footer>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { checkBulk, checkIce, formatIce, toCsv, type CheckState } from '../../lib/ice';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const input = $<HTMLInputElement>('ice-input');
+  const form = $<HTMLFormElement>('ice-form');
+  const result = $('ice-result');
+  const copy = $<HTMLButtonElement>('ice-copy');
+  const status = $('ice-status');
+  let current = '';
+
+  const glyph: Record<CheckState, string> = { ok: '✓', ko: '✕', na: '–' };
+  const word: Record<CheckState, string> = { ok: 'Réussi', ko: 'Échec', na: 'Non évalué' };
+
+  function node<K extends keyof HTMLElementTagNameMap>(tag: K, props: Partial<HTMLElementTagNameMap[K]> & { cls?: string; data?: Record<string, string> } = {}, text?: string) {
+    const el = document.createElement(tag);
+    const { cls, data, ...rest } = props as Record<string, unknown> & { cls?: string; data?: Record<string, string> };
+    if (cls) el.className = cls;
+    if (data) for (const [k, v] of Object.entries(data)) el.dataset[k] = v;
+    Object.assign(el, rest);
+    if (text !== undefined) el.textContent = text;
+    return el;
+  }
+
+  const chk = (state: CheckState) => node('span', { cls: 'chk', data: { state }, ariaHidden: 'true' }, glyph[state]);
+
+  function line(state: CheckState, title: string, detail: string) {
+    const li = node('li', { data: { state } });
+    li.append(chk(state), node('strong', {}, title), node('span', { cls: 'state-word' }, word[state]), node('span', { cls: 'detail' }, detail));
+    return li;
+  }
+
+  function render() {
+    const c = checkIce(input.value);
+    current = c.valid ? formatIce(c.digits) : '';
+    copy.disabled = !c.valid;
+    status.textContent = '';
+    result.replaceChildren();
+
+    if (c.empty) {
+      const p = node('p', { cls: 'ice-verdict', data: { state: 'idle' } });
+      p.append(chk('na'), node('span', {}, 'Saisissez un numéro pour voir le résultat.'));
+      result.append(p);
+      return;
+    }
+
+    const verdict = node('p', { cls: 'ice-verdict', data: { state: c.valid ? 'ok' : 'ko' } });
+    verdict.append(
+      chk(c.valid ? 'ok' : 'ko'),
+      node(
+        'span',
+        {},
+        c.valid
+          ? 'Format valide : la clé de contrôle est cohérente.'
+          : c.lengthState === 'ko'
+            ? c.hasOtherChars
+              ? 'Numéro mal formé : il contient des caractères autres que des chiffres.'
+              : `Numéro incomplet ou mal formé : ${c.length} chiffre${c.length > 1 ? 's' : ''} saisi${c.length > 1 ? 's' : ''}, 15 attendus.`
+            : 'Clé de contrôle incohérente : le numéro comporte probablement une erreur de saisie.',
+      ),
+    );
+    result.append(verdict);
+
+    if (c.structure) {
+      const groups = node('div', { cls: 'ice-groups' });
+      const g = (value: string, label: string, extra = '', state = '') => {
+        const d = node('div', { cls: `ice-group ${extra}`.trim(), data: state ? { state } : {} });
+        d.append(node('b', {}, value), node('i', {}, label));
+        return d;
+      };
+      groups.append(
+        g(c.structure.company, '9 chiffres · entreprise'),
+        g(c.structure.establishment, '4 chiffres · établissement'),
+        g(c.structure.key, '2 chiffres · clé', 'is-key', c.keyState),
+      );
+      result.append(groups);
+    }
+
+    const checks = node('ol', { cls: 'ice-checks' });
+    checks.append(
+      line(
+        c.lengthState,
+        '15 chiffres exactement',
+        c.lengthState === 'ok'
+          ? '15 chiffres saisis.'
+          : c.hasOtherChars
+            ? 'Le numéro contient des caractères autres que des chiffres (les espaces sont ignorés).'
+            : `${c.length} chiffre${c.length > 1 ? 's' : ''} saisi${c.length > 1 ? 's' : ''}.`,
+      ),
+      line(
+        c.structureState,
+        'Structure : 9 + 4 + 2 chiffres',
+        c.structure
+          ? `${c.structure.company} · ${c.structure.establishment} · ${c.structure.key}`
+          : 'Non évaluée tant que le numéro ne comporte pas 15 chiffres.',
+      ),
+      line(
+        c.keyState,
+        'Clé de contrôle',
+        c.keyState === 'ok'
+          ? 'Le nombre complet est divisible par 97.'
+          : c.keyState === 'ko'
+            ? `Le nombre complet n'est pas divisible par 97. Les 13 premiers chiffres exigeraient la clé ${c.expectedKey}, le numéro comporte ${c.structure?.key}.`
+            : 'Non évaluée tant que le numéro ne comporte pas 15 chiffres.',
+      ),
+    );
+    result.append(checks);
+  }
+
+  input.addEventListener('input', render);
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    render();
+    input.focus();
+  });
+
+  async function toClipboard(text: string, target: HTMLElement, done: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      target.textContent = done;
+    } catch {
+      target.textContent = 'La copie a échoué : sélectionnez le texte et copiez-le manuellement.';
+    }
+  }
+  copy.addEventListener('click', () => current && toClipboard(current, status, 'Numéro copié.'));
+
+  // bulk
+  const list = $<HTMLTextAreaElement>('ice-list');
+  const rowsEl = $('ice-rows');
+  const table = $('ice-table');
+  const bulkStatus = $('ice-bulk-status');
+  const csvBtn = $<HTMLButtonElement>('ice-csv');
+  let csv = '';
+
+  $('ice-run').addEventListener('click', () => {
+    const { rows, truncated } = checkBulk(list.value);
+    rowsEl.replaceChildren();
+    csvBtn.disabled = rows.length === 0;
+    table.hidden = rows.length === 0;
+    if (!rows.length) {
+      bulkStatus.textContent = 'Aucun numéro à vérifier.';
+      csv = '';
+      return;
+    }
+    csv = toCsv(rows);
+    for (const r of rows) {
+      const tr = document.createElement('tr');
+      if (r.key !== 'Cohérente') tr.dataset.bad = '';
+      for (const v of [r.number, r.format, r.key, r.comment]) tr.append(node('td', {}, v));
+      rowsEl.append(tr);
+    }
+    const ok = rows.filter((r) => r.key === 'Cohérente').length;
+    bulkStatus.textContent = `${rows.length} ligne${rows.length > 1 ? 's' : ''} vérifiée${rows.length > 1 ? 's' : ''} : ${ok} avec une clé cohérente.${truncated ? ' Seules les 500 premières lignes ont été traitées.' : ''}`;
+  });
+  csvBtn.addEventListener('click', () => csv && toClipboard(csv, bulkStatus, 'CSV copié dans le presse-papiers.'));
+
+  render();
+</script>
