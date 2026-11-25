@@ -653,6 +653,9 @@ section {
   transition: background 0.2s var(--ease);
 }
 .proj:hover { background: var(--bg-1); }
+.projects .proj:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.proj-links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.35rem 1.1rem; }
+.proj-links .proj-link:hover { color: var(--accent); }
 .proj-head { display: flex; align-items: center; gap: 0.65rem; }
 .proj-icon { width: 28px; height: 28px; border-radius: 5px; object-fit: contain; flex-shrink: 0; }
 .proj h3 { font-size: 1.05rem; font-weight: 400; line-height: 1; flex: 1; letter-spacing: 0; }

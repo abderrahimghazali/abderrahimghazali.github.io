@@ -1,0 +1,22 @@
+---
+import { sources } from '../data/reforme';
+import { formatDate } from '../lib/reforme';
+
+export interface Props { ids: string[] }
+const { ids } = Astro.props;
+const list = ids.map((id) => sources.find((s) => s.id === id)).filter((s) => s !== undefined);
+---
+
+{
+  list.length > 0 && (
+    <p class="cites">
+      <span class="label">{list.length > 1 ? 'Sources' : 'Source'}</span>
+      {list.map((s) => (
+        <span class="cite">
+          <a href={s.url} rel="noopener" aria-label={`${s.publisher}, ${formatDate(s.published)}`}>{s.publisher}</a>
+          <time datetime={s.published}>{formatDate(s.published)}</time>
+        </span>
+      ))}
+    </p>
+  )
+}

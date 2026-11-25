@@ -1,0 +1,59 @@
+---
+// Round ink stamp: double ring, text on a circular path, centre word between two rules, date, ink texture.
+// Typeset in the site's mono face. The ink colour comes from the --ink custom property.
+export interface Props {
+  word: string;
+  ring: string;
+  city: string;
+  date?: string;
+  size?: number;
+  id?: string;
+}
+const { word, ring, city, date, size = 260, id = 'cachet' } = Astro.props;
+const top = ring.toUpperCase();
+const bottom = city.toUpperCase();
+const fit = (len: number, max: number, room: number, em: number) => Math.min(max, room / (Math.max(len, 1) * em));
+const label = `Cachet : ${word.toLowerCase()}, ${ring.toLowerCase()}, ${city.toLowerCase()}`;
+---
+
+<svg class="cachet" viewBox="0 0 200 200" width={size} height={size} role="img" aria-label={label}>
+  <defs>
+    <filter id={`${id}-ink`} filterUnits="userSpaceOnUse" x="-10" y="-10" width="220" height="220">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="grain" />
+      <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.2" result="rough" />
+      <feTurbulence type="fractalNoise" baseFrequency="0.03 0.045" numOctaves="3" seed="11" result="blot" />
+      <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.5 1.78" result="uneven" />
+      <feComposite in="rough" in2="uneven" operator="in" />
+    </filter>
+    <path id={`${id}-top`} d="M 29.3 100 A 70.7 70.7 0 0 1 170.7 100"></path>
+    <path id={`${id}-bot`} d="M 20.7 100 A 79.3 79.3 0 0 0 179.3 100"></path>
+  </defs>
+  <g filter={`url(#${id}-ink)`} fill="currentColor" stroke="currentColor" aria-hidden="true">
+    <circle cx="100" cy="100" r="95" fill="none" stroke-width="3.4"></circle>
+    <circle cx="100" cy="100" r="88.5" fill="none" stroke-width="1.1"></circle>
+    <circle cx="100" cy="100" r="62" fill="none" stroke-width="1.1"></circle>
+    <text font-size={fit(top.length, 11, 196, 0.62)} font-weight="500" letter-spacing="1.2" stroke="none" text-anchor="middle">
+      <textPath href={`#${id}-top`} startOffset="50%">{top}</textPath>
+    </text>
+    <text font-size={fit(bottom.length, 11, 218, 0.62)} font-weight="500" letter-spacing="1.2" stroke="none" text-anchor="middle">
+      <textPath href={`#${id}-bot`} startOffset="50%">{bottom}</textPath>
+    </text>
+    <path d="M 21 100 l 3.5 -3.5 l 3.5 3.5 l -3.5 3.5 z" stroke="none" transform="translate(-4 0)"></path>
+    <path d="M 172 100 l 3.5 -3.5 l 3.5 3.5 l -3.5 3.5 z" stroke="none" transform="translate(4 0)"></path>
+    <line x1="46" x2="154" y1="83" y2="83" stroke-width="1.5"></line>
+    <line x1="46" x2="154" y1="117" y2="117" stroke-width="1.5"></line>
+    <text x="100" y="100" dy="0.36em" text-anchor="middle" font-weight="500" font-size={fit(word.length, 17, 100, 0.66)} letter-spacing="1" stroke="none">{word}</text>
+    {date && <text x="100" y="134" text-anchor="middle" font-size="8.6" font-weight="400" letter-spacing="0.6" stroke="none">{date}</text>}
+  </g>
+</svg>
+
+<style>
+  .cachet {
+    display: block;
+    color: var(--ink);
+    font-family: var(--mono);
+    transform: rotate(-8deg);
+    opacity: 0.94;
+  }
+  :global(:root[data-theme="light"]) .cachet { mix-blend-mode: multiply; }
+</style>

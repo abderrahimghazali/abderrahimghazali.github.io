@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { lastVerified } from '../data/reforme';
 
 export const GET: APIRoute = async () => {
   const site = 'https://abderrahimghazali.github.io';
@@ -6,6 +7,7 @@ export const GET: APIRoute = async () => {
 
   const pages = [
     { url: '/', priority: '1.0', lastmod: today },
+    { url: '/facturation-electronique-maroc/', priority: '0.8', lastmod: lastVerified },
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
