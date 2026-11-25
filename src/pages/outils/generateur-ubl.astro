@@ -1,0 +1,505 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import '../../styles/reforme.css';
+import '../../styles/outils.css';
+import { faq as trackerFaq } from '../../data/reforme';
+import { SITE, breadcrumbs, faqPage, webApplication } from '../../lib/seo';
+
+const title = 'Générateur de facture UBL 2.1 : créer un exemple XML en ligne';
+const description = "Générez gratuitement une facture UBL 2.1 d'exemple (XML) à partir d'un formulaire. Tout se calcule dans votre navigateur ; rien n'est envoyé.";
+const url = `${SITE}/outils/generateur-ubl/`;
+const image = '/outils-ubl-og.png';
+const tracker = '/facturation-electronique-maroc/';
+const repo = 'https://github.com/abderrahimghazali/tabaa';
+
+const formatAnswer = trackerFaq.find((f) => f.q.startsWith('Quel format de facture'))?.a ?? '';
+
+const faq = [
+  {
+    q: "UBL est-il obligatoire au Maroc ?",
+    a: `${formatAnswer} Pas encore dans les faits : le décret d'application n'est pas publié et aucune date d'obligation n'est officielle. Voir le suivi de la réforme.`,
+  },
+  {
+    q: 'Quelle différence entre UBL et un PDF ?',
+    a: "Un PDF fixe une mise en page : les montants y sont du texte placé sur la page. Une facture UBL est un fichier XML dont chaque information (numéro, date, lignes, taux, totaux) est dans un champ nommé, qu'un logiciel peut lire sans interpréter une mise en page.",
+  },
+  {
+    q: 'Peut-on envoyer ce fichier à la DGI ?',
+    a: "Non. Aucun canal de transmission ni aucune spécification technique n'ont été publiés à ce jour ; ce fichier est un exemple générique, pas un document destiné à être déposé.",
+  },
+  {
+    q: 'Mes données sont-elles envoyées quelque part ?',
+    a: "Non. Le formulaire, les calculs et le XML sont traités uniquement dans votre navigateur. Rien n'est envoyé ni stocké.",
+  },
+];
+
+const mapping = [
+  ['Numéro de facture', 'cbc:ID'],
+  ["Date d'émission", 'cbc:IssueDate'],
+  ['Échéance', 'cbc:DueDate'],
+  ['Devise', 'cbc:DocumentCurrencyCode'],
+  ['Raison sociale du vendeur', 'cac:AccountingSupplierParty / cac:Party / cac:PartyLegalEntity / cbc:RegistrationName'],
+  ['ICE du vendeur ou du client', 'cac:PartyIdentification / cbc:ID, attribut schemeID="MA:ICE"'],
+  ['IF du vendeur', 'cac:PartyTaxScheme / cbc:CompanyID'],
+  ['Quantité d\'une ligne', 'cac:InvoiceLine / cbc:InvoicedQuantity'],
+  ['Prix unitaire HT', 'cac:InvoiceLine / cac:Price / cbc:PriceAmount'],
+  ['Total HT d\'une ligne', 'cac:InvoiceLine / cbc:LineExtensionAmount'],
+  ['TVA par taux', 'cac:TaxTotal / cac:TaxSubtotal'],
+  ['Total TTC', 'cac:LegalMonetaryTotal / cbc:TaxInclusiveAmount'],
+  ['Net à payer', 'cac:LegalMonetaryTotal / cbc:PayableAmount'],
+  ['Mode de règlement', 'cac:PaymentMeans / cbc:PaymentMeansCode'],
+];
+
+const methods: [string, string][] = [
+  ['TRANSFER', 'Virement'],
+  ['CHEQUE', 'Chèque'],
+  ['BILL_OF_EXCHANGE', 'Effet de commerce'],
+  ['CASH', 'Espèces'],
+  ['CARD', 'Carte bancaire'],
+  ['DIRECT_DEBIT', 'Prélèvement'],
+];
+
+const jsonLd = [
+  webApplication({ name: 'Générateur de facture UBL 2.1', description, url, image }),
+  faqPage(faq),
+  breadcrumbs([
+    { name: 'Accueil', url: `${SITE}/` },
+    { name: 'Outils', url: `${SITE}/outils/` },
+    { name: 'Générateur de facture UBL 2.1', url },
+  ]),
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  url={url}
+  image={image}
+  imageAlt="Générateur de facture UBL 2.1 : un formulaire de facture et le fichier XML correspondant."
+  lang="fr"
+  locale="fr_FR"
+>
+  <Fragment slot="head">
+    <link rel="alternate" hreflang="fr" href={url} />
+    <link rel="alternate" hreflang="x-default" href={url} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  </Fragment>
+
+  <Nav />
+  <div class="dotgrid" aria-hidden="true"></div>
+  <div class="rule"></div>
+
+  <header class="ref-hero">
+    <div class="well">
+      <div class="ref-hero-grid">
+        <div class="ref-hero-text">
+          <p class="breadcrumb"><a href="/">Accueil</a><span aria-hidden="true">/</span><a href="/outils/">Outils</a><span aria-hidden="true">/</span><span>Générateur UBL 2.1</span></p>
+          <p class="label tool-eyebrow">Outil · Gratuit · Sans envoi de données</p>
+          <h1 class="ref-verdict tool-h1">Générateur de facture UBL 2.1</h1>
+          <p class="ref-summary">Remplissez une facture, obtenez le fichier XML UBL 2.1 correspondant, mis à jour à chaque modification. Pour découvrir le format, pas pour émettre un document officiel.</p>
+          <p class="tool-privacy"><strong>Tout se passe dans votre navigateur : le formulaire, les calculs et le XML ne sont ni envoyés, ni enregistrés, ni stockés.</strong></p>
+        </div>
+        <pre class="tool-fig tool-snippet" aria-hidden="true"><code>&lt;Invoice&gt;
+  &lt;cbc:ID&gt;FA-2026-00001
+  &lt;cbc:IssueDate&gt;2026-11-25
+  &lt;cac:AccountingSupplierParty&gt;
+    …
+  &lt;cac:LegalMonetaryTotal&gt;
+    &lt;cbc:PayableAmount&gt;
+      12900.00
+&lt;/Invoice&gt;</code></pre>
+      </div>
+    </div>
+  </header>
+
+  <section aria-labelledby="avertissement">
+    <div class="well">
+      <div class="ubl-warning">
+        <h2 id="avertissement">Ce que produit cet outil, et ce qu'il ne produit pas</h2>
+        <p>Cet outil produit une facture UBL 2.1 <strong>générique</strong>. La Direction Générale des Impôts n'a pas publié sa spécification technique ni son profil : les codes de schéma d'identifiant utilisés pour l'ICE, l'IF, le RC, la taxe professionnelle et la CNSS (<code>MA:ICE</code>, <code>MA:IF</code>, <code>MA:RC</code>, <code>MA:TP</code>, <code>MA:CNSS</code>) sont des <strong>valeurs provisoires</strong>.</p>
+        <p>Le fichier est un exemple pour les développeurs et pour se familiariser avec le format. Aucune plateforme ne l'acceptera comme document conforme. Pour l'état de la réforme : <a href={tracker}>suivi de la réforme de la facturation électronique</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" id="outil"><div class="well"><h2 class="section-title">Composer la facture</h2></div></div>
+  <section aria-label="Générateur">
+    <div class="well">
+      <div class="tool-box">
+        <noscript><p class="tool-nojs">Cet outil nécessite JavaScript pour calculer les totaux et générer le XML. Le format est expliqué plus bas sur cette page.</p></noscript>
+        <div class="tool-buttons tool-buttons-top">
+          <button class="btn small" type="button" id="load-sample">Remplir avec un exemple</button>
+          <button class="btn small" type="button" id="reset-form">Vider le formulaire</button>
+        </div>
+
+        <div id="ubl-form" role="group" aria-label="Formulaire de facture">
+          <fieldset class="ubl-fieldset">
+            <legend>Vendeur</legend>
+            <div class="fgrid">
+              <div class="wide"><label for="s-name">Raison sociale</label><input id="s-name" name="s-name" type="text" /></div>
+              <div><label for="s-ice">ICE</label><input id="s-ice" name="s-ice" type="text" inputmode="numeric" /></div>
+              <div><label for="s-if">IF</label><input id="s-if" name="s-if" type="text" /></div>
+              <div><label for="s-rc">RC</label><input id="s-rc" name="s-rc" type="text" /></div>
+              <div><label for="s-tp">Taxe professionnelle</label><input id="s-tp" name="s-tp" type="text" /></div>
+              <div><label for="s-cnss">CNSS</label><input id="s-cnss" name="s-cnss" type="text" /></div>
+              <div class="wide"><label for="s-address">Adresse</label><input id="s-address" name="s-address" type="text" /></div>
+              <div><label for="s-city">Ville</label><input id="s-city" name="s-city" type="text" /></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="ubl-fieldset">
+            <legend>Client</legend>
+            <div class="fgrid">
+              <div class="wide"><label for="b-name">Raison sociale</label><input id="b-name" name="b-name" type="text" /></div>
+              <div><label for="b-ice">ICE</label><input id="b-ice" name="b-ice" type="text" inputmode="numeric" /></div>
+              <div></div>
+              <div class="wide"><label for="b-address">Adresse</label><input id="b-address" name="b-address" type="text" /></div>
+              <div><label for="b-city">Ville</label><input id="b-city" name="b-city" type="text" /></div>
+            </div>
+          </fieldset>
+
+          <fieldset class="ubl-fieldset">
+            <legend>Facture</legend>
+            <div class="fgrid three">
+              <div><label for="i-number">Numéro</label><input id="i-number" name="i-number" type="text" /></div>
+              <div><label for="i-issue">Date d'émission</label><input id="i-issue" name="i-issue" type="date" /></div>
+              <div><label for="i-due">Échéance</label><input id="i-due" name="i-due" type="date" /></div>
+              <div><label for="i-currency">Devise</label><input id="i-currency" name="i-currency" type="text" value="MAD" maxlength="3" /></div>
+              <div class="span2"><label for="i-method">Mode de règlement</label>
+                <select id="i-method" name="i-method">{methods.map(([v, l]) => <option value={v}>{l}</option>)}</select>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="ubl-fieldset">
+            <legend>Lignes</legend>
+            <ol class="lines" id="lines">
+              <li class="line-card">
+                <div class="line-grid">
+                  <div class="desc"><label for="l0-description">Désignation</label><input id="l0-description" data-f="description" type="text" /></div>
+                  <div><label for="l0-quantity">Quantité</label><input id="l0-quantity" data-f="quantity" type="text" inputmode="decimal" value="1" /></div>
+                  <div><label for="l0-unit">Unité</label><input id="l0-unit" data-f="unit" type="text" value="unité" /></div>
+                  <div class="price"><label for="l0-unitPrice">Prix unitaire HT</label><input id="l0-unitPrice" data-f="unitPrice" type="text" inputmode="decimal" /></div>
+                  <div><label for="l0-discountPercent">Remise %</label><input id="l0-discountPercent" data-f="discountPercent" type="text" inputmode="decimal" value="0" /></div>
+                  <div><label for="l0-vatRate">TVA</label>
+                    <select id="l0-vatRate" data-f="vatRate"><option value="20">20 %</option><option value="10">10 %</option><option value="0">0 %</option></select>
+                  </div>
+                </div>
+                <div class="line-foot"><span>Total HT de la ligne : <output data-total>0,00</output></span><button class="btn small" type="button" data-remove>Retirer la ligne</button></div>
+              </li>
+            </ol>
+            <div class="tool-buttons"><button class="btn small" type="button" id="add-line">Ajouter une ligne</button></div>
+          </fieldset>
+
+          <fieldset class="ubl-fieldset">
+            <legend>Notes</legend>
+            <label for="i-notes">Note libre (facultative)</label>
+            <textarea id="i-notes" name="i-notes" rows="3"></textarea>
+          </fieldset>
+        </div>
+
+        <div class="totals" aria-live="polite">
+          <dl id="totals"></dl>
+          <span class="words" id="words"></span>
+        </div>
+        <ul class="ubl-issues" id="issues" aria-live="polite"></ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" id="xml"><div class="well"><h2 class="section-title">Le fichier XML</h2></div></div>
+  <section aria-label="XML généré">
+    <div class="well">
+      <div class="code-wrap">
+        <div class="code-bar">
+          <span>UBL 2.1 · Invoice</span>
+          <span class="actions">
+            <button class="btn small" type="button" id="copy-xml" disabled>Copier</button>
+            <button class="btn small" type="button" id="download-xml" disabled>Télécharger (.xml)</button>
+          </span>
+        </div>
+        <pre class="code" tabindex="0" aria-label="XML UBL 2.1 généré, lecture seule"><code id="xml-out">Le XML apparaît ici lorsque JavaScript est activé.</code></pre>
+      </div>
+      <p class="tool-status" id="xml-status" role="status"></p>
+    </div>
+  </section>
+
+  <div class="band" id="ubl"><div class="well"><h2 class="section-title">Comprendre UBL</h2></div></div>
+  <section aria-label="Comprendre UBL">
+    <div class="well">
+      <div class="tool-prose">
+        <p>UBL, Universal Business Language, est une norme publiée par OASIS qui décrit des documents commerciaux en XML. UBL 2.1 comprend notamment la facture (<code>Invoice</code>) et l'avoir (<code>CreditNote</code>).</p>
+        <p>Une facture structurée contient chaque information dans un champ nommé. Un PDF, lui, fixe une mise en page : un logiciel doit en interpréter le texte pour retrouver un montant.</p>
+        <h3 class="tool-sub">Où va chaque mention de la facture</h3>
+      </div>
+      <div class="table-scroll">
+        <table class="map-table">
+          <caption class="sr-only">Correspondance entre les mentions de la facture et les éléments UBL émis par cet outil</caption>
+          <thead><tr><th scope="col">Mention de la facture</th><th scope="col">Élément UBL</th></tr></thead>
+          <tbody>{mapping.map(([a, b]) => <tr><td>{a}</td><td class="mono-cell"><code>{b}</code></td></tr>)}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="band" id="faq"><div class="well"><h2 class="section-title">Questions fréquentes</h2></div></div>
+  <section aria-label="Questions fréquentes">
+    <div class="well">
+      <div class="ref-faq">
+        {faq.map((f, i) => (
+          <details class="qa" open={i === 0}>
+            <summary>
+              <span class="qa-n label">Q.{String(i + 1).padStart(2, '0')}</span>
+              <h3>{f.q}</h3>
+              <span class="toggle" aria-hidden="true"><span>+</span></span>
+            </summary>
+            <p class="qa-a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <div class="tool-links">
+        <a href={tracker}>Suivi de la réforme de la facturation électronique →</a>
+        <a href="/outils/verificateur-ice/">Vérificateur d'ICE →</a>
+        <a href={repo} rel="noopener">Tabaa, logiciel de facturation libre →</a>
+      </div>
+      <footer>
+        <span>© 2026 Abderrahim Ghazali</span>
+        <a href="/outils/">Tous les outils →</a>
+      </footer>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { build, type InvoiceForm, type FormLine } from '../../lib/invoice-form';
+  import { samples } from '../../lib/invoice-samples';
+  import { checkIce } from '../../lib/ice';
+  import { prettyXml } from '../../lib/xml-format';
+  import type { PaymentMethod } from '../../lib/tabaa-core/types';
+
+  const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
+  const form = $('ubl-form');
+  const linesEl = $<HTMLOListElement>('lines');
+  const totalsEl = $('totals');
+  const wordsEl = $('words');
+  const issuesEl = $('issues');
+  const out = $('xml-out');
+  const copyBtn = $<HTMLButtonElement>('copy-xml');
+  const dlBtn = $<HTMLButtonElement>('download-xml');
+  const status = $('xml-status');
+  const lineTemplate = linesEl.firstElementChild!.cloneNode(true) as HTMLElement;
+  let uid = 1;
+  let xml = '';
+  let fileName = 'facture-ubl.xml';
+
+  const val = (id: string) => ($(id) as HTMLInputElement).value;
+  const fmt = new Intl.NumberFormat('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const money = (s: string) => fmt.format(Number(s)).replace(/[  ]/g, ' ');
+
+  function readLines(): FormLine[] {
+    return [...linesEl.children].map((li) => {
+      const g = (f: string) => (li.querySelector(`[data-f="${f}"]`) as HTMLInputElement).value;
+      return { description: g('description'), quantity: g('quantity'), unit: g('unit'), unitPrice: g('unitPrice'), discountPercent: g('discountPercent'), vatRate: g('vatRate') };
+    });
+  }
+
+  function read(): InvoiceForm {
+    return {
+      seller: { name: val('s-name'), ice: val('s-ice'), ifNumber: val('s-if'), rc: val('s-rc'), tp: val('s-tp'), cnss: val('s-cnss'), address: val('s-address'), city: val('s-city') },
+      buyer: { name: val('b-name'), ice: val('b-ice'), address: val('b-address'), city: val('b-city') },
+      number: val('i-number'),
+      issueDate: val('i-issue'),
+      dueDate: val('i-due'),
+      currency: val('i-currency'),
+      paymentMethod: val('i-method') as PaymentMethod,
+      lines: readLines(),
+      notes: val('i-notes'),
+    };
+  }
+
+  function addLine(values?: FormLine) {
+    const li = lineTemplate.cloneNode(true) as HTMLElement;
+    const n = uid++;
+    li.querySelectorAll<HTMLElement>('[data-f]').forEach((field) => {
+      const f = field.dataset.f!;
+      field.id = `l${n}-${f}`;
+      li.querySelector(`label[for$="-${f}"]`)?.setAttribute('for', field.id);
+      const input = field as HTMLInputElement;
+      input.value = values ? values[f as keyof FormLine] : f === 'quantity' ? '1' : f === 'unit' ? 'unité' : f === 'discountPercent' ? '0' : f === 'vatRate' ? '20' : '';
+    });
+    linesEl.append(li);
+    return li;
+  }
+
+  function setLines(lines: FormLine[]) {
+    linesEl.replaceChildren();
+    (lines.length ? lines : [undefined]).forEach((l) => addLine(l));
+  }
+
+  function fill(f: InvoiceForm) {
+    const set = (id: string, v: string) => (($(id) as HTMLInputElement).value = v);
+    set('s-name', f.seller.name); set('s-ice', f.seller.ice); set('s-if', f.seller.ifNumber); set('s-rc', f.seller.rc);
+    set('s-tp', f.seller.tp); set('s-cnss', f.seller.cnss); set('s-address', f.seller.address); set('s-city', f.seller.city);
+    set('b-name', f.buyer.name); set('b-ice', f.buyer.ice); set('b-address', f.buyer.address); set('b-city', f.buyer.city);
+    set('i-number', f.number); set('i-issue', f.issueDate); set('i-due', f.dueDate); set('i-currency', f.currency);
+    set('i-method', f.paymentMethod); set('i-notes', f.notes);
+    setLines(f.lines);
+    render();
+  }
+
+  // Syntax colouring built with DOM nodes: nothing the user types is ever parsed as HTML.
+  const TAG = /^(\s*)(<\/?)([\w:]+)((?:\s+[\w:]+="[^"]*")*)(\/?>)(.*)$/;
+  function colourLine(text: string): HTMLElement {
+    const row = document.createElement('span');
+    row.className = 'ln';
+    const span = (cls: string, t: string) => {
+      const s = document.createElement('span');
+      s.className = cls;
+      s.textContent = t;
+      return s;
+    };
+    if (text.startsWith('<?')) {
+      row.append(span('tk-pi', text));
+      return row;
+    }
+    const m = TAG.exec(text);
+    if (!m) {
+      row.textContent = text;
+      return row;
+    }
+    row.append(m[1]!, span('tk-tag', m[2]! + m[3]!));
+    for (const a of m[4]!.matchAll(/(\s+)([\w:]+)="([^"]*)"/g)) {
+      row.append(a[1]!, span(a[2]!.startsWith('xmlns') ? 'tk-ns' : 'tk-attr', a[2]!), '="', span(a[2]!.startsWith('xmlns') ? 'tk-ns' : 'tk-val', a[3]!), '"');
+    }
+    // inline text and closing tag, when the element holds only text
+    const rest = m[6]!;
+    const close = /^(.*?)(<\/[\w:]+>)$/.exec(rest);
+    row.append(span('tk-tag', m[5]!));
+    if (close) row.append(span('tk-txt', close[1]!), span('tk-tag', close[2]!));
+    else if (rest) row.append(span('tk-txt', rest));
+    return row;
+  }
+
+  function validate(f: InvoiceForm) {
+    const blocking: string[] = [];
+    const notes: string[] = [];
+    if (!f.number.trim()) blocking.push("Numéro de facture manquant : le fichier ne peut pas être téléchargé sans numéro.");
+    if (!f.issueDate) blocking.push("Date d'émission manquante : elle est obligatoire dans le XML.");
+    if (!f.seller.name.trim()) notes.push('Raison sociale du vendeur manquante.');
+    if (!f.seller.address.trim() || !f.seller.city.trim()) notes.push("Adresse ou ville du vendeur manquante.");
+    if (!f.buyer.name.trim()) notes.push('Raison sociale du client manquante.');
+    if (!f.buyer.address.trim() || !f.buyer.city.trim()) notes.push("Adresse ou ville du client manquante.");
+    const sIce = checkIce(f.seller.ice);
+    if (!sIce.empty && !sIce.valid) notes.push("ICE du vendeur : la clé de contrôle n'est pas cohérente (voir le vérificateur d'ICE).");
+    const bIce = checkIce(f.buyer.ice);
+    if (!bIce.empty && !bIce.valid) notes.push("ICE du client : la clé de contrôle n'est pas cohérente (voir le vérificateur d'ICE).");
+    f.lines.forEach((l, i) => {
+      for (const [label, v] of [['Quantité', l.quantity], ['Prix unitaire', l.unitPrice], ['Remise', l.discountPercent]] as const) {
+        if (v.trim() && !/^\d{1,13}([.,]\d{1,6})?$/.test(v.trim())) notes.push(`Ligne ${i + 1} : ${label.toLowerCase()} invalide, comptée comme 0.`);
+      }
+    });
+    return { blocking, notes };
+  }
+
+  function render() {
+    const f = read();
+    const built = build(f);
+    const { blocking, notes } = validate(f);
+
+    xml = prettyXml(built.xml);
+    out.replaceChildren(...xml.trimEnd().split('\n').map(colourLine));
+
+    const t = built.totals;
+    const cur = (f.currency.trim() || 'MAD').toUpperCase();
+    const rows: [string, string, boolean?][] = [['Total HT', `${money(t.totalNet)} ${cur}`]];
+    for (const b of t.breakdown) rows.push([`TVA ${b.rate} % sur ${money(b.base)}`, `${money(b.vat)} ${cur}`]);
+    rows.push(['Total TVA', `${money(t.totalVat)} ${cur}`], ['Total TTC', `${money(t.totalGross)} ${cur}`]);
+    if (Number(t.stampDuty) > 0) rows.push(['Droit de timbre', `${money(t.stampDuty)} ${cur}`]);
+    rows.push(['Net à payer', `${money(t.amountDue)} ${cur}`, true]);
+    totalsEl.replaceChildren(
+      ...rows.map(([k, v, grand]) => {
+        const d = document.createElement('div');
+        if (grand) d.className = 'grand';
+        const dt = document.createElement('dt');
+        dt.textContent = k;
+        const dd = document.createElement('dd');
+        dd.textContent = v;
+        d.append(dt, dd);
+        return d;
+      }),
+    );
+    wordsEl.textContent = `Arrêtée la présente facture à la somme de : ${built.words}.`;
+
+    [...linesEl.children].forEach((li, i) => {
+      (li.querySelector('[data-total]') as HTMLElement).textContent = money(t.lines[i]?.net ?? '0');
+      (li.querySelector('[data-remove]') as HTMLButtonElement).disabled = linesEl.children.length === 1;
+    });
+
+    issuesEl.replaceChildren(
+      ...[...blocking, ...notes].map((m) => {
+        const li = document.createElement('li');
+        li.textContent = m;
+        return li;
+      }),
+    );
+
+    copyBtn.disabled = false;
+    dlBtn.disabled = blocking.length > 0;
+    const safe = f.number.trim().replace(/[^\w.-]+/g, '_');
+    fileName = `${safe || 'facture'}.xml`;
+  }
+
+  form.addEventListener('input', () => {
+    status.textContent = '';
+    render();
+  });
+  $('add-line').addEventListener('click', () => {
+    const li = addLine();
+    render();
+    (li.querySelector('[data-f="description"]') as HTMLInputElement).focus();
+  });
+  linesEl.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-remove]');
+    if (!btn || linesEl.children.length === 1) return;
+    const li = btn.closest('li')!;
+    const next = (li.nextElementSibling ?? li.previousElementSibling) as HTMLElement;
+    li.remove();
+    render();
+    (next.querySelector('[data-f="description"]') as HTMLInputElement).focus();
+  });
+  $('load-sample').addEventListener('click', () => {
+    fill(samples.sample);
+    status.textContent = 'Exemple chargé : toutes les données sont fictives.';
+  });
+  $('reset-form').addEventListener('click', () => {
+    form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea').forEach((el) => {
+      if (!el.closest('#lines')) el.value = el.defaultValue;
+    });
+    (document.getElementById('i-method') as HTMLSelectElement).selectedIndex = 0;
+    setLines([]);
+    render();
+    status.textContent = 'Formulaire vidé.';
+  });
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(xml);
+      status.textContent = 'XML copié dans le presse-papiers.';
+    } catch {
+      status.textContent = 'La copie a échoué : sélectionnez le XML et copiez-le manuellement.';
+    }
+  });
+  dlBtn.addEventListener('click', () => {
+    const url = URL.createObjectURL(new Blob([xml], { type: 'application/xml;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+    status.textContent = `Fichier ${fileName} téléchargé.`;
+  });
+
+  render();
+</script>

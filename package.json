@@ -6,12 +6,19 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "vitest run",
+    "validate:ubl": "vite-node scripts/validate-ubl.mjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.13.2",
+    "decimal.js": "^10.6.0",
     "rehype-external-links": "^3.0.0",
     "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "vite-node": "^6.0.0",
+    "vitest": "^5.1.1"
   }
 }

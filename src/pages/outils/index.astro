@@ -1,0 +1,83 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import '../../styles/reforme.css';
+import '../../styles/outils.css';
+import { SITE, breadcrumbs } from '../../lib/seo';
+
+const title = 'Outils gratuits pour la facturation au Maroc : ICE et UBL';
+const description = "Deux outils gratuits qui s'exécutent dans votre navigateur : un vérificateur de numéro ICE et un générateur de facture UBL 2.1.";
+const url = `${SITE}/outils/`;
+const image = '/outils-ice-og.png';
+
+const tools = [
+  {
+    href: '/outils/verificateur-ice/',
+    kicker: 'Outil · ICE',
+    name: "Vérificateur d'ICE",
+    desc: "Contrôlez un numéro ICE : 15 chiffres, structure en 9 + 4 + 2 et clé de contrôle. Une ou plusieurs lignes à la fois, avec export CSV.",
+  },
+  {
+    href: '/outils/generateur-ubl/',
+    kicker: 'Outil · UBL 2.1',
+    name: 'Générateur de facture UBL 2.1',
+    desc: "Remplissez une facture et obtenez le fichier XML UBL 2.1 correspondant, avec les totaux et le montant en lettres. Un exemple pour découvrir le format.",
+  },
+];
+
+const jsonLd = [
+  breadcrumbs([
+    { name: 'Accueil', url: `${SITE}/` },
+    { name: 'Outils', url },
+  ]),
+];
+---
+
+<Layout title={title} description={description} url={url} image={image} imageAlt="Vérificateur d'ICE et générateur de facture UBL 2.1." lang="fr" locale="fr_FR">
+  <Fragment slot="head">
+    <link rel="alternate" hreflang="fr" href={url} />
+    <link rel="alternate" hreflang="x-default" href={url} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  </Fragment>
+
+  <Nav />
+  <div class="dotgrid" aria-hidden="true"></div>
+  <div class="rule"></div>
+
+  <header class="ref-hero">
+    <div class="well">
+      <p class="breadcrumb"><a href="/">Accueil</a><span aria-hidden="true">/</span><span>Outils</span></p>
+      <p class="label tool-eyebrow">Gratuits · Dans votre navigateur</p>
+      <h1 class="ref-verdict">Outils</h1>
+      <p class="ref-summary">Deux outils pour la facturation au Maroc. Ils s'exécutent entièrement dans votre navigateur : rien n'est envoyé, enregistré ou stocké.</p>
+    </div>
+  </header>
+
+  <div class="band" id="liste"><div class="well"><h2 class="section-title">Les outils</h2></div></div>
+  <section aria-label="Liste des outils">
+    <div class="well">
+      <ul class="tool-rows">
+        {tools.map((t) => (
+          <li>
+            <a class="tool-row" href={t.href}>
+              <div>
+                <p class="label">{t.kicker}</p>
+                <h3>{t.name}</h3>
+                <p>{t.desc}</p>
+              </div>
+              <span class="go">Ouvrir →</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <div class="tool-links">
+        <a href="/facturation-electronique-maroc/">Suivi de la réforme de la facturation électronique →</a>
+        <a href="https://github.com/abderrahimghazali/tabaa" rel="noopener">Tabaa, logiciel de facturation libre →</a>
+      </div>
+      <footer>
+        <span>© 2026 Abderrahim Ghazali</span>
+        <a href="/">Portfolio →</a>
+      </footer>
+    </div>
+  </section>
+</Layout>

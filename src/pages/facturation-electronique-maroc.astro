@@ -5,6 +5,7 @@ import Cachet from '../components/Cachet.astro';
 import Cites from '../components/Cites.astro';
 import LevelMark from '../components/LevelMark.astro';
 import '../styles/reforme.css';
+import '../styles/outils.css';
 import { changelog, facts, faq, firstPublished, lastVerified, methodology, prepare, sources, status, steps, timeline, type Level } from '../data/reforme';
 import { formatDate, kindLabel, levelLabel, stateLabel, titleMonth } from '../lib/reforme';
 
@@ -44,6 +45,7 @@ const sections = [
   ['methode', 'Méthode'],
   ['historique', 'Historique'],
   ['sources', 'Sources'],
+  ['outils', 'Outils'],
   ['tabaa', 'Tabaa'],
 ];
 const factIds: Record<Level, string> = { 'en-vigueur': 'loi', annonce: 'annonce', 'non-confirme': 'circule' };
@@ -303,6 +305,27 @@ const jsonLd = [
           </li>
         ))}
       </ol>
+    </div>
+  </section>
+
+  <!-- Outils -->
+  <div class="band" id="outils"><div class="well"><h2 class="section-title">Outils</h2></div></div>
+  <section aria-label="Outils">
+    <div class="well">
+      <ul class="tool-rows">
+        <li>
+          <a class="tool-row" href="/outils/verificateur-ice/">
+            <div><p class="label">Outil · ICE</p><h3>Vérificateur d'ICE</h3></div>
+            <span class="go">Ouvrir →</span>
+          </a>
+        </li>
+        <li>
+          <a class="tool-row" href="/outils/generateur-ubl/">
+            <div><p class="label">Outil · UBL 2.1</p><h3>Générateur de facture UBL 2.1</h3></div>
+            <span class="go">Ouvrir →</span>
+          </a>
+        </li>
+      </ul>
     </div>
   </section>
 
