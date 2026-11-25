@@ -8,9 +8,11 @@ export interface Props {
   imageAlt?: string;
   type?: string;
   noindex?: boolean;
+  lang?: string;
+  locale?: string;
 }
 
-const { title, description, keywords, url, image, imageAlt, type = 'website', noindex = false } = Astro.props;
+const { title, description, keywords, url, image, imageAlt, type = 'website', noindex = false, lang = 'en', locale = 'en_US' } = Astro.props;
 const siteUrl = 'https://abderrahimghazali.github.io';
 const imageUrl = image ? `${siteUrl}${image}` : `${siteUrl}/me.jpeg`;
 const ogImageAlt = imageAlt || 'Abderrahim GHAZALI';
@@ -19,7 +21,7 @@ import CommandPalette from '../components/CommandPalette.astro';
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -39,7 +41,7 @@ import CommandPalette from '../components/CommandPalette.astro';
     <meta property="og:image:alt" content={ogImageAlt}>
     <meta property="og:url" content={url}>
     <meta property="og:site_name" content="Abderrahim GHAZALI">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:locale" content={locale}>
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -63,6 +65,8 @@ import CommandPalette from '../components/CommandPalette.astro';
     <link rel="manifest" href="/manifest.json">
 
     <title>{title}</title>
+
+    <slot name="head" />
 
     <!-- set the theme before first paint so there is no flash -->
     <script is:inline>

@@ -105,6 +105,16 @@ const projects = [
     desc: "Animated pixel-art Clawd pet, drawn entirely in SVG and animated with CSS. No canvas, no runtime.",
     stack: ["TypeScript", "SVG", "CSS"],
     link: "https://clawd-pet.vercel.app",
+  },
+  {
+    name: "Tabaa",
+    badge: "Open source",
+    desc: "Invoicing software for Morocco, built with the e-invoicing reform in mind. Not connected to the tax authority and holding no approval. A tracker page, in French, follows where the reform stands.",
+    stack: ["Next.js", "NestJS", "PostgreSQL", "UBL 2.1"],
+    links: [
+      { label: "Code", href: "https://github.com/abderrahimghazali/tabaa", external: true },
+      { label: "Reform tracker", href: "/facturation-electronique-maroc/", external: false },
+    ],
   }
 ];
 
@@ -242,6 +252,26 @@ const repos = [
     <div class="well">
       <div class="projects reveal-on-scroll">
         {projects.map((pr) => (
+          pr.links ? (
+            <div class="proj">
+              <div class="proj-head">
+                {pr.icon && <img src={pr.icon} alt="" width="28" height="28" class="proj-icon" loading="lazy" />}
+                <h3>{pr.name}</h3>
+              </div>
+              <div class="proj-badge" style="align-self: flex-start;">{pr.badge}</div>
+              <p>{pr.desc}</p>
+              <div class="proj-foot">
+                <div class="tags" style="margin-top: 0;">
+                  {pr.stack.map(s => <span class="tag">{s}</span>)}
+                </div>
+                <span class="proj-links">
+                  {pr.links.map((l) => (
+                    <a class="proj-link" href={l.href} {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>{l.label} →</a>
+                  ))}
+                </span>
+              </div>
+            </div>
+          ) : (
           <a class="proj" href={pr.link} target="_blank" rel="noopener noreferrer">
             <div class="proj-head">
               {pr.icon && <img src={pr.icon} alt="" width="28" height="28" class="proj-icon" loading="lazy" />}
@@ -256,6 +286,7 @@ const repos = [
               <span class="proj-link">View →</span>
             </div>
           </a>
+          )
         ))}
       </div>
     </div>

@@ -1,0 +1,343 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Cachet from '../components/Cachet.astro';
+import Cites from '../components/Cites.astro';
+import LevelMark from '../components/LevelMark.astro';
+import '../styles/reforme.css';
+import { changelog, facts, faq, firstPublished, lastVerified, methodology, prepare, sources, status, steps, timeline, type Level } from '../data/reforme';
+import { formatDate, kindLabel, levelLabel, stateLabel, titleMonth } from '../lib/reforme';
+
+const site = 'https://abderrahimghazali.github.io';
+const canonical = `${site}/facturation-electronique-maroc/`;
+const h1 = 'Facturation électronique au Maroc : où en est la réforme ?';
+const verified = formatDate(lastVerified);
+const title = `${h1} (${titleMonth(lastVerified)})`;
+const description = `${status.headline}. Dernière vérification : ${verified}. Faits classés par niveau de certitude, avec leurs sources.`;
+const image = '/reforme-og.png';
+const stampDate = lastVerified.split('-').reverse().join('/');
+const repo = 'https://github.com/abderrahimghazali/tabaa';
+
+const levels: Level[] = ['en-vigueur', 'annonce', 'non-confirme'];
+const groups: Record<Level, string> = {
+  'en-vigueur': 'Ce qui est dans la loi',
+  annonce: 'Ce qui a été annoncé',
+  'non-confirme': 'Ce qui circule sans être confirmé',
+};
+const legend: Record<Level, string> = {
+  'en-vigueur': 'Figure dans un texte officiel publié.',
+  annonce: "Déclaré par l'administration ou rapporté par la presse, sans texte publié qui le fixe.",
+  'non-confirme': 'Circule en ligne sans texte officiel ni source officielle.',
+};
+const events = [...timeline].sort((a, b) => a.date.localeCompare(b.date));
+const here = steps.findIndex((s, i) => i > 0 && s.state === 'attente' && steps[i - 1].state !== 'attente');
+const sections = [
+  ['etat', 'État'],
+  ['constat', 'Constat'],
+  ['niveaux', 'Niveaux'],
+  ['loi', 'Dans la loi'],
+  ['annonce', 'Annoncé'],
+  ['circule', 'Non confirmé'],
+  ['chronologie', 'Chronologie'],
+  ['preparer', 'Que faire'],
+  ['faq', 'Questions'],
+  ['methode', 'Méthode'],
+  ['historique', 'Historique'],
+  ['sources', 'Sources'],
+  ['tabaa', 'Tabaa'],
+];
+const factIds: Record<Level, string> = { 'en-vigueur': 'loi', annonce: 'annonce', 'non-confirme': 'circule' };
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: h1,
+    description,
+    datePublished: firstPublished,
+    dateModified: lastVerified,
+    inLanguage: 'fr',
+    url: canonical,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    image: `${site}${image}`,
+    author: { '@type': 'Person', name: 'Abderrahim Ghazali', url: `${site}/` },
+    publisher: { '@type': 'Person', name: 'Abderrahim Ghazali', url: `${site}/` },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    inLanguage: 'fr',
+    mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Abderrahim Ghazali', item: `${site}/` },
+      { '@type': 'ListItem', position: 2, name: h1, item: canonical },
+    ],
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  url={canonical}
+  image={image}
+  imageAlt="Cachet « en attente » : le décret d'application de la facturation électronique au Maroc n'est pas publié."
+  type="article"
+  lang="fr"
+  locale="fr_FR"
+>
+  <Fragment slot="head">
+    <link rel="alternate" hreflang="fr" href={canonical} />
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+    {jsonLd.map((data) => <script type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  </Fragment>
+
+  <Nav />
+
+  <div class="dotgrid" aria-hidden="true"></div>
+  <div class="rule"></div>
+
+  <!-- Hero -->
+  <header class="ref-hero">
+    <div class="well">
+      <div class="ref-hero-grid">
+        <div class="ref-hero-text">
+          <p class="breadcrumb">
+            <a href="/">Abderrahim Ghazali</a><span aria-hidden="true">/</span><span>Facturation électronique</span>
+          </p>
+          <p class="ref-eyebrow label">Réforme · Maroc · Mis à jour le <time datetime={lastVerified}>{verified}</time></p>
+          <h1 class="ref-h1">{h1}</h1>
+          <p class="ref-verdict">{status.headline}</p>
+          <p class="ref-summary">{status.summary}</p>
+          <p class="status ref-status"><span class="status-dot" aria-hidden="true"></span>Dernière vérification : <time datetime={lastVerified}>{verified}</time></p>
+        </div>
+        <div class="ref-hero-stamp">
+          <Cachet word={status.stamp.word} ring={status.stamp.ring} city={status.stamp.city} date={stampDate} id="hero" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Où en est-on -->
+  <div class="band" id="etat"><div class="well"><h2 class="section-title">Où en est-on</h2></div></div>
+  <section aria-labelledby="etat-note">
+    <div class="well">
+      <p class="label ref-lead" id="etat-note">Du principe légal à l'obligation · 6 étapes</p>
+      <ol class="ref-steps">
+        {steps.map((s, i) => (
+          <li class={`ref-step ref-step-${s.state}`} data-here={i === here ? '' : undefined}>
+            {i === here && <span class="ref-here">Nous sommes ici</span>}
+            <span class="ref-step-n label">{String(i + 1).padStart(2, '0')}</span>
+            <span class="ref-step-state"><LevelMark state={s.state} /><span>{stateLabel[s.state]}</span></span>
+            <h3 class="ref-step-title">{s.title}</h3>
+            <p class="ref-step-when">{s.when}</p>
+            <Cites ids={s.sources} />
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Sur quoi repose ce constat -->
+  <div class="band" id="constat"><div class="well"><h2 class="section-title">Sur quoi repose ce constat</h2></div></div>
+  <section aria-labelledby="limites-titre">
+    <div class="well">
+      <ul class="ref-rows">
+        {status.basis.map((b, i) => (
+          <li class="ref-row">
+            <span class="ref-row-n label">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <p>{b.text}</p>
+              <Cites ids={b.sources} />
+            </div>
+          </li>
+        ))}
+      </ul>
+      <aside class="ref-limits" aria-labelledby="limites-titre">
+        <h3 id="limites-titre" class="label">Limites de ce constat</h3>
+        <p>{status.limits}</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Niveaux -->
+  <div class="band" id="niveaux"><div class="well"><h2 class="section-title">Niveaux de certitude</h2></div></div>
+  <section aria-label="Légende des niveaux de certitude">
+    <div class="well">
+      <dl class="ref-legend">
+        {levels.map((l) => (
+          <div>
+            <dt><LevelMark level={l} size={14} /><span>{levelLabel[l]}</span></dt>
+            <dd>{legend[l]}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  {levels.map((l) => (
+    <>
+      <div class="band" id={factIds[l]}><div class="well"><h2 class="section-title">{groups[l]}</h2></div></div>
+      <section aria-label={groups[l]}>
+        <div class="well">
+          <ul class="ref-ledger">
+            {facts.filter((f) => f.level === l).map((f) => (
+              <li class="ref-fact">
+                <div class="ref-fact-head">
+                  <span class="tag ref-level"><LevelMark level={l} size={10} />{levelLabel[l]}</span>
+                  <h3>{f.title}</h3>
+                </div>
+                <div class="ref-fact-body">
+                  <p>{f.body}</p>
+                  {f.note && <p class="ref-note"><span class="label">Note</span> {f.note}</p>}
+                  <Cites ids={f.sources} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
+  ))}
+
+  <!-- Chronologie -->
+  <div class="band" id="chronologie"><div class="well"><h2 class="section-title">Chronologie</h2></div></div>
+  <section aria-label="Chronologie">
+    <div class="well">
+      <ol class="ref-timeline">
+        {events.map((e) => (
+          <li class="ref-tl">
+            <time class="ref-tl-date" datetime={e.date}>{e.label}</time>
+            <span class="ref-tl-rail" aria-hidden="true"><LevelMark level={e.level} size={12} /></span>
+            <div class="ref-tl-body">
+              <h3>{e.title}</h3>
+              {e.level && <p class="ref-tl-level label">{levelLabel[e.level]}</p>}
+              {e.body && <p>{e.body}</p>}
+              <Cites ids={e.sources} />
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Que faire en attendant -->
+  <div class="band" id="preparer"><div class="well"><h2 class="section-title">Que faire en attendant</h2></div></div>
+  <section aria-label="Que faire en attendant">
+    <div class="well">
+      <ul class="ref-checks">
+        {prepare.map((p) => (
+          <li>
+            <span class="ref-box" aria-hidden="true"></span>
+            <div>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <div class="band" id="faq"><div class="well"><h2 class="section-title">Questions fréquentes</h2></div></div>
+  <section aria-label="Questions fréquentes">
+    <div class="well">
+      <div class="ref-faq">
+        {faq.map((f, i) => (
+          <details class="qa" open={i === 0}>
+            <summary>
+              <span class="qa-n label">Q.{String(i + 1).padStart(2, '0')}</span>
+              <h3>{f.q}</h3>
+              <span class="toggle" aria-hidden="true"><span>+</span></span>
+            </summary>
+            <p class="qa-a">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Méthode -->
+  <div class="band" id="methode"><div class="well"><h2 class="section-title">Méthode</h2></div></div>
+  <section aria-label="Méthode">
+    <div class="well">
+      <ul class="bullets">
+        {methodology.map((m) => <li>{m}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Historique -->
+  <div class="band" id="historique"><div class="well"><h2 class="section-title">Historique des mises à jour</h2></div></div>
+  <section aria-label="Historique des mises à jour">
+    <div class="well">
+      <ul class="ref-rows">
+        {changelog.map((c) => (
+          <li class="ref-row ref-row-date">
+            <time class="ref-row-n label" datetime={c.date}>{formatDate(c.date)}</time>
+            <p>{c.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <div class="band" id="sources"><div class="well"><h2 class="section-title">Sources</h2></div></div>
+  <section aria-label="Sources">
+    <div class="well">
+      <ol class="ref-sources">
+        {sources.map((s) => (
+          <li class="ref-source" id={`src-${s.id}`}>
+            <time class="ref-source-date" datetime={s.published}>{formatDate(s.published)}</time>
+            <div class="ref-source-main">
+              <a href={s.url} rel="noopener">{s.title}</a>
+              <p class="label">{s.publisher}</p>
+            </div>
+            <span class="tag">{kindLabel[s.kind]}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Tabaa -->
+  <div class="band" id="tabaa"><div class="well"><h2 class="section-title">Tabaa</h2></div></div>
+  <section aria-label="Tabaa">
+    <div class="well">
+      <a class="proj ref-proj" href={repo} rel="noopener">
+        <div class="proj-head"><h3>Tabaa</h3></div>
+        <div class="proj-badge">Open source</div>
+        <p>
+          Tabaa est un logiciel de facturation libre pour le Maroc, conçu en pensant à cette réforme. Il n'est pas raccordé à la DGI et ne dispose d'aucun agrément : aucun dispositif d'agrément des logiciels de facturation n'a été publié à ce jour.
+        </p>
+        <div class="proj-foot">
+          <div class="tags">
+            {['Next.js', 'NestJS', 'PostgreSQL', 'UBL 2.1'].map((t) => <span class="tag">{t}</span>)}
+          </div>
+          <span class="proj-link">Voir le code →</span>
+        </div>
+      </a>
+
+      <div class="ref-notes">
+        <p><a href="https://github.com/abderrahimghazali/tabaa/issues/new" rel="noopener">Signaler une erreur ou une mise à jour →</a></p>
+        <p>Cette page n'est pas un avis juridique ou fiscal.</p>
+      </div>
+
+      <footer>
+        <span>© 2026 Abderrahim Ghazali</span>
+        <a href="/">Portfolio →</a>
+      </footer>
+    </div>
+  </section>
+
+  <nav class="ref-toc" aria-label="Sommaire">
+    <p class="ref-toc-status"><span class="status-dot" aria-hidden="true"></span>{status.stamp.word.toLowerCase()} · <time datetime={lastVerified}>{stampDate}</time></p>
+    {sections.map(([id, label]) => <a href={`#${id}`}>{label}</a>)}
+  </nav>
+</Layout>

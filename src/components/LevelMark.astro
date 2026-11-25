@@ -1,0 +1,27 @@
+---
+// Level markers drawn as shapes, so the three levels never rely on colour: filled square, half circle, dashed diamond.
+export interface Props {
+  level?: 'en-vigueur' | 'annonce' | 'non-confirme';
+  state?: 'fait' | 'rapporte' | 'attente';
+  size?: number;
+}
+const { level, state, size = 12 } = Astro.props;
+const kind = state ?? level ?? 'none';
+---
+
+<svg class={`mark mark-${kind}`} viewBox="0 0 12 12" width={size} height={size} aria-hidden="true" focusable="false">
+  {(kind === 'en-vigueur' || kind === 'fait') && <rect x="1" y="1" width="10" height="10" fill="currentColor"></rect>}
+  {(kind === 'annonce' || kind === 'rapporte') && (
+    <>
+      <circle cx="6" cy="6" r="5" fill="none" stroke="currentColor" stroke-width="1.1"></circle>
+      <path d="M6 1a5 5 0 0 1 0 10z" fill="currentColor"></path>
+    </>
+  )}
+  {kind === 'non-confirme' && <path d="M6 1L11 6 6 11 1 6z" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="2.2 1.6"></path>}
+  {kind === 'attente' && <rect x="1" y="1" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.1" stroke-dasharray="2.4 1.8"></rect>}
+  {kind === 'none' && <circle cx="6" cy="6" r="1.8" fill="currentColor"></circle>}
+</svg>
+
+<style>
+  .mark { display: inline-block; flex-shrink: 0; vertical-align: -1px; color: var(--fg-2); }
+</style>
