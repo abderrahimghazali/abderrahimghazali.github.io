@@ -76,9 +76,9 @@ const jsonLd = [
           <p class="tool-privacy"><strong>Ce contrôle s'exécute entièrement dans votre navigateur : aucun numéro n'est envoyé, enregistré ou stocké.</strong></p>
         </div>
         <figure class="tool-fig">
-          <div class="ice-group"><b>003976749</b><i>9 chiffres · entreprise</i></div>
+          <div class="ice-group"><b>999999999</b><i>9 chiffres · entreprise</i></div>
           <div class="ice-group"><b>0000</b><i>4 chiffres · établissement</i></div>
-          <div class="ice-group is-key" data-state="ok"><b>84</b><i>2 chiffres · clé</i></div>
+          <div class="ice-group is-key" data-state="ok"><b>79</b><i>2 chiffres · clé</i></div>
           <figcaption class="label">Exemple : un numéro dont la clé est cohérente</figcaption>
         </figure>
       </div>
@@ -118,7 +118,7 @@ const jsonLd = [
           <summary><span>Vérifier plusieurs ICE</span><span class="toggle" aria-hidden="true"><span>+</span></span></summary>
           <div class="ice-bulk-body">
             <label for="ice-list">Un numéro par ligne (500 au maximum)</label>
-            <textarea id="ice-list" name="list" rows="6" spellcheck="false" autocomplete="off" placeholder="003976749000084&#10;002136093000040"></textarea>
+            <textarea id="ice-list" name="list" rows="6" spellcheck="false" autocomplete="off" placeholder="999999999000079&#10;888888888000081"></textarea>
             <div class="tool-buttons">
               <button class="btn small" type="button" id="ice-run">Vérifier la liste</button>
               <button class="btn small" type="button" id="ice-csv" disabled>Copier en CSV</button>
@@ -143,9 +143,9 @@ const jsonLd = [
       <div class="tool-prose">
         <p>Un numéro ICE comporte 15 chiffres : 9 chiffres pour l'entreprise, 4 pour ses établissements et 2 pour la clé de contrôle.</p>
         <div class="tool-parts">
-          <div><b>003976749</b><span>9 chiffres · entreprise</span></div>
+          <div><b>999999999</b><span>9 chiffres · entreprise</span></div>
           <div><b>0000</b><span>4 chiffres · établissement</span></div>
-          <div><b>84</b><span>2 chiffres · clé de contrôle</span></div>
+          <div><b>79</b><span>2 chiffres · clé de contrôle</span></div>
         </div>
         <p>La règle appliquée : le nombre complet de 15 chiffres doit être divisible par 97. De façon équivalente, la clé attendue est 97 moins le reste de la division par 97 des 13 premiers chiffres suivis de deux zéros. Le calcul utilise des entiers de précision arbitraire, jamais des nombres à virgule.</p>
         <p>Cette règle est celle de la bibliothèque libre <a href="https://arthurdejong.org/python-stdnum/doc/stdnum.ma.ice" rel="noopener">python-stdnum</a> (module <code>stdnum.ma.ice</code>). Nous n'avons trouvé aucune spécification officielle publiée de la clé : l'outil s'appuie donc sur cette bibliothèque.</p>

@@ -2,8 +2,8 @@ import type { InvoiceForm } from './invoice-form';
 
 // All names are fictional. The ICE values pass the control-key check but belong to no company we know of.
 export const sample: InvoiceForm = {
-  seller: { name: 'Atelier Exemple SARL', ice: '003976749000084', ifNumber: '12345678', rc: '98765', tp: '11223344', cnss: '7654321', address: '12 avenue Exemple', city: 'Rabat' },
-  buyer: { name: 'Société Modèle SA', ice: '002136093000040', address: '45 boulevard Modèle', city: 'Casablanca' },
+  seller: { name: 'Atelier Exemple SARL', ice: '999999999000079', ifNumber: '12345678', rc: '98765', tp: '11223344', cnss: '7654321', address: '12 avenue Exemple', city: 'Rabat' },
+  buyer: { name: 'Société Modèle SA', ice: '888888888000081', address: '45 boulevard Modèle', city: 'Casablanca' },
   number: 'FA-2026-00001',
   issueDate: '2026-11-25',
   dueDate: '2026-12-25',
@@ -31,7 +31,7 @@ export const zeroRate: InvoiceForm = {
 };
 
 export const minimal: InvoiceForm = {
-  seller: { name: 'Vendeur', ice: '003976749000084', ifNumber: '', rc: '', tp: '', cnss: '', address: '1 rue A', city: 'Rabat' },
+  seller: { name: 'Vendeur', ice: '999999999000079', ifNumber: '', rc: '', tp: '', cnss: '', address: '1 rue A', city: 'Rabat' },
   buyer: { name: 'Client', ice: '', address: '2 rue B', city: 'Fès' },
   number: 'F-1',
   issueDate: '2026-11-25',
